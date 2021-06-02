@@ -32,7 +32,7 @@ deploy_heroku_frontend:
     - apt-get install -y ruby
     - gem install dpl
     - cd frontend/
-    - dpl --provider=heroku --app=drp12 --api-key=$HEROKU_TOKEN
+    - dpl --provider=heroku --app=drp12 --api-key=$HEROKU_FRONTEND_TOKEN
 
 deploy_heroku_backend:
   stage: deploy
@@ -42,4 +42,4 @@ deploy_heroku_backend:
     - apt-get install -y ruby
     - gem install dpl
     - cd backend/
-    - dpl --provider=heroku --app=drp12-backend --api-key=$HEROKU_TOKEN
+    - dpl --provider=heroku --app=drp12-backend --api-key=$HEROKU_BACKEND_TOKEN
