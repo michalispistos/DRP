@@ -24,7 +24,7 @@ test_frontend:
     - CI=true npm test
     - echo "Test successfully!"
 
-deploy_heroku:
+deploy_heroku_frontend:
   stage: deploy
   image: sarveen/drp12_frontend:latest
   script:
@@ -33,3 +33,27 @@ deploy_heroku:
     - gem install dpl
     - cd frontend/
     - dpl --provider=heroku --app=drp12 --api-key=$HEROKU_TOKEN
+
+
+
+build_backend:
+  stage: build
+  image: sarveen/drp12_backend:latest
+  script: 
+    - echo "Start building App"
+    - cd backend/
+    - npm install
+    - npm run build
+    - echo "Build successfully!"
+
+
+
+deploy_heroku_backend:
+  stage: deploy
+  image: sarveen/drp12_backend:latest
+  script:
+    - apt-get update -yq
+    - apt-get install -y ruby
+    - gem install dpl
+    - cd backend/
+    - dpl --provider=heroku --app=drp12-backend --api-key=$HEROKU_TOKEN
