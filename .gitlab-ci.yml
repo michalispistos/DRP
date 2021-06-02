@@ -8,7 +8,7 @@ build_frontend:
   image: sarveen/drp12_frontend:latest
   script: 
     - echo "Start building App"
-    - cd drp12/
+    - cd frontend/
     - npm install
     - npm run build
     - echo "Build successfully!"
@@ -18,7 +18,7 @@ test_frontend:
   image: sarveen/drp12_frontend:latest
   script:
     - echo "Testing App"
-    - cd drp12/
+    - cd frontend/
     - npm install 
     - npm install @testing-library/jest-dom
     - CI=true npm test
@@ -31,5 +31,5 @@ deploy_heroku:
     - apt-get update -yq
     - apt-get install -y ruby
     - gem install dpl
-    - cd drp12/
+    - cd frontend/
     - dpl --provider=heroku --app=drp12-testing --api-key=$HEROKU_TOKEN
