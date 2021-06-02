@@ -34,20 +34,6 @@ deploy_heroku_frontend:
     - cd frontend/
     - dpl --provider=heroku --app=drp12 --api-key=$HEROKU_TOKEN
 
-
-
-build_backend:
-  stage: build
-  image: sarveen/drp12_backend:latest
-  script: 
-    - echo "Start building App"
-    - cd backend/
-    - npm install
-    - npm run build
-    - echo "Build successfully!"
-
-
-
 deploy_heroku_backend:
   stage: deploy
   image: sarveen/drp12_backend:latest
