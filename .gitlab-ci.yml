@@ -1,0 +1,35 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build_frontend:
+  stage: build
+  image: sarveen/drp12_frontend:latest
+  script: 
+    - echo "Start building App"
+    - cd drp12/
+    - npm install
+    - npm run build
+    - echo "Build successfully!"
+
+test_frontend:
+  stage: test
+  image: sarveen/drp12_frontend:latest
+  script:
+    - echo "Testing App"
+    - cd drp12/
+    - npm install 
+    - npm install @testing-library/jest-dom
+    - CI=true npm test
+    - echo "Test successfully!"
+
+deploy_heroku:
+  stage: deploy
+  image: sarveen/drp12_frontend:latest
+  script:
+    - apt-get update -yq
+    - apt-get install -y ruby
+    - gem install dpl
+    - cd drp12/
+    - dpl --provider=heroku --app=drp12-testing --api-key=$HEROKU_TOKEN
