@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 class ProjectTile extends React.Component {
     constructor(props) {
@@ -15,7 +14,7 @@ class ProjectTile extends React.Component {
     render() { 
         return ( 
             <div className="projectTile">
-                <img className="projectTileImage" src={"images/"+this.state.imageSrc}/>
+                <img className="projectTileImage" src={"images/"+this.state.imageSrc} alt={"project image"}/>
                 <h4 className="projectTileTitle">{this.state.title}</h4>
                 <h4 className="projectTileLookingFor">{this.state.lookingFor}</h4>
             </div>
