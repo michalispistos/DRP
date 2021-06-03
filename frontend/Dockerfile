@@ -10,10 +10,6 @@ ENV PATH /drp12_frontend/node_modules/.bin:${PATH}
 
 RUN npm install
 
-RUN npm install react-scripts@3.0.1 -g
-
-RUN npm install @testing-library/jest-dom
-
 RUN npm run build
 
 CMD ["npm", "start"]

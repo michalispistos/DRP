@@ -6,7 +6,7 @@ class ProjectTile extends React.Component {
         this.state = {  
             key: props.id,
             title: props.title,
-            imageSrc: "images/image1.jpeg",
+            imageSrc: "images/default.jpeg",
             lookingFor: props.lookingFor,
             tags: props.tags
         };

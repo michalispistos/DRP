@@ -1,5 +1,5 @@
-makeServer = require('./server');
-TestPool = require('./testPool');
+makeServer = require('../server');
+TestPool = require('../testPool');
 const testPool = new TestPool()
 const server = makeServer(testPool, 5999);
 const supertest = require('supertest');
