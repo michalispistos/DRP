@@ -4,19 +4,40 @@ class ProjectTile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {  
+            key: props.id,
             title: props.title,
-            imageSrc: "image1.jpeg",
-            lookingFor: props.lookingFor
+            imageSrc: "images/image1.jpeg",
+            lookingFor: props.lookingFor,
+            tags: props.tags
         };
+        
     }
 
-    
     render() { 
+        const styles = {
+            projectTile: {
+              backgroundImage: `linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url(${this.state.imageSrc})`,
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover',
+              border: "2px solid gray",
+              height: "200px",
+              width: "300px",
+              margin: "auto",
+            },
+        }
         return ( 
-            <div className="projectTile">
-                <img className="projectTileImage" src={"images/"+this.state.imageSrc} alt={"guy studying"}/>
-                <h4 className="projectTileTitle">{this.state.title}</h4>
-                <h4 className="projectTileLookingFor">{this.state.lookingFor}</h4>
+            <div data-testid='projectTile' className="projectTile" style={styles.projectTile}>
+                <div className="projectInfo" style={styles.projectInfo}>
+                    <h3 className="projectTileTitle">{this.state.title}</h3>
+                    <br></br>
+                    <h4>Looking for:</h4><p className="projectTileLookingFor"> {this.state.lookingFor}</p>
+                    <br></br>
+                    <h4>Tags: </h4>
+                    <p>
+                        {this.state.tags?.join(', ')}
+                    </p>
+                </div>
             </div>
          );
     }

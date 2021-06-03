@@ -5,7 +5,7 @@ import './styles.css'
 
 ReactDOM.render(
   <React.StrictMode>
-    <ProjectTileGrid />
+    <ProjectTileGrid projects={[]}/>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,39 +1,16 @@
-.projectTileImage {
-  height: 200px;
-  width: 300px;
-  opacity: 0.3;
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
-          
+
 .projectTileGrid {
-  position:absolute;
-  width: 50%;
-  padding-top:200px;
-  padding-left: 100px;
+  margin-top:50px;
+  margin-left: 5%;
+  margin-right:5%;
+  padding: 10px;
   display: grid;
-  /*grid-template-columns: repeat(auto-fit, minmax(30px, 0.25fr));*/
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: 20px;
-}
-
-.projectTileLookingFor{
-  position: relative;
-  bottom: 75%;
-  left: 0%;
-  color:black;
-}
-
-.projectTileTitle {
-  position:relative;
-  bottom: 75%;
-  left: 0%;
-  color:black;
-}
-
-.projectTile {
-  text-align:center;
-  vertical-align:center;
-  line-height: 10px; 
-  height: 200px;
-  width: 300px;
-  border: 2px solid green;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  border: 2px solid black;
 }

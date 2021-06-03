@@ -6,32 +6,41 @@ class ProjectTileGrid extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            projects: []
+            projects: props.projects
         }
-        this.getProjects();
+        if(this.state.projects.length === 0){
+             this.getProjects();
+        }
     }
 
-    renderTile(title, lookingFor) {
-        return <ProjectTile title={title} lookingFor={lookingFor} />;
+    renderTile(id, title, lookingFor, tags) {
+        if (id === undefined){
+            id = 1
+        }
+        return <ProjectTile key={id} title={title} lookingFor={lookingFor} tags={tags} />;
     }
     
-    getProjects = async () => {
+    getProjects = async () => {    
         try {
-          const response = await fetch("https://drp12-backend.herokuapp.com/projects");
-          const jsonData = await response.json();
+            const response = await fetch("https://drp12-backend.herokuapp.com/projects");
+            const jsonData = await response.json();
     
-          this.setState({projects: jsonData})
+            this.setState({projects: jsonData})
      
         } catch (err) {
-          console.error(err.message);
+         console.error(err.message);
         }
+    
       };
       
     render() {
         return (
-        <div class="projectTileGrid">
-            {this.state.projects.map(project => this.renderTile(project.title,project.looking_for))}
-        </div>
+            <div data-testid='projectTileGrid'>
+                <h1>All Projects</h1>
+                <div className="projectTileGrid">
+                    {this.state.projects.map(project => this.renderTile(project.id,project.title,project.looking_for,project.tags))}
+                </div>
+            </div>
         );
     }
 }
