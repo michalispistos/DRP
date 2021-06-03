@@ -16,7 +16,7 @@ class ProjectTile extends React.Component {
     render() { 
         const styles = {
             projectTile: {
-              backgroundImage: `linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url(${this.state.imageSrc})`,
+              backgroundImage: `linear-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.4)), url(${this.state.imageSrc})`,
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',

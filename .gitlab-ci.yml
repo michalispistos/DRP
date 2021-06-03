@@ -35,7 +35,6 @@ test_backend:
 
 deploy_heroku_frontend:
   stage: deploy
-  image: sarveen/drp12_frontend:latest
   script:
     - apt-get update -yq
     - apt-get install -y ruby
@@ -45,7 +44,6 @@ deploy_heroku_frontend:
 
 deploy_heroku_backend:
   stage: deploy
-  image: sarveen/drp12_backend:latest
   script:
     - apt-get update -yq
     - apt-get install -y ruby
