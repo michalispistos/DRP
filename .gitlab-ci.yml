@@ -1,3 +1,6 @@
+default:
+  image: node:16
+
 stages:
   - build
   - test
@@ -5,7 +8,6 @@ stages:
 
 build_frontend:
   stage: build
-  image: sarveen/drp12_frontend:latest
   script: 
     - echo "Start building App"
     - cd frontend/
@@ -15,7 +17,6 @@ build_frontend:
 
 test_frontend:
   stage: test
-  image: sarveen/drp12_frontend:latest
   script:
     - echo "Testing App"
     - cd frontend/
@@ -25,7 +26,6 @@ test_frontend:
 
 test_backend:
   stage: test
-  image: sarveen/drp12_backend:latest
   script:
     - echo "Testing App"
     - cd backend/
@@ -35,6 +35,7 @@ test_backend:
 
 deploy_heroku_frontend:
   stage: deploy
+  image: sarveen/drp12_frontend:latest
   script:
     - apt-get update -yq
     - apt-get install -y ruby
@@ -44,6 +45,7 @@ deploy_heroku_frontend:
 
 deploy_heroku_backend:
   stage: deploy
+  image: sarveen/drp12_backend:latest
   script:
     - apt-get update -yq
     - apt-get install -y ruby
