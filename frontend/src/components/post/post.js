@@ -49,7 +49,7 @@ class Post extends Component {
             body: JSON.stringify(projectData)
         };
 
-        const response = await fetch(url, requestOptions)
+        await fetch(url, requestOptions)
             .then(response => console.log('Submitted'))
             .catch(error => console.log('Error submitting project', error));
 
