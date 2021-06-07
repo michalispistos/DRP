@@ -21,6 +21,10 @@ class ProjectTileGrid extends React.Component {
         }
         return <ProjectTile key={id} title={title} lookingFor={lookingFor} tags={tags} />;
     }
+
+    handlePaid = () =>{
+        this.setState({paid : !this.state.paid})
+    }
     
     getProjects = async () => {    
         try {
@@ -36,19 +40,11 @@ class ProjectTileGrid extends React.Component {
       };
       
     render() {
-        return (
-            <div data-testid='projectTileGrid'>
-                <h1>All Projects</h1>
-                <br></br>
-                Filters: 
-                <form>
-                <input type="checkbox" onClick={() => this.setState({paid: !this.state.paid})} name="Paid"></input>Paid
-                </form>
-                <div className="projectTileGrid">
-                    {this.state.projects
-                    .filter(project => this.state.paid ? project.paid : true)
-                    .map(project => this.renderTile(project.project_id, project.title,project.looking_for, project.tags))}
-                </div>
+        return (    
+            <div data-testid='projectTileGrid' className="projectTileGrid">
+                {this.state.projects
+                .filter(project => this.state.paid ? project.paid : true)
+                .map(project => this.renderTile(project.project_id, project.title,project.looking_for, project.tags))}
             </div>
         );
     }

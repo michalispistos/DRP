@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ProjectTileGrid from './components/projectTileGrid'
 import './styles.css'
+import App from './App.js';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ProjectTileGrid projects={[]}/>
+      <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
