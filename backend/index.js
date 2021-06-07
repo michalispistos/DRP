@@ -1,6 +1,6 @@
 makeServer = require('./server');
-const pool = require('./db');
+const db = require('./db/index.js');
 require('dotenv').config();
 
 
-makeServer(pool, process.env.PORT);
+makeServer(db, process.env.PORT || 5000);
