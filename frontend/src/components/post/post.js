@@ -32,7 +32,7 @@ class Post extends Component {
         const url = 'https://drp12-backend.herokuapp.com/projects';
 
         const projectData = { 
-            name: this.state.projectState,
+            name: this.state.projectTitle,
             description: this.state.projectDescription,
             leader: this.state.leaderName,
             members: this.state.members,
