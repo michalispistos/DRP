@@ -1,11 +1,9 @@
-const { Sequelize } = require('./db');
-
 function makeServer(db, port) {
   const express = require('express');
   const cors = require('cors');
   const app = express();
 
-  app.use(cors());
+  app.use('*', cors());
   app.use(express.json());
 
   async function initialize_database() {
@@ -37,69 +35,65 @@ function makeServer(db, port) {
         looking_for:"a finance or economics student knowledgable in trading strategies",
         paid:true,
         duration:"8 weeks",
-        tags:["algorithmic trading","stocks","finance"]
+        tags:["algorithmic trading","stocks","finances"]
       });
 
     } catch (err) {
       console.log(err.message);
     }
-
   }
 
-  db.sequelize.sync({ force: true }).then(() => {
+  db.Project.sync({ force: true }).then(() => {
     console.log('dropped and resynced database');
     initialize_database();
   });
 
-  
-
-  //ROUTES
+    //ROUTES
   // GET ALL PROJECTS
   app.get("/projects", async (req, res) => {
-      try {
-          const projects = await db.Project.findAll();
-          res.json(projects);
-      } catch (err) {
-          console.error(err.message)
-      }
-  });
-
-  // GET A PROJECT 
-  app.get("/projects/:id", async (req, res) => {
-      try {
-        const { id } = req.params;
-        const project = await db.Project.findOne({
-          where: {
-            id,
-          }
-        });
-        res.json(project);
-      } catch (err) {
-        console.error(err.message);
-      }
-    });
-
-  app.post("/projects", async (req, res) => {
     try {
-      const { id, name, description, looking_for, paid, leader, members, tags, duration } = req.body;
-      const project = await db.Project.create({
-        id,
-        name,
-        description,
-        looking_for,
-        paid,
-        leader, 
-        members,
-        tags,
-        duration,
+        const projects = await db.Project.findAll();
+        res.json(projects);
+    } catch (err) {
+        console.error(err.message)
+    }
+});
+
+// GET A PROJECT 
+app.get("/projects/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const project = await db.Project.findOne({
+        where: {
+          id,
+        }
       });
       res.json(project);
-
     } catch (err) {
-      console.log(err.message);
+      console.error(err.message);
     }
   });
 
+app.post("/projects", async (req, res) => {
+  try {
+    const { id, name, description, looking_for, paid, leader, members, tags, duration } = req.body;
+    const project = await db.Project.create({
+      id,
+      name,
+      description,
+      looking_for,
+      paid,
+      leader, 
+      members,
+      tags,
+      duration,
+    });
+    res.json(project);
+
+  } catch (err) {
+    console.log(err.message);
+  }
+});
 
 
   return app.listen(port, () => {
