@@ -29,8 +29,7 @@ class Post extends Component {
             return;
         }
         
-        //const url = 'https://drp12-backend.herokuapp.com/projects';
-        const url = 'https://localhost:5000/projects';
+        const url = 'https://drp12-backend.herokuapp.com/projects';
 
         const projectData = { 
             name: this.state.projectState,
