@@ -5,7 +5,7 @@ class ProjectTile extends React.Component {
         super(props);
         this.state = {  
             key: props.id,
-            title: props.title,
+            name: props.name,
             imageSrc: "images/default.jpeg",
             lookingFor: props.lookingFor,
             tags: props.tags
@@ -26,10 +26,11 @@ class ProjectTile extends React.Component {
               margin: "auto",
             },
         }
+
         return ( 
             <div data-testid='projectTile' className="projectTile" style={styles.projectTile}>
                 <div className="projectInfo" style={styles.projectInfo}>
-                    <h3 className="projectTileTitle">{this.state.title}</h3>
+                    <h3 className="projectTileTitle">{this.state.name}</h3>
                     <br></br>
                     <h4>Looking for:</h4><p className="projectTileLookingFor"> {this.state.lookingFor}</p>
                     <br></br>

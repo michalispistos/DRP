@@ -16,11 +16,12 @@ it("renders without crashing", () => {
     ReactDOM.render(<Home/>, div);
 })
 
-it("renders Home correctly", () => {
+it("renders home page correctly", () => {
     const {getByTestId} = render(<Home/>);
     expect(getByTestId('home')).toHaveTextContent("All Projects");
     expect(getByTestId('home')).toHaveTextContent("Filters:");
     const wrapper = shallow(<Home/>);
+    expect(wrapper.containsMatchingElement(<input type="checkbox"/>)).toEqual(true);
     expect(wrapper.containsMatchingElement(<ProjectTileGrid />)).toEqual(true);
 })
 

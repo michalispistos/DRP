@@ -14,3 +14,11 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   border: 2px solid black;
 }
+
+.postForm {
+  margin-top: 40px;
+  margin-left: 2.5%;
+  margin-right:2.5%;
+  padding: 15px;
+  border: 2px solid black;
+}

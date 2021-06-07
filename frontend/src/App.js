@@ -1,10 +1,19 @@
 import React from 'react';
 import Home from './components/home/home';
+import Post from './components/post/post';
+import Navbar from './components/common/Navbar/Navbar';
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 class App extends React.Component {
     render () {
         return (
-            <Home />
+            <Router>
+             <Navbar />
+             <Switch>
+                <Route path='/' exact component={ Home } />
+                <Route path='/post' component={ Post }></Route>
+             </Switch>
+            </Router>
         );
     };
 }

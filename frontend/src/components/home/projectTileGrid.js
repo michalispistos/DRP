@@ -15,11 +15,11 @@ class ProjectTileGrid extends React.Component {
         }
     }
 
-    renderTile(id, title, lookingFor, tags) {
+    renderTile(id, name, lookingFor, tags) {
         if (id === undefined){
             id = 1;
         }
-        return <ProjectTile key={id} title={title} lookingFor={lookingFor} tags={tags} />;
+        return <ProjectTile key={id} name={name} lookingFor={lookingFor} tags={tags} />;
     }
 
     handlePaid = () =>{
@@ -44,7 +44,7 @@ class ProjectTileGrid extends React.Component {
             <div data-testid='projectTileGrid' className="projectTileGrid">
                 {this.state.projects
                 .filter(project => this.state.paid ? project.paid : true)
-                .map(project => this.renderTile(project.project_id, project.title,project.looking_for, project.tags))}
+                .map(project => this.renderTile(project.project_id, project.name,project.looking_for, project.tags))}
             </div>
         );
     }
