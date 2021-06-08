@@ -10,7 +10,8 @@ class  Popup extends Component {
 
     render() { 
         return (this.props.trigger) ? (
-            <div className="popup">
+            <div data-testid='popup' className="popup">
+                <form/>
                 <div className="popup-inner">
                     <button className="close-btn" onClick={() => this.props.setTrigger()}>close</button>
                     {this.props.children}

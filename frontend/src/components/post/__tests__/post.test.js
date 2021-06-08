@@ -5,6 +5,7 @@ import "@testing-library/jest-dom/extend-expect";
 import Post from "../post"
 import Adapter from 'enzyme-adapter-react-16';
 import { shallow, configure } from 'enzyme';
+import Popup from "../popup"
 
 configure({adapter: new Adapter()});
 
@@ -28,6 +29,7 @@ it("renders post page correctly", () => {
     <label>Tags:</label><br/><ul/><input/><button>Add tag</button><br/>
     <label>Duration:</label><br/><input/><br/>
     <label/>Paid<input/><br/><input/>
+    <Popup><h3>Post submitted</h3></Popup>    
     </form>)).toEqual(true);
 })
 
