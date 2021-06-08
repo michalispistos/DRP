@@ -5,7 +5,8 @@ import "@testing-library/jest-dom/extend-expect";
 import Post from "../post"
 import Adapter from 'enzyme-adapter-react-16';
 import { shallow, configure } from 'enzyme';
-import Popup from "../popup"
+import Popup from "../popup";
+import Button from 'react-bootstrap/Button';
 
 configure({adapter: new Adapter()});
 
@@ -26,9 +27,9 @@ it("renders post page correctly", () => {
     <label>Project description:</label><br/><textarea/><br/>
     <label>Leader name:</label><br/><input/><br/>
     <label>Leader email:</label><br/><input/><br/>
-    <label>Members (optional):</label><br/><ul/><input/><button>Add member</button><br/>
+    <label>Members (optional):</label><br/><ul/><input/><Button>Add member</Button><br/>
     <label>People we are looking for:</label><br/><textarea/><br/>
-    <label>Tags (optional):</label><br/><ul/><input/><button>Add tag</button><br/>
+    <label>Tags (optional):</label><br/><ul/><input/><Button>Add tag</Button><br/>
     <label>Duration:</label><br/><input/><br/>
     <label>Location:</label><br/><input/><br/>
     <label/>Paid<input/><br/>Amount to be paid:<input/>

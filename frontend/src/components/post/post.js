@@ -159,7 +159,7 @@ class Post extends Component {
                             })}
                     </ul>
                     <input value={this.state.newMember} maxLength="20" onChange={(event) => {this.setState({newMember: event.target.value});}} type="text" id="members" name="members" style={{width: "10em"}}/>
-                    <Button variant="primary" onClick={(e)=>this.handleAddMember(e)} style={{marginLeft: "1em"}}>Add member</Button>{' '}<br/>
+                    <Button variant="primary" onClick={(e)=>this.handleAddMember(e)} style={{marginLeft: "1em"}}>Add member</Button><br/>
 
                     <label htmlFor="looking_for">People we are looking for:</label><br/>
                     <textarea type="text" id="looking_for" name="looking_for" maxLength="255" style={{width: "80%", height: "7em"}}
@@ -187,8 +187,7 @@ class Post extends Component {
                     onChange={(e) => {this.setState({location: e.target.value})}} value={this.state.location}/><br/>
                     
                     <label htmlFor="paid"/>Paid<input type="checkbox" id="paid" name="paid" style={{marginLeft: "2em"}}
-                     onClick={this.handleCheckPaidCheckBox} defaultChecked={false}/><br/>Amount to be paid:
-                    <input type="text" disabled={true} id="amountToBePaid" name="amountToBePaid" maxLength="20" value={this.state.amountToBePaid} onChange={(event) => {this.setState({amountToBePaid: event.target.value})}} style={{width: "10em"}}/>
+                     onClick={this.handleCheckPaidCheckBox} defaultChecked={false}/><br/>Amount to be paid:<input type="text" disabled={true} id="amountToBePaid" name="amountToBePaid" maxLength="20" value={this.state.amountToBePaid} onChange={(event) => {this.setState({amountToBePaid: event.target.value})}} style={{width: "10em"}}/>
 
 
                     <input type="submit" value="Post" style={{marginLeft: "90%", width:"6%"}} onClick={(e) => this.handleSubmit(e)}/>

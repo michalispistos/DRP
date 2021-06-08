@@ -3,7 +3,8 @@ import Home from './components/home/home';
 import Post from './components/post/post';
 import Navbar from './components/common/Navbar/Navbar';
 import ProjectInfo from './components/home/projectInfo';
-import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import ErrorPage from './components/error'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends React.Component {
@@ -15,6 +16,8 @@ class App extends React.Component {
                 <Route path='/' exact component={ Home } />
                 <Route path='/post' component={ Post }></Route>
                 <Route path='/projectInfo/:id' component={ ProjectInfo }></Route>
+                <Route path='/404' component={ ErrorPage }></Route>
+                <Redirect to='/404'></Redirect>
              </Switch>
             </Router>
         );

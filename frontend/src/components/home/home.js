@@ -10,12 +10,13 @@ class Home extends React.Component {
 
     render () {
         return (
-            <div data-testid='home'>
+            <div data-testid='home' style={{margin: "0 2em 2em 2em"}}>
                 <h1 style={{textAlign: "center", marginTop: "20px", width: "100%"}}>All Projects</h1>
                 <br></br>
-                Filters: 
-                <form>
-                <input type="checkbox" onClick={() => this.projectTileGridElem.current.handlePaid()} name="Paid"></input>Paid
+                <strong>Filters:</strong> 
+                <form style={{marginLeft: "1em"}}>
+                    <label htmlFor="paid">Paid</label> 
+                    <input style={{marginLeft: "0.3em"}} type="checkbox" onClick={() => this.projectTileGridElem.current.handlePaid()} name="Paid"></input>
                 </form>
                 <ProjectTileGrid ref={this.projectTileGridElem} projects={[]}/>
             </div>
