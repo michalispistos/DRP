@@ -6,11 +6,16 @@ class ProjectTile extends React.Component {
         this.state = {  
             key: props.id,
             name: props.name,
-            imageSrc: "images/default.jpeg",
+            imageSrc: props.imageSrc,
             lookingFor: props.lookingFor,
             tags: props.tags
         };
-        
+        fetch(`http://localhost:5000/upload/${this.state.imageSrc}`)
+            .then(response => response.blob())
+            .then(images => {
+                // Then create a local URL for that image and print it 
+               this.setState({imageSrc: URL.createObjectURL(images)});
+            })
     }
 
     render() { 

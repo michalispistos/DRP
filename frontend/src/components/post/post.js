@@ -8,16 +8,20 @@ class Post extends Component {
             projectTitle: "",
             projectDescription: "",
             leaderName: "",
+            leaderEmail: "",
             newMember: "",
             members: [],
             lookingFor: "",
             tags: [],
             newTag: "",
-            duration: "",
+            duration: "Indefinite",
             paid: false,
-            popup: false
+            popup: false,
+            location: "Remote",
+            amountToBePaid: "",
+            imageSrc: "default.jpg",
+            image: undefined
         }
-        this.checkBoxElem = React.createRef();
     }
 
     validForm = () => {
@@ -25,7 +29,8 @@ class Post extends Component {
         return this.state.projectTitle !== "" && 
                this.state.projectDescription !== "" && 
                this.state.leaderName !== "" && 
-               this.state.lookingFor !== ""; 
+               this.state.lookingFor !== "" &&
+               this.state.leaderEmail !== ""; 
     }
 
     handleSubmit = async (e) => {
@@ -33,24 +38,28 @@ class Post extends Component {
         e.preventDefault();
 
         if(!this.validForm()) {
-           
             alert("Complete missing information")
-            this.setState({projectTitle:"!"})
-            this.setState({projectTitle:""})
             return;
         }
         
-        const url = 'https://drp12-backend.herokuapp.com/projects';
+        if(this.state.image !== undefined){
+            let imageSrc = `${new Date().getTime()}_${this.state.image.name}`
+            await this.setState({imageSrc: imageSrc});
+        }
 
         const projectData = { 
             name: this.state.projectTitle,
             description: this.state.projectDescription,
             leader: this.state.leaderName,
+            email: this.state.leaderEmail,
+            image_filepath: this.state.imageSrc,
             members: this.state.members,
             looking_for: this.state.lookingFor,
             tags: this.state.tags,
             duration: this.state.duration,
-            paid: this.state.paid
+            paid: this.state.paid,
+            location: this.state.location,
+            amount_to_be_paid: this.state.amountToBePaid
         };
 
       
@@ -60,12 +69,28 @@ class Post extends Component {
             body: JSON.stringify(projectData)
         };
 
-        await fetch(url, requestOptions)
+        await fetch(`${process.env.REACT_APP_SERVER}/projects`, requestOptions)
             .then(response => console.log('Submitted'))
             .catch(error => console.log('Error submitting project', error));
 
-        this.setState({projectTitle: "", projectDescription: "", leaderName: "", members:[], lookingFor: "", tags:[], duration:"", paid:false, popup:true,
-                        newMember:"", newTag:""});
+        if(this.state.image !== undefined){   
+            const formData = new FormData();
+            formData.append(
+                "project_picture",
+                this.state.image,
+                this.state.imageSrc,
+            );
+
+            const requestOptions2 = {
+                method: 'POST',
+                body: formData
+            }
+        
+            await fetch(`${process.env.REACT_APP_SERVER}/upload`, requestOptions2).then(response => console.log('Submitted')).catch(error => console.log("error"));
+        }
+
+        this.setState({projectTitle: "", projectDescription: "", leaderName: "", members:[], lookingFor: "", tags:[], duration:"Indefinite", paid:false, popup:true,
+                        newMember:"", newTag:"", location:"Remote", leaderEmail:"", amountToBePaid:"", imageSrc:"default.jpg"});
     };
 
     handleAddMember = (e) =>{
@@ -73,6 +98,18 @@ class Post extends Component {
         if(this.state.newMember !== ""){
             const members = [...this.state.members,this.state.newMember];
             this.setState({members: members, newMember: ""});
+        }
+    }
+
+    handleCheckPaidCheckBox = () =>{
+        this.setState({paid: !this.state.paid});
+        var amountToBePaid = document.getElementById("amountToBePaid");
+        var paidCheckBox = document.getElementById("paid")
+        amountToBePaid.disabled = paidCheckBox.checked ? false: true;
+        if(!amountToBePaid.disabled){
+            amountToBePaid.focus();
+        }else{
+            this.setState({amountToBePaid:""});
         }
     }
 
@@ -86,34 +123,32 @@ class Post extends Component {
     
 
     render() { 
-        /* Info needed: 
-                Project title - string
-                Project description - string
-                Leader name - string
-                Members - string array
-                Looking for text - string
-                Paid (checkbox boolean)
-                Duration - string
-                Tags - string array
-        */
         return (  
             <div data-testid='post'>
-                <h1 style={{textAlign: "center", marginTop: "20px", width: "100%"}}>Post a project</h1>
+                <h1 style={{textAlign: "center", marginTop: "20px", width: "100%"}}>Post a Project</h1>
                 <form className = 'postForm'>
 
                     <label htmlFor="title" >Project title:</label><br/>
                     <input type="text" id="title" name="title" margin="normal" maxLength="20" style={{width: "20em"}}
                          onChange={(e) => {this.setState({projectTitle: e.target.value})}} value={this.state.projectTitle}/><br/>
 
+                    Choose Image:<br/>
+                    <input type="file" id="project_picture" enctype="multipart/form-data" name="project_picture" 
+                    onChange={(e) => {this.setState({image: e.target.files[0]})}}/><br/>
+
                     <label htmlFor="description">Project description:</label><br/>
                     <textarea id="description" name="description" maxLength="255" style={{width: "80%", height: "7em"}}
-                     onChange={(e) => {this.setState({projectDescription: e.target.value})}} value={this.state.projectDescription}/><br/>
+                         onChange={(e) => {this.setState({projectDescription: e.target.value})}} value={this.state.projectDescription}/><br/>
 
                     <label htmlFor="leader">Leader name:</label><br/>
                     <input type="text" id="leader" name="leader" maxLength="255" style={{width: "15em"}}
                         onChange={(e) => {this.setState({leaderName: e.target.value})}} value={this.state.leaderName}/><br/>
 
-                    <label htmlFor="members">Members:</label><br/>
+                    <label htmlFor="leaderEmail">Leader email:</label><br/>
+                    <input type="text" id="leaderEmail" name="leaderEmail" maxLength="255" style={{width: "15em"}}
+                        onChange={(e) => {this.setState({leaderEmail: e.target.value})}} value={this.state.leaderEmail}/><br/>
+
+                    <label htmlFor="members">Members (optional):</label><br/>
                     <ul style={{marginLeft: "25px"}}>
                         {this.state.members.map(member => {
                                return (<div style={{display: "flex", maxWidth: "350px", justifyContent: "space-between"}}><li>{member}</li>
@@ -129,7 +164,7 @@ class Post extends Component {
                     <textarea type="text" id="looking_for" name="looking_for" maxLength="255" style={{width: "80%", height: "7em"}}
                     onChange={(e) => {this.setState({lookingFor: e.target.value})}} value={this.state.lookingFor}/><br/>
 
-                    <label htmlFor="tags">Tags:</label><br/>
+                    <label htmlFor="tags">Tags (optional):</label><br/>
                     <ul style={{marginLeft: "25px"}}>
                         {this.state.tags.map(tag => {
                                 return (<div style={{display: "flex", maxWidth: "350px", justifyContent: "space-between"}}><li>{tag}</li>
@@ -146,9 +181,15 @@ class Post extends Component {
                     <input type="text" id="duration" name="duration" maxLength="20"
                     onChange={(e) => {this.setState({duration: e.target.value})}} value={this.state.duration}/><br/>
 
-                    <label htmlFor="paid"/>Paid<input type="checkbox" id="paid" name="paid" style={{marginLeft: "2em"}}
-                     onClick={() => this.setState({paid: !this.state.paid})} defaultChecked={false}/><br/>
+                    <label htmlFor="location">Location:</label><br/>
+                    <input type="text" id="location" name="location" maxLength="20"
+                    onChange={(e) => {this.setState({location: e.target.value})}} value={this.state.location}/><br/>
                     
+                    <label htmlFor="paid"/>Paid<input type="checkbox" id="paid" name="paid" style={{marginLeft: "2em"}}
+                     onClick={this.handleCheckPaidCheckBox} defaultChecked={false}/><br/>Amount to be paid:
+                    <input type="text" disabled={true} id="amountToBePaid" name="amountToBePaid" maxLength="20" value={this.state.amountToBePaid} onChange={(event) => {this.setState({amountToBePaid: event.target.value})}} style={{width: "10em"}}/>
+
+
                     <input type="submit" value="Post" style={{marginLeft: "90%", width:"6%"}} onClick={(e) => this.handleSubmit(e)}/>
 
                     <Popup trigger={this.state.popup} setTrigger={() => {this.setState({popup: false});window.location.reload();}}><h3 style={{color: "white"}}>Post submitted</h3></Popup>

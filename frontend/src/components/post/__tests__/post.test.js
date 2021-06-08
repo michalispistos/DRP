@@ -18,17 +18,20 @@ it("renders without crashing", () => {
 
 it("renders post page correctly", () => {
     const {getByTestId} = render(<Post/>);
-    expect(getByTestId('post')).toHaveTextContent("Post a project");
+    expect(getByTestId('post')).toHaveTextContent("Post a Project");
     const wrapper = shallow(<Post/>);
     expect(wrapper.containsMatchingElement(<form>
     <label>Project title:</label><br/><input/><br/>
     <label>Project description:</label><br/><textarea/><br/>
     <label>Leader name:</label><br/><input/><br/>
-    <label>Members:</label><br/><ul/><input/><button>Add member</button><br/>
+    <label>Leader email:</label><br/><input/><br/>
+    <label>Members (optional):</label><br/><ul/><input/><button>Add member</button><br/>
     <label>People we are looking for:</label><br/><textarea/><br/>
-    <label>Tags:</label><br/><ul/><input/><button>Add tag</button><br/>
+    <label>Tags (optional):</label><br/><ul/><input/><button>Add tag</button><br/>
     <label>Duration:</label><br/><input/><br/>
-    <label/>Paid<input/><br/><input/>
+    <label>Location:</label><br/><input/><br/>
+    <label/>Paid<input/><br/>Amount to be paid:<input/>
+    <input/>
     <Popup><h3>Post submitted</h3></Popup>    
     </form>)).toEqual(true);
 })

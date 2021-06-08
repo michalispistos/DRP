@@ -15,11 +15,11 @@ class ProjectTileGrid extends React.Component {
         }
     }
 
-    renderTile(id, name, lookingFor, tags) {
+    renderTile(id, name, imageSrc, lookingFor, tags) {
         if (id === undefined){
             id = 1;
         }
-        return <ProjectTile key={id} name={name} lookingFor={lookingFor} tags={tags} />;
+        return <ProjectTile key={id} name={name} imageSrc={imageSrc} lookingFor={lookingFor} tags={tags}/>;
     }
 
     handlePaid = () =>{
@@ -28,7 +28,7 @@ class ProjectTileGrid extends React.Component {
     
     getProjects = async () => {    
         try {
-            const response = await fetch("https://drp12-backend.herokuapp.com/projects");
+            const response = await fetch(process.env.REACT_APP_SERVER + "/projects");
             const jsonData = await response.json();
     
             this.setState({projects: jsonData})
@@ -44,7 +44,7 @@ class ProjectTileGrid extends React.Component {
             <div data-testid='projectTileGrid' className="projectTileGrid">
                 {this.state.projects
                 .filter(project => this.state.paid ? project.paid : true)
-                .map(project => this.renderTile(project.id, project.name,project.looking_for, project.tags))}
+                .map(project => this.renderTile(project.id, project.name, project.image_filepath ,project.looking_for, project.tags))}
             </div>
         );
     }

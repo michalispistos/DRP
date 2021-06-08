@@ -11,7 +11,7 @@ class Home extends React.Component {
     render () {
         return (
             <div data-testid='home'>
-                <h1>All Projects</h1>
+                <h1 style={{textAlign: "center", marginTop: "20px", width: "100%"}}>All Projects</h1>
                 <br></br>
                 Filters: 
                 <form>
