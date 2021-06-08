@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class ProjectTile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            key: props.id,
+            id: props.id,
             name: props.name,
             imageSrc: props.imageSrc,
             lookingFor: props.lookingFor,
@@ -13,7 +14,6 @@ class ProjectTile extends React.Component {
         fetch(`${process.env.REACT_APP_SERVER}/upload/${this.state.imageSrc}`)
             .then(response => response.blob())
             .then(images => {
-                // Then create a local URL for that image and print it
                this.setState({imageSrc: URL.createObjectURL(images)});
             })
     }
@@ -33,6 +33,7 @@ class ProjectTile extends React.Component {
         }
 
         return (
+            <Link to={`/projectInfo/${this.state.id}`} style={{ textDecoration: 'none', color: 'black' }}>
             <div data-testid='projectTile' className="projectTile" style={styles.projectTile}>
                 <div className="projectInfo" style={styles.projectInfo}>
                     <h3 className="projectTileTitle">{this.state.name}</h3>
@@ -44,6 +45,7 @@ class ProjectTile extends React.Component {
                     </p>
                 </div>
             </div>
+            </Link>
          );
     }
 }

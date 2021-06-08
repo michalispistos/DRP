@@ -12,6 +12,7 @@ const links = [
     { text: 'Post a Project', location: "/post"},
 ];
 
+
 // Checks if navbar goes to link 
 it("sends all links to correct page", () => {
     test.each(links, () => {

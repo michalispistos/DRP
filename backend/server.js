@@ -19,6 +19,8 @@ function makeServer(db, port) {
         email:"example1@gmail.com",
         tags:["java","obesity","healthcare"],
         image_filepath: "default.jpg",
+        amount_to_be_paid: "£0",
+        location: "Remote",
       });
       await db.Project.create({
         name: "Local delivery app",
@@ -31,6 +33,8 @@ function makeServer(db, port) {
         duration:"6 weeks",
         tags:["marketing","delivery","local business"],
         image_filepath: "default.jpg",
+        amount_to_be_paid: "£100 a week",
+        location: "Imperial College Main Campus",
       });
       await db.Project.create({
         name:"Algorithmic Trading",
@@ -43,6 +47,8 @@ function makeServer(db, port) {
         duration:"8 weeks",
         tags:["algorithmic trading","stocks","finances"],
         image_filepath: "default.jpg",
+        amount_to_be_paid: "£7 an hour",
+        location: "China"
       });
 
     } catch (err) {

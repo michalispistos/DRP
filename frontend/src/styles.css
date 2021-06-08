@@ -25,6 +25,21 @@
   border: 2px solid black;
 }
 
+.boarder {
+  margin-top: 10px;
+  margin-left: 1%;
+  margin-right: 50%;
+  margin-bottom: 1%;
+  padding: 15px;
+  border: 2px solid black;
+}
+
+.projectInfo {
+  width: 90%;
+  margin: 5%;
+
+}
+
 .popup {
   position: fixed;
   top: 0;

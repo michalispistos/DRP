@@ -45,7 +45,7 @@ const makeProjectModel = (Sequelize, sequelize) => {
 
         amount_to_be_paid: {
             type: Sequelize.STRING,
-            default: "Unpaid work",
+            default: "0",
         },
 
         image_filepath: {

@@ -19,7 +19,7 @@ class Post extends Component {
             paid: false,
             popup: false,
             location: "Remote",
-            amountToBePaid: "",
+            amountToBePaid: "0",
             imageSrc: "default.jpg",
             image: undefined
         }
@@ -91,7 +91,7 @@ class Post extends Component {
         }
 
         this.setState({projectTitle: "", projectDescription: "", leaderName: "", members:[], lookingFor: "", tags:[], duration:"Indefinite", paid:false, popup:true,
-                        newMember:"", newTag:"", location:"Remote", leaderEmail:"", amountToBePaid:"", imageSrc:"default.jpg"});
+                        newMember:"", newTag:"", location:"Remote", leaderEmail:"", amountToBePaid:"0", imageSrc:"default.jpg"});
     };
 
     handleAddMember = (e) =>{
@@ -110,7 +110,7 @@ class Post extends Component {
         if(!amountToBePaid.disabled){
             amountToBePaid.focus();
         }else{
-            this.setState({amountToBePaid:""});
+            this.setState({amountToBePaid:"0"});
         }
     }
 

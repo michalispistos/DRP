@@ -19,7 +19,7 @@ class ProjectTileGrid extends React.Component {
         if (id === undefined){
             id = 1;
         }
-        return <ProjectTile key={id} name={name} imageSrc={imageSrc} lookingFor={lookingFor} tags={tags}/>;
+        return <ProjectTile key={id} id={id} name={name} imageSrc={imageSrc} lookingFor={lookingFor} tags={tags}/>;
     }
 
     handlePaid = () =>{
@@ -32,7 +32,6 @@ class ProjectTileGrid extends React.Component {
             const jsonData = await response.json();
     
             this.setState({projects: jsonData})
-            console.log(this.state.projects);
         } catch (err) {
          console.error(err.message);
         }
@@ -40,6 +39,9 @@ class ProjectTileGrid extends React.Component {
       };
       
     render() {
+        if(this.state.projects.length === 0){
+            return <></>
+        }
         return (    
             <div data-testid='projectTileGrid' className="projectTileGrid">
                 {this.state.projects
