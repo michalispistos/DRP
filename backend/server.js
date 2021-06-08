@@ -17,7 +17,8 @@ function makeServer(db, port) {
         looking_for:"a computing student to code our app",
         duration:"12 weeks",
         email:"example1@gmail.com",
-        tags:["java","obesity","healthcare"]
+        tags:["java","obesity","healthcare"],
+        image_filepath: "default.jpg",
       });
       await db.Project.create({
         name: "Local delivery app",
@@ -28,7 +29,8 @@ function makeServer(db, port) {
         paid:true,
         email: "example2@gmail.com",
         duration:"6 weeks",
-        tags:["marketing","delivery","local business"]
+        tags:["marketing","delivery","local business"],
+        image_filepath: "default.jpg",
       });
       await db.Project.create({
         name:"Algorithmic Trading",
@@ -39,7 +41,8 @@ function makeServer(db, port) {
         paid:true,
         email: "example3@gmail.com",
         duration:"8 weeks",
-        tags:["algorithmic trading","stocks","finances"]
+        tags:["algorithmic trading","stocks","finances"],
+        image_filepath: "default.jpg",
       });
 
     } catch (err) {
@@ -89,7 +92,7 @@ app.get("/projects/:id", async (req, res) => {
 
 app.post("/projects", async (req, res) => {
   try {
-    const { id, name, description, looking_for, paid, leader, members, tags, duration } = req.body;
+    const { id, name, description, looking_for, paid, leader, members, tags, duration, email, image_filepath, location, amount_to_be_paid } = req.body;
     const project = await db.Project.create({
       id,
       name,
@@ -100,6 +103,10 @@ app.post("/projects", async (req, res) => {
       members,
       tags,
       duration,
+      email,
+      image_filepath,
+      location,
+      amount_to_be_paid,
     });
     res.json(project);
 

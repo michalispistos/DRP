@@ -50,7 +50,7 @@ const makeProjectModel = (Sequelize, sequelize) => {
 
         image_filepath: {
             type: Sequelize.STRING,
-            default: "default.jpg",
+            default: "default.jpg",  
         },
 
         duration: {
