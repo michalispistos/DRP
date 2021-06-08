@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Popup from './popup';
 
 class Post extends Component {
     constructor(props){
@@ -13,7 +14,8 @@ class Post extends Component {
             tags: [],
             newTag: "",
             duration: "",
-            paid: false
+            paid: false,
+            popup: false
         }
         this.checkBoxElem = React.createRef();
     }
@@ -31,6 +33,10 @@ class Post extends Component {
         e.preventDefault();
 
         if(!this.validForm()) {
+           
+            alert("Complete missing information")
+            this.setState({projectTitle:"!"})
+            this.setState({projectTitle:""})
             return;
         }
         
@@ -58,12 +64,8 @@ class Post extends Component {
             .then(response => console.log('Submitted'))
             .catch(error => console.log('Error submitting project', error));
 
-        this.setState({projectTitle: "", projectDescription: "", leaderName: "", members:[], lookingFor: "", tags:[], duration:"", paid:false });
-        alert("Post succesfull!");
-
-        window.location.reload();
-
-        
+        this.setState({projectTitle: "", projectDescription: "", leaderName: "", members:[], lookingFor: "", tags:[], duration:"", paid:false, popup:true,
+                        newMember:"", newTag:""});
     };
 
     handleAddMember = (e) =>{
@@ -148,7 +150,9 @@ class Post extends Component {
                      onClick={() => this.setState({paid: !this.state.paid})} defaultChecked={false}/><br/>
                     
                     <input type="submit" value="Post" style={{marginLeft: "90%", width:"6%"}} onClick={(e) => this.handleSubmit(e)}/>
-                    
+
+                    <Popup trigger={this.state.popup} setTrigger={() => {this.setState({popup: false});window.location.reload();}}><h3 style={{color: "white"}}>Post submitted</h3></Popup>
+
                 </form>
             </div>
         );
