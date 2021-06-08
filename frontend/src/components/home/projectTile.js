@@ -3,22 +3,22 @@ import React from 'react';
 class ProjectTile extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {  
+        this.state = {
             key: props.id,
             name: props.name,
             imageSrc: props.imageSrc,
             lookingFor: props.lookingFor,
             tags: props.tags
         };
-        fetch(`http://localhost:5000/upload/${this.state.imageSrc}`)
+        fetch(`${process.env.REACT_APP_SERVER}/upload/${this.state.imageSrc}`)
             .then(response => response.blob())
             .then(images => {
-                // Then create a local URL for that image and print it 
+                // Then create a local URL for that image and print it
                this.setState({imageSrc: URL.createObjectURL(images)});
             })
     }
 
-    render() { 
+    render() {
         const styles = {
             projectTile: {
               backgroundImage: `linear-gradient(rgba(255,255,255,0.65), rgba(255,255,255,0.65)), url(${this.state.imageSrc})`,
@@ -32,7 +32,7 @@ class ProjectTile extends React.Component {
             },
         }
 
-        return ( 
+        return (
             <div data-testid='projectTile' className="projectTile" style={styles.projectTile}>
                 <div className="projectInfo" style={styles.projectInfo}>
                     <h3 className="projectTileTitle">{this.state.name}</h3>
@@ -50,5 +50,5 @@ class ProjectTile extends React.Component {
 }
 
 
- 
+
 export default ProjectTile;
