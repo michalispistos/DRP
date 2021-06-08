@@ -33,6 +33,26 @@ const makeProjectModel = (Sequelize, sequelize) => {
             type: Sequelize.ARRAY(Sequelize.STRING),
         },
 
+        location: {
+            type: Sequelize.STRING,
+            default: "Remote",
+        },
+
+        email: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+
+        amount_to_be_paid: {
+            type: Sequelize.STRING,
+            default: "Unpaid work",
+        },
+
+        image_filepath: {
+            type: Sequelize.STRING,
+            default: "default.jpg",
+        },
+
         duration: {
             type: Sequelize.STRING,
             default: "Indefinite",

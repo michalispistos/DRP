@@ -53,6 +53,7 @@ const testProject = {
   members:["bob","eva"],
   looking_for:"a test that works",
   paid:true,
+  location: "London, UK",
   duration:"1 minute",
   tags:["algorithmic trading","stocks","finances"]
 }

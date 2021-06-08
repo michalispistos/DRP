@@ -2,6 +2,7 @@ function makeServer(db, port) {
   const express = require('express');
   const cors = require('cors');
   const app = express();
+  const multer = require('multer');
 
   app.use('*', cors());
   app.use(express.json());
@@ -15,6 +16,7 @@ function makeServer(db, port) {
         members:["emily","charles"],
         looking_for:"a computing student to code our app",
         duration:"12 weeks",
+        email:"example1@gmail.com",
         tags:["java","obesity","healthcare"]
       });
       await db.Project.create({
@@ -24,6 +26,7 @@ function makeServer(db, port) {
         members:["mark","carolyn"],
         looking_for:"a business student to help with viability and marketing of app",
         paid:true,
+        email: "example2@gmail.com",
         duration:"6 weeks",
         tags:["marketing","delivery","local business"]
       });
@@ -34,6 +37,7 @@ function makeServer(db, port) {
         members:["bob","eva"],
         looking_for:"a finance or economics student knowledgable in trading strategies",
         paid:true,
+        email: "example3@gmail.com",
         duration:"8 weeks",
         tags:["algorithmic trading","stocks","finances"]
       });
@@ -42,6 +46,15 @@ function makeServer(db, port) {
       console.log(err.message);
     }
   }
+
+  const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, './images/project');
+    },
+    filename: (req, file, cb) => {
+      cb(null, file.originalname);
+    }
+  });
 
   db.Project.sync({ force: true }).then(() => {
     console.log('dropped and resynced database');
@@ -95,10 +108,29 @@ app.post("/projects", async (req, res) => {
   }
 });
 
+const upload = multer({storage:storage});
 
-  return app.listen(port, () => {
+
+app.post('/upload', function (req, res) {
+  upload.single('project_picture')(req, res, function (err) {
+    if (err) {
+      console.log(err.message);
+      return
+    }
+    res.status(200).send("success");
+  })
+});
+
+app.get('/upload/:filename', function (req, res) {
+  const { filename } = req.params;
+  const filePath = `./images/project/${filename}`;
+  res.sendFile(filePath, { root: __dirname});
+});
+
+
+return app.listen(port, () => {
       console.log(`Server has started on port ${port}`);
   });
-}
 
+}
 module.exports = makeServer;
