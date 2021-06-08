@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 
 class Post extends Component {
-    state = {  
-       projectTitle: "",
-       projectDescription: "",
-       leaderName: "",
-       newMember: "",
-       members: [],
-       lookingFor: "",
-       tags: [],
-       newTag: "",
-       duration: "",
-       paid: false
+    constructor(props){
+        super(props);
+        this.state = {  
+            projectTitle: "",
+            projectDescription: "",
+            leaderName: "",
+            newMember: "",
+            members: [],
+            lookingFor: "",
+            tags: [],
+            newTag: "",
+            duration: "",
+            paid: false
+        }
+        this.checkBoxElem = React.createRef();
     }
 
     validForm = () => {
@@ -23,6 +27,7 @@ class Post extends Component {
     }
 
     handleSubmit = async (e) => {
+
         e.preventDefault();
 
         if(!this.validForm()) {
@@ -53,7 +58,12 @@ class Post extends Component {
             .then(response => console.log('Submitted'))
             .catch(error => console.log('Error submitting project', error));
 
+        this.setState({projectTitle: "", projectDescription: "", leaderName: "", members:[], lookingFor: "", tags:[], duration:"", paid:false });
         alert("Post succesfull!");
+
+        window.location.reload();
+
+        
     };
 
     handleAddMember = (e) =>{
@@ -91,15 +101,15 @@ class Post extends Component {
 
                     <label htmlFor="title" >Project title:</label><br/>
                     <input type="text" id="title" name="title" margin="normal" maxLength="20" style={{width: "20em"}}
-                         onChange={(e) => {this.setState({projectTitle: e.target.value})}}/><br/>
+                         onChange={(e) => {this.setState({projectTitle: e.target.value})}} value={this.state.projectTitle}/><br/>
 
                     <label htmlFor="description">Project description:</label><br/>
                     <textarea id="description" name="description" maxLength="255" style={{width: "80%", height: "7em"}}
-                     onChange={(e) => {this.setState({projectDescription: e.target.value})}}/><br/>
+                     onChange={(e) => {this.setState({projectDescription: e.target.value})}} value={this.state.projectDescription}/><br/>
 
                     <label htmlFor="leader">Leader name:</label><br/>
                     <input type="text" id="leader" name="leader" maxLength="255" style={{width: "15em"}}
-                        onChange={(e) => {this.setState({leaderName: e.target.value})}}/><br/>
+                        onChange={(e) => {this.setState({leaderName: e.target.value})}} value={this.state.leaderName}/><br/>
 
                     <label htmlFor="members">Members:</label><br/>
                     <ul style={{marginLeft: "25px"}}>
@@ -115,7 +125,7 @@ class Post extends Component {
 
                     <label htmlFor="looking_for">People we are looking for:</label><br/>
                     <textarea type="text" id="looking_for" name="looking_for" maxLength="255" style={{width: "80%", height: "7em"}}
-                    onChange={(e) => {this.setState({lookingFor: e.target.value})}} /><br/>
+                    onChange={(e) => {this.setState({lookingFor: e.target.value})}} value={this.state.lookingFor}/><br/>
 
                     <label htmlFor="tags">Tags:</label><br/>
                     <ul style={{marginLeft: "25px"}}>
@@ -132,11 +142,13 @@ class Post extends Component {
 
                     <label htmlFor="duration">Duration:</label><br/>
                     <input type="text" id="duration" name="duration" maxLength="20"
-                    onChange={(e) => {this.setState({duration: e.target.value})}}/><br/>
+                    onChange={(e) => {this.setState({duration: e.target.value})}} value={this.state.duration}/><br/>
 
-                    <label htmlFor="paid"/>Paid<input type="checkbox" id="paid" name="paid" style={{marginLeft: "2em"}}/><br/>
+                    <label htmlFor="paid"/>Paid<input type="checkbox" id="paid" name="paid" style={{marginLeft: "2em"}}
+                     onClick={() => this.setState({paid: !this.state.paid})} defaultChecked={false}/><br/>
                     
-                    <input type="submit" value="Post" style={{marginLeft: "100em", width:"6%"}} onClick={(e) => this.handleSubmit(e)}/>
+                    <input type="submit" value="Post" style={{marginLeft: "90%", width:"6%"}} onClick={(e) => this.handleSubmit(e)}/>
+                    
                 </form>
             </div>
         );

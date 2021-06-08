@@ -44,7 +44,7 @@ class ProjectTileGrid extends React.Component {
             <div data-testid='projectTileGrid' className="projectTileGrid">
                 {this.state.projects
                 .filter(project => this.state.paid ? project.paid : true)
-                .map(project => this.renderTile(project.project_id, project.name,project.looking_for, project.tags))}
+                .map(project => this.renderTile(project.id, project.name,project.looking_for, project.tags))}
             </div>
         );
     }
