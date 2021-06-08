@@ -133,7 +133,7 @@ class Post extends Component {
                          onChange={(e) => {this.setState({projectTitle: e.target.value})}} value={this.state.projectTitle}/><br/>
 
                     Choose Image:<br/>
-                    <input type="file" id="project_picture" enctype="multipart/form-data" name="project_picture" 
+                    <input type="file" id="project_picture" encType="multipart/form-data" name="project_picture" 
                     onChange={(e) => {this.setState({image: e.target.files[0]})}}/><br/>
 
                     <label htmlFor="description">Project description:</label><br/>

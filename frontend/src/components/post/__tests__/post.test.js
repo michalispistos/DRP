@@ -22,6 +22,7 @@ it("renders post page correctly", () => {
     const wrapper = shallow(<Post/>);
     expect(wrapper.containsMatchingElement(<form>
     <label>Project title:</label><br/><input/><br/>
+    Choose Image:<br/><input/><br/>
     <label>Project description:</label><br/><textarea/><br/>
     <label>Leader name:</label><br/><input/><br/>
     <label>Leader email:</label><br/><input/><br/>
