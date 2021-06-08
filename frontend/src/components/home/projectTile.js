@@ -26,8 +26,8 @@ class ProjectTile extends React.Component {
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',
               border: "2px solid gray",
-              height: "200px",
-              width: "300px",
+              height: "260px",
+              width: "350px",
               margin: "auto",
             },
         }
@@ -38,7 +38,6 @@ class ProjectTile extends React.Component {
                     <h3 className="projectTileTitle">{this.state.name}</h3>
                     <br></br>
                     <h4>Looking for:</h4><p className="projectTileLookingFor"> {this.state.lookingFor}</p>
-                    <br></br>
                     <h4>Tags: </h4>
                     <p>
                         {this.state.tags?.join(', ')}

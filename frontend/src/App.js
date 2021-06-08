@@ -3,6 +3,7 @@ import Home from './components/home/home';
 import Post from './components/post/post';
 import Navbar from './components/common/Navbar/Navbar';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends React.Component {
     render () {

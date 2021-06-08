@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Button from 'react-bootstrap/Button';
 import Popup from './popup';
 
 class Post extends Component {
@@ -151,14 +152,14 @@ class Post extends Component {
                     <label htmlFor="members">Members (optional):</label><br/>
                     <ul style={{marginLeft: "25px"}}>
                         {this.state.members.map(member => {
-                               return (<div style={{display: "flex", maxWidth: "350px", justifyContent: "space-between"}}><li>{member}</li>
-                                          <button style={{backgroundColor: "crimson", color: "white", marginLeft: "1em"}} type="button" onClick={() => {
+                               return (<div style={{display: "flex", maxWidth: "235px", justifyContent: "space-between"}}><li>{member}</li>
+                                          <Button variant="danger" style={{marginLeft: "1em"}} type="button" onClick={() => {
                                               this.setState({members: this.state.members.filter(m => m !== member)})
-                                            }}>Remove</button></div>)
+                                            }}>Remove</Button></div>)
                             })}
                     </ul>
                     <input value={this.state.newMember} maxLength="20" onChange={(event) => {this.setState({newMember: event.target.value});}} type="text" id="members" name="members" style={{width: "10em"}}/>
-                    <button type="button"  onClick={(e)=>this.handleAddMember(e)} style={{marginLeft: "2em"}}>Add member</button><br/>
+                    <Button variant="primary" onClick={(e)=>this.handleAddMember(e)} style={{marginLeft: "1em"}}>Add member</Button>{' '}<br/>
 
                     <label htmlFor="looking_for">People we are looking for:</label><br/>
                     <textarea type="text" id="looking_for" name="looking_for" maxLength="255" style={{width: "80%", height: "7em"}}
@@ -167,15 +168,15 @@ class Post extends Component {
                     <label htmlFor="tags">Tags (optional):</label><br/>
                     <ul style={{marginLeft: "25px"}}>
                         {this.state.tags.map(tag => {
-                                return (<div style={{display: "flex", maxWidth: "350px", justifyContent: "space-between"}}><li>{tag}</li>
-                                          <button style={{backgroundColor: "crimson", color: "white", marginLeft: "1em"}} type="button" onClick={() => {
+                                return (<div style={{display: "flex", maxWidth: "235px", justifyContent: "space-between"}}><li>{tag}</li>
+                                          <Button variant="danger" style={{marginLeft: "1em"}} type="button" onClick={() => {
                                               this.setState({tags: this.state.tags.filter(t => t !== tag)})
-                                            }}>Remove</button></div>)
+                                            }}>Remove</Button></div>)
                             })}
                     </ul>
                     
                     <input type="text" id="tags" name="tags" maxLength="20" value={this.state.newTag} onChange={(event) => {this.setState({newTag: event.target.value})}} style={{width: "10em"}}/>
-                    <button type="button" onClick={(e)=>this.handleAddTag(e)} style={{marginLeft: "2em"}}>Add tag</button><br/>
+                    <Button variant="primary" onClick={(e)=>this.handleAddTag(e)} style={{marginLeft: "1em"}}>Add tag</Button><br/>
 
                     <label htmlFor="duration">Duration:</label><br/>
                     <input type="text" id="duration" name="duration" maxLength="20"
