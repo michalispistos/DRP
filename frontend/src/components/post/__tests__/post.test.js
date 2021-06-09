@@ -33,7 +33,7 @@ it("renders post page correctly", () => {
     <label>Duration:</label><br/><input/><br/>
     <label>Location:</label><br/><input/><br/>
     <label/>Paid<input/><br/>Amount to be paid:<input/>
-    <input/>
+    <Button variant="success" type="submit">Post</Button>
     <Popup><h3>Post submitted</h3></Popup>    
     </form>)).toEqual(true);
 })

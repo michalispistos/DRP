@@ -26,7 +26,7 @@ const makeProjectModel = (Sequelize, sequelize) => {
         },
 
         members: {
-            type: Sequelize.ARRAY(Sequelize.STRING),
+            type: Sequelize.ARRAY(Sequelize.JSON),
         },
 
         tags: {

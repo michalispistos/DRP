@@ -7,7 +7,10 @@ class ProjectTileGrid extends React.Component {
         super(props);
         this.state = {
             projects: props.projects,
-            paid: false
+            paid: false,
+            remote: false,
+            filterByTags: false,
+            tags: [],
         }
         
         if(this.state.projects.length === 0){
@@ -23,7 +26,19 @@ class ProjectTileGrid extends React.Component {
     }
 
     handlePaid = () =>{
-        this.setState({paid : !this.state.paid})
+        this.setState({paid : !this.state.paid});
+    }
+
+    handleRemote = () => {
+        this.setState({remote: !this.state.remote});
+    }
+
+    handleTags = (selectedTags) => {
+        this.setState({filterByTags: true, tags: selectedTags});
+    }
+
+    resetTagFilters = () => {
+        this.setState({filterByTags: false});
     }
     
     getProjects = async () => {    
@@ -39,13 +54,15 @@ class ProjectTileGrid extends React.Component {
       };
       
     render() {
-        if(this.state.projects.length === 0){
+        if (this.state.projects.length === 0) {
             return <></>
         }
         return (    
             <div data-testid='projectTileGrid' className="projectTileGrid">
                 {this.state.projects
                 .filter(project => this.state.paid ? project.paid : true)
+                .filter(project => this.state.remote ? project.location === "Remote" : true)
+                .filter(project => this.state.filterByTags ? this.state.tags.some(tag => project.tags.map(t=>t.toLowerCase()).includes(tag.key.toLowerCase())) : true)
                 .map(project => this.renderTile(project.id, project.name, project.image_filepath ,project.looking_for, project.tags))}
             </div>
         );

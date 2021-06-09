@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import Popup from './popup';
+import TextPopup from './textPopup'
 
 class Post extends Component {
     constructor(props){
@@ -17,11 +18,12 @@ class Post extends Component {
             newTag: "",
             duration: "Indefinite",
             paid: false,
-            popup: false,
+            popupSubmit: false,
+            popupLink: false,
             location: "Remote",
             amountToBePaid: "0",
             imageSrc: "default.jpg",
-            image: undefined
+            image: undefined,
         }
     }
 
@@ -90,17 +92,19 @@ class Post extends Component {
             await fetch(`${process.env.REACT_APP_SERVER}/upload`, requestOptions2).then(response => console.log('Submitted')).catch(error => console.log("error"));
         }
 
-        this.setState({projectTitle: "", projectDescription: "", leaderName: "", members:[], lookingFor: "", tags:[], duration:"Indefinite", paid:false, popup:true,
-                        newMember:"", newTag:"", location:"Remote", leaderEmail:"", amountToBePaid:"0", imageSrc:"default.jpg"});
+        this.setState({projectTitle: "", projectDescription: "", leaderName: "", members:[], lookingFor: "", tags:[], duration:"Indefinite", paid:false,
+                        newMember:"", newTag:"", location:"Remote", leaderEmail:"", amountToBePaid:"0", imageSrc:"default.jpg",
+                    popupSubmit:true, popupLink:false});
     };
 
     handleAddMember = (e) =>{
         e.preventDefault();
         if(this.state.newMember !== ""){
-            const members = [...this.state.members,this.state.newMember];
+            const members = [...this.state.members,{name:this.state.newMember}];
             this.setState({members: members, newMember: ""});
         }
     }
+
 
     handleCheckPaidCheckBox = () =>{
         this.setState({paid: !this.state.paid});
@@ -131,31 +135,39 @@ class Post extends Component {
 
                     <label htmlFor="title" >Project title:</label><br/>
                     <input type="text" id="title" name="title" margin="normal" maxLength="20" style={{width: "20em"}}
-                         onChange={(e) => {this.setState({projectTitle: e.target.value})}} value={this.state.projectTitle}/><br/>
+                         onChange={(e) => {this.setState({projectTitle: e.target.value})}} value={this.state.projectTitle} required/><br/>
 
                     Choose Image:<br/>
                     <input type="file" id="project_picture" encType="multipart/form-data" name="project_picture" 
-                    onChange={(e) => {this.setState({image: e.target.files[0]})}}/><br/>
+                    onChange={(e) => {this.setState({image: e.target.files[0]})}} /><br/>
 
                     <label htmlFor="description">Project description:</label><br/>
                     <textarea id="description" name="description" maxLength="255" style={{width: "80%", height: "7em"}}
-                         onChange={(e) => {this.setState({projectDescription: e.target.value})}} value={this.state.projectDescription}/><br/>
+                         onChange={(e) => {this.setState({projectDescription: e.target.value})}} value={this.state.projectDescription} required /><br/>
 
                     <label htmlFor="leader">Leader name:</label><br/>
                     <input type="text" id="leader" name="leader" maxLength="255" style={{width: "15em"}}
-                        onChange={(e) => {this.setState({leaderName: e.target.value})}} value={this.state.leaderName}/><br/>
+                        onChange={(e) => {this.setState({leaderName: e.target.value})}} value={this.state.leaderName} required /><br/>
 
                     <label htmlFor="leaderEmail">Leader email:</label><br/>
                     <input type="text" id="leaderEmail" name="leaderEmail" maxLength="255" style={{width: "15em"}}
-                        onChange={(e) => {this.setState({leaderEmail: e.target.value})}} value={this.state.leaderEmail}/><br/>
+                        onChange={(e) => {this.setState({leaderEmail: e.target.value})}} value={this.state.leaderEmail} required/><br/>
 
                     <label htmlFor="members">Members (optional):</label><br/>
                     <ul style={{marginLeft: "25px"}}>
                         {this.state.members.map(member => {
-                               return (<div style={{display: "flex", maxWidth: "235px", justifyContent: "space-between"}}><li>{member}</li>
+                               return (<div style={{display: "flex", width: "100%", justifyContent: "start"}}><li style={{width: "10em"}}>{member.name}{(member.link !== undefined) ? ("-" + member.link) : ""}</li>
                                           <Button variant="danger" style={{marginLeft: "1em"}} type="button" onClick={() => {
-                                              this.setState({members: this.state.members.filter(m => m !== member)})
-                                            }}>Remove</Button></div>)
+                                              this.setState({members: this.state.members.filter(m => m.name !== member.name)})
+                                            }}>Remove</Button>
+                                            <Button type="button" onClick={() => {this.setState({popupLink: true})}}>Add link</Button> 
+                                            <TextPopup trigger={this.state.popupLink} handler={(link)=>{
+                                                                                                        if(link !== ""){
+                                                                                                        const members = this.state.members.map(m=>{if(m===member){return {name:m.name,link:link};}else{return m;}});
+                                                                                                        this.setState({members: members});
+                                                                                                        }}} setTrigger={() => {this.setState({popupLink: false})}}></TextPopup>
+                                                                                                
+                                            </div>)
                             })}
                     </ul>
                     <input value={this.state.newMember} maxLength="20" onChange={(event) => {this.setState({newMember: event.target.value});}} type="text" id="members" name="members" style={{width: "10em"}}/>
@@ -163,15 +175,16 @@ class Post extends Component {
 
                     <label htmlFor="looking_for">People we are looking for:</label><br/>
                     <textarea type="text" id="looking_for" name="looking_for" maxLength="255" style={{width: "80%", height: "7em"}}
-                    onChange={(e) => {this.setState({lookingFor: e.target.value})}} value={this.state.lookingFor}/><br/>
+                    onChange={(e) => {this.setState({lookingFor: e.target.value})}} value={this.state.lookingFor} required/><br/>
 
                     <label htmlFor="tags">Tags (optional):</label><br/>
                     <ul style={{marginLeft: "25px"}}>
                         {this.state.tags.map(tag => {
-                                return (<div style={{display: "flex", maxWidth: "235px", justifyContent: "space-between"}}><li>{tag}</li>
+                                return (<div style={{display: "flex", width: "100%", justifyContent: "start"}}><li style={{width: "10em"}}>{tag}</li>
                                           <Button variant="danger" style={{marginLeft: "1em"}} type="button" onClick={() => {
                                               this.setState({tags: this.state.tags.filter(t => t !== tag)})
-                                            }}>Remove</Button></div>)
+                                            }}>Remove</Button>
+                                            </div>)
                             })}
                     </ul>
                     
@@ -190,9 +203,9 @@ class Post extends Component {
                      onClick={this.handleCheckPaidCheckBox} defaultChecked={false}/><br/>Amount to be paid:<input type="text" disabled={true} id="amountToBePaid" name="amountToBePaid" maxLength="20" value={this.state.amountToBePaid} onChange={(event) => {this.setState({amountToBePaid: event.target.value})}} style={{width: "10em"}}/>
 
 
-                    <input type="submit" value="Post" style={{marginLeft: "90%", width:"6%"}} onClick={(e) => this.handleSubmit(e)}/>
+                    <Button variant="success" type="submit" style={{marginLeft: "90%", width:"6%"}} onClick={(e) => this.handleSubmit(e)}>Post</Button>
 
-                    <Popup trigger={this.state.popup} setTrigger={() => {this.setState({popup: false});window.location.reload();}}><h3 style={{color: "white"}}>Post submitted</h3></Popup>
+                    <Popup trigger={this.state.popupSubmit} setTrigger={() => {this.setState({popupSubmit: false});window.location.reload();}}><h3 style={{color: "white"}}>Post submitted</h3></Popup>
 
                 </form>
             </div>
