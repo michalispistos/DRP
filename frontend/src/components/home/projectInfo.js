@@ -51,7 +51,7 @@ class ProjectInfo extends React.Component {
                 <h3>Leader Email:</h3>
                 <p className="boarder">{this.state.project.email}</p>
                 <h3>Members:</h3>
-                <ul className="boarder" style={{marginLeft: "1%"}}>{this.state.project.members.map(member => <a href={member.link}><li style={{marginLeft: "1%"}}>{member.name}</li></a>)}</ul>
+                <ul className="boarder" style={{marginLeft: "1%"}}>{this.state.project.members.map(member => <a href={member.link} target="_blank" rel="noopener noreferrer"><li style={{marginLeft: "1%"}}>{member.name}</li></a>)}</ul>
                 <h3>Tags:</h3>
                 <ul className="boarder" style={{marginLeft: "1%"}}>{this.state.project.tags.map(tag => <li style={{marginLeft: "1%"}}>{tag}</li>)}</ul>
                 <h3>Duration:</h3>

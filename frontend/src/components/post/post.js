@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import Popup from './popup';
 import TextPopup from './textPopup'
+import { Multiselect } from 'multiselect-react-dropdown';
 
 class Post extends Component {
     constructor(props){
         super(props);
+        this.multiselectRef = React.createRef();
         this.state = {  
             projectTitle: "",
             projectDescription: "",
@@ -24,6 +26,32 @@ class Post extends Component {
             amountToBePaid: "0",
             imageSrc: "default.jpg",
             image: undefined,
+
+            
+            tag_options: [
+                { key: "Healthcare", cat: "Topic" },
+                { key: "Finance", cat: "Topic" },
+                { key: "Marketing", cat: "Topic" },
+                { key: "Climate Change", cat: "Topic" },
+                { key: "Graphic Design", cat: "Topic" },
+                { key: "Film", cat: "Topic" },
+                { key: "Sports", cat: "Topic" },
+                { key: "Programming", cat: "Topic" },
+                { key: "Music", cat: "Topic" },
+    
+                { key: "Biology", cat: "Subject" },
+                { key: "Chemistry", cat: "Subject" },
+                { key: "Physics", cat: "Subject" },
+                { key: "Maths", cat: "Subject" },
+                { key: "Economics", cat: "Subject" },
+                { key: "Geography", cat: "Subject" },
+                { key: "History", cat: "Subject" },
+                { key: "Law", cat: "Subject" },
+                { key: "Computer Science", cat: "Subject" },
+                
+                { key: "Startup", cat: "Project Type" },
+                { key: "Side Project", cat: "Project Type"},
+                { key: "Academic Project", cat: "Project Type"},],
         }
     }
 
@@ -48,6 +76,10 @@ class Post extends Component {
         if(this.state.image !== undefined){
             let imageSrc = `${new Date().getTime()}_${this.state.image.name}`
             await this.setState({imageSrc: imageSrc});
+        }
+
+        if (this.multiselectRef.current.getSelectedItems().length !== 0) {
+            await this.setState({tags: this.state.tags.concat(this.multiselectRef.current.getSelectedItems().map(t => t.key))})
         }
 
         const projectData = { 
@@ -178,6 +210,15 @@ class Post extends Component {
                     onChange={(e) => {this.setState({lookingFor: e.target.value})}} value={this.state.lookingFor} required/><br/>
 
                     <label htmlFor="tags">Tags (optional):</label><br/>
+                    Tags for filtering
+                    <Multiselect 
+                            options={this.state.tag_options}
+                            showCheckbox = {true}
+                            groupBy = "cat"
+                            displayValue = "key"
+                            ref={this.multiselectRef}
+                    />  
+
                     <ul style={{marginLeft: "25px"}}>
                         {this.state.tags.map(tag => {
                                 return (<div style={{display: "flex", width: "100%", justifyContent: "start"}}><li style={{width: "10em"}}>{tag}</li>
@@ -189,7 +230,8 @@ class Post extends Component {
                     </ul>
                     
                     <input type="text" id="tags" name="tags" maxLength="20" value={this.state.newTag} onChange={(event) => {this.setState({newTag: event.target.value})}} style={{width: "10em"}}/>
-                    <Button variant="primary" onClick={(e)=>this.handleAddTag(e)} style={{marginLeft: "1em"}}>Add tag</Button><br/>
+                    <Button variant="primary" onClick={(e)=>this.handleAddTag(e)} style={{marginLeft: "1em"}}>Add custom tag</Button><br/>
+
 
                     <label htmlFor="duration">Duration:</label><br/>
                     <input type="text" id="duration" name="duration" maxLength="20"

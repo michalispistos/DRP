@@ -26,8 +26,9 @@ class ProjectTile extends React.Component {
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',
               border: "2px solid gray",
-              height: "260px",
-              minWidth: "350px",
+              height: "100%",
+              minWidth: "300px",
+              maxWidth: "400px",
               margin: "auto",
             },
         }

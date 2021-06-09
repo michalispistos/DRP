@@ -11,6 +11,7 @@ class ProjectTileGrid extends React.Component {
             remote: false,
             filterByTags: false,
             tags: [],
+            search_queries: [],
         }
         
         if(this.state.projects.length === 0){
@@ -52,6 +53,15 @@ class ProjectTileGrid extends React.Component {
         }
     
       };
+    
+    getTags = () => {
+        //let tags= Array.from(new Set([].concat(this.state.projects.map(p => p.tag.map(t => t.toLowerCase())))));
+        return [];
+    }
+
+    searchForQuery = (query) => {
+        this.setState({search_queries : query.toLowerCase().split(/[ ,]+/)});
+    }
       
     render() {
         if (this.state.projects.length === 0) {
@@ -62,7 +72,13 @@ class ProjectTileGrid extends React.Component {
                 {this.state.projects
                 .filter(project => this.state.paid ? project.paid : true)
                 .filter(project => this.state.remote ? project.location === "Remote" : true)
-                .filter(project => this.state.filterByTags ? this.state.tags.some(tag => project.tags.map(t=>t.toLowerCase()).includes(tag.key.toLowerCase())) : true)
+                .filter(project => this.state.filterByTags ? 
+                                        this.state.tags.some(tag => project.tags.map(t=>t.toLowerCase()).includes(tag.key.toLowerCase())) : 
+                                        true)
+                .filter(project => this.state.search_queries ? 
+                                        (this.state.search_queries.every(query => project.name.toLowerCase().includes(query)) 
+                                        || project.tags.some(tag => this.state.search_queries.some(query => tag.toLowerCase().includes(query)))) : 
+                                        true)
                 .map(project => this.renderTile(project.id, project.name, project.image_filepath ,project.looking_for, project.tags))}
             </div>
         );
