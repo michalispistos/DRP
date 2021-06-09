@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
-import  ReactDOM  from 'react-dom';
+import React from 'react';
 import { render, cleanup, screen } from '@testing-library/react';
 import "@testing-library/jest-dom/extend-expect";
-import Navbar from "../Navbar"
-import renderer from "react-test-renderer";
+import NavBar from "../NavBar"
 
 afterEach(cleanup); 
 
@@ -17,7 +15,7 @@ const links = [
 it("sends all links to correct page", () => {
     test.each(links, () => {
         (link) => 
-        render(<Navbar />);
+        render(<NavBar />);
         const linkDom = screen.getByText(link.text); 
         expect(linkDom).toHaveAttribute("href", link.location);
     });
