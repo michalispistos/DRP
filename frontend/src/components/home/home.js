@@ -43,7 +43,7 @@ class Home extends React.Component {
                     <input type="text" placeholder="Search here..." style={{margin:"0 0em 0 1em", height:"100%", width: "80%"}} onChange={(e) => {this.projectTileGridElem.current.searchForQuery(e.target.value);}}></input></div>
                     <div style={{display: "block", marginBottom:"5%"}}>
                         <div id="sortContainer">
-                    <Select defaultOption={this.state.sortOptions[0]} options={this.state.sortOptions} onChange={() => {this.projectTileGridElem.current.handleSort()}}>   
+                    <Select defaultValue={this.state.sortOptions[0]} options={this.state.sortOptions} onChange={(e) => {this.projectTileGridElem.current.handleSort(e.value)}}>   
                     </Select>
                     </div>
                     </div>

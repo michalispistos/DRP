@@ -12,6 +12,7 @@ class ProjectTileGrid extends React.Component {
             filterByTags: false,
             tags: [],
             search_queries: [],
+            lastSortOption: "0",
         }
         
         if(this.state.projects.length === 0){
@@ -37,7 +38,7 @@ class ProjectTileGrid extends React.Component {
     handleTags = (selectedTags) => {
         this.setState({filterByTags: selectedTags.length, tags: selectedTags});
     }
-    
+
     getProjects = async () => {    
         try {
             const response = await fetch(process.env.REACT_APP_SERVER + "/projects");
@@ -54,8 +55,12 @@ class ProjectTileGrid extends React.Component {
         this.setState({search_queries : query.toLowerCase().split(/[ ,]+/).filter(Boolean)});
     }
 
-    handleSort = () => {
-        this.setState({projects: this.state.projects.reverse()})
+    handleSort = (sortOption) => {
+        if (sortOption !== this.state.lastSortOption) {
+            this.setState({projects: this.state.projects.reverse()})
+        }
+        this.setState({lastSortOption: sortOption});
+        
     }
       
     render() {
