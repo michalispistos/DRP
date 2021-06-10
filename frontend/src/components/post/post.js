@@ -131,7 +131,8 @@ class Post extends Component {
 
     handleAddMember = (e) =>{
         e.preventDefault();
-        if(this.state.newMember !== "" && !this.state.members.includes({name:this.state.newMember})){
+        const names = this.state.members.map(m => m.name);
+        if(this.state.newMember !== "" && !names.includes(this.state.newMember)){
             const members = [...this.state.members,{name:this.state.newMember}];
             this.setState({members: members});
         }
