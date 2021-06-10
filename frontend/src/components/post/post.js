@@ -131,7 +131,7 @@ class Post extends Component {
 
     handleAddMember = (e) =>{
         e.preventDefault();
-        if(this.state.newMember !== ""){
+        if(this.state.newMember !== "" && !this.state.members.includes(this.state.newMember)){
             const members = [...this.state.members,{name:this.state.newMember}];
             this.setState({members: members, newMember: ""});
         }
@@ -152,7 +152,7 @@ class Post extends Component {
 
     handleAddTag = (e) =>{
         e.preventDefault();
-        if(this.state.newTag !== ""){
+        if(this.state.newTag !== "" && !this.state.tags.includes(this.state.newTag)){
             const tags = [...this.state.tags, this.state.newTag];
             this.setState({tags: tags, newTag: ""});
         }
