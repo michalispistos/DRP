@@ -11,7 +11,7 @@ class App extends React.Component {
     render () {
         return (
             <Router>
-             <NavBar />
+            <NavBar/>
              <Switch>
                 <Route path='/' exact component={ Home } />
                 <Route path='/post' component={ Post }></Route>

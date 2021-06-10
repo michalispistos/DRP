@@ -6,18 +6,63 @@
     white-space: normal;
 }
 
+.homePageFilterProjectGrid {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-gap: 4em;
+  clear: both;
+}
+
+.filters {
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 1%;
+  display: inline-block;
+}
+
+#filterBtn {
+  margin-top: 2%;
+  display: none;
+  margin-bottom: 2%;
+  clear: both;
+}
+
+#sortContainer {
+  float: right;
+  width: 20%;
+}
+
+@media only screen and (max-width: 768px) {
+  .homePageFilterProjectGrid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #filterBtn {
+    display: block;
+  }
+
+  #sortContainer {
+    width: 100%;
+  }
+
+  .search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 .projectTileGrid {
-  margin-top:50px;
-  margin-left: 5%;
-  margin-right:5%;
   padding: 10px;
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
   grid-auto-rows: minmax(200px, 1fr);
   border: 2px solid black;
+  border-radius: 5px;
 }
-
 
 .postForm {
   margin-top: 40px;

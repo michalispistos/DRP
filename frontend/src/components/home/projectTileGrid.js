@@ -35,11 +35,7 @@ class ProjectTileGrid extends React.Component {
     }
 
     handleTags = (selectedTags) => {
-        this.setState({filterByTags: true, tags: selectedTags});
-    }
-
-    resetTagFilters = () => {
-        this.setState({filterByTags: false});
+        this.setState({filterByTags: selectedTags.length, tags: selectedTags});
     }
     
     getProjects = async () => {    

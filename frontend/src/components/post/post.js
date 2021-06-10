@@ -4,6 +4,8 @@ import Popup from './popup';
 import TextPopup from './textPopup'
 import { Multiselect } from 'multiselect-react-dropdown';
 
+//import CreatableSelect from 'react-select/creatable';
+
 class Post extends Component {
     constructor(props){
         super(props);
@@ -26,10 +28,10 @@ class Post extends Component {
             amountToBePaid: "0",
             imageSrc: "default.jpg",
             image: undefined,
-
             
             tag_options: [
                 { key: "Healthcare", cat: "Topic" },
+                { key: "Covid-19", cat: "Topic" },
                 { key: "Finance", cat: "Topic" },
                 { key: "Marketing", cat: "Topic" },
                 { key: "Climate Change", cat: "Topic" },
@@ -38,7 +40,8 @@ class Post extends Component {
                 { key: "Sports", cat: "Topic" },
                 { key: "Programming", cat: "Topic" },
                 { key: "Music", cat: "Topic" },
-    
+                { key: "Artificial Intelligence", cat: "Topic" },
+
                 { key: "Biology", cat: "Subject" },
                 { key: "Chemistry", cat: "Subject" },
                 { key: "Physics", cat: "Subject" },
@@ -51,7 +54,34 @@ class Post extends Component {
                 
                 { key: "Startup", cat: "Project Type" },
                 { key: "Side Project", cat: "Project Type"},
-                { key: "Academic Project", cat: "Project Type"},],
+                { key: "Academic Project", cat: "Project Type"},
+            ],
+
+            /*multi_options: [
+                { value: "Healthcare", label: "Healthcare" },
+                { value: "Covid-19", label: "Covid-19" },
+                { value: "Finance", label: "Finance" },
+                { value: "Marketing", label: "Marketing" },
+                { value: "Climate Change", label: "Climate Change" },
+                { value: "Graphic Design", label: "Graphic Design" },
+                { value: "Film", label: "Film" },
+                { value: "Sports", label: "Sports" },
+                { value: "Programming", label: "Programming" },
+                { value: "Music", label: "Music" },
+                { value: "Artificial Intelligence", label: "Artificial Intelligence" },
+                { value: "Biology", label: "Biology" },
+                { value: "Chemistry", label: "Chemistry" },
+                { value: "Physics", label: "Physics" },
+                { value: "Maths", label: "Maths" },
+                { value: "Economics", label: "Economics" },
+                { value: "Geography", label: "Geography" },
+                { value: "History", label: "History" },
+                { value: "Law", label: "Law" },
+                { value: "Computer Science", label: "Computer Science" },
+                { value: "Startup", label: "Startup" },
+                { value: "Side Project", label: "Side Project"},
+                { value: "Academic Project", label: "Academic Project"},
+            ],*/
         }
     }
 
@@ -161,6 +191,20 @@ class Post extends Component {
         this.setState({newTag: ""});
     }
     
+    /*handleChange = (newValue, actionMeta) => {
+        console.group('Value Changed');
+        console.log(newValue);
+        console.log(`action: ${actionMeta.action}`);
+        console.groupEnd();
+        if (actionMeta.action == "select-option") {
+           // this.setState({tags: [...this.state.tags, newValue]});
+        } else if (actionMeta.action == "remove-value") {
+
+        } else if (actionMeta.action == "create-option")
+        {
+
+        }    
+    };*/
 
     render() { 
         return (  
@@ -221,7 +265,11 @@ class Post extends Component {
                             displayValue = "key"
                             ref={this.multiselectRef}
                     />  
-
+                    {/*<CreatableSelect
+                        isMulti
+                        onChange={this.handleChange}
+                        options={this.state.multi_options}
+                    />*/}
                     <ul style={{marginLeft: "25px"}}>
                         {this.state.tags.map(tag => {
                                 return (<div style={{display: "flex", width: "100%", justifyContent: "start"}}><li style={{width: "10em"}}>{tag}</li>
