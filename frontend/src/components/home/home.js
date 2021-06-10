@@ -11,6 +11,7 @@ class Home extends React.Component {
         this.state = {
             tag_options: [
             { key: "Healthcare", cat: "Topic" },
+            { key: "Covid-19", cat: "Topic" },
             { key: "Finance", cat: "Topic" },
             { key: "Marketing", cat: "Topic" },
             { key: "Climate Change", cat: "Topic" },
@@ -19,6 +20,7 @@ class Home extends React.Component {
             { key: "Sports", cat: "Topic" },
             { key: "Programming", cat: "Topic" },
             { key: "Music", cat: "Topic" },
+            { key: "Artificial Intelligence", cat: "Topic" },
 
             { key: "Biology", cat: "Subject" },
             { key: "Chemistry", cat: "Subject" },
@@ -72,7 +74,11 @@ class Home extends React.Component {
                 </div>
                 <form onSubmit={(e) => {e.preventDefault();}}  className="search" style={{float:"right", display:"inline-block", marginTop:"5%", width:"40%"}}>
                     <label>Search: </label>
-                    <input type="text" placeholder="Search here..." style={{width:"80%", marginLeft:"10px", height:"100%"}} onChange={(e) => {e.preventDefault(); this.projectTileGridElem.current.searchForQuery(e.target.value);}}></input>
+                    <input type="text" placeholder="Search here..." style={{width:"80%", marginLeft:"10px", height:"100%"}} onChange={(e) => {this.projectTileGridElem.current.searchForQuery(e.target.value);}}></input>
+                    <select onChange={() => {this.projectTileGridElem.current.handleSort()}}>
+                            <option value="0">Sort By Oldest</option>
+                            <option value="1">Sort By Latest</option>
+                    </select>
                 </form>
 
                 <ProjectTileGrid ref={this.projectTileGridElem} projects={[]}/> 

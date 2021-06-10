@@ -53,14 +53,13 @@ class ProjectTileGrid extends React.Component {
         }
     
       };
-    
-    getTags = () => {
-        //let tags= Array.from(new Set([].concat(this.state.projects.map(p => p.tag.map(t => t.toLowerCase())))));
-        return [];
-    }
 
     searchForQuery = (query) => {
-        this.setState({search_queries : query.toLowerCase().split(/[ ,]+/)});
+        this.setState({search_queries : query.toLowerCase().split(/[ ,]+/).filter(Boolean)});
+    }
+
+    handleSort = () => {
+        this.setState({projects: this.state.projects.reverse()})
     }
       
     render() {
@@ -76,8 +75,12 @@ class ProjectTileGrid extends React.Component {
                                         this.state.tags.some(tag => project.tags.map(t=>t.toLowerCase()).includes(tag.key.toLowerCase())) : 
                                         true)
                 .filter(project => this.state.search_queries ? 
-                                        (this.state.search_queries.every(query => project.name.toLowerCase().includes(query)) 
-                                        || project.tags.some(tag => this.state.search_queries.some(query => tag.toLowerCase().includes(query)))) : 
+                                        (this.state.search_queries.every(
+                                            query => project.name.toLowerCase().includes(query) 
+                                            || project.description.toLowerCase().includes(query) 
+                                            || project.looking_for.toLowerCase().includes(query)
+                                            || project.tags.map( t => t.toLowerCase()).includes(query)) 
+                                        ) : 
                                         true)
                 .map(project => this.renderTile(project.id, project.name, project.image_filepath ,project.looking_for, project.tags))}
             </div>
