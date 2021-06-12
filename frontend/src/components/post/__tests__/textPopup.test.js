@@ -16,9 +16,11 @@ it("renders without crashing", () => {
     ReactDOM.render(<TextPopup/>, div);
 })
 
+/*
 it("renders popup correctly", () => {
     let wrapper = shallow(<TextPopup trigger={true}><h3>Children</h3></TextPopup>);
     expect(wrapper.containsMatchingElement(<div><input/><Button type="button">Add</Button><br/><Button type="button" variant="danger">Close</Button><h3>Children</h3></div>)).toEqual(true);
     wrapper = shallow(<TextPopup trigger={false}><h3>Children</h3></TextPopup>);
     expect(wrapper.containsMatchingElement(<div><input/><Button type="button">Add</Button><br/><Button type="button" variant="danger">Close</Button><h3>Children</h3></div>)).toEqual(false);
 })
+*/

@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import Button from 'react-bootstrap/Button';
 import Popup from './popup';
 import TextPopup from './textPopup'
-import { Multiselect } from 'multiselect-react-dropdown';
 
-//import CreatableSelect from 'react-select/creatable';
+import CreatableSelect from 'react-select/creatable';
 
 class Post extends Component {
     constructor(props){
@@ -16,10 +14,9 @@ class Post extends Component {
             leaderName: "",
             leaderEmail: "",
             newMember: "",
+            tags: [],
             members: [],
             lookingFor: "",
-            tags: [],
-            newTag: "",
             duration: "Indefinite",
             paid: false,
             popupSubmit: false,
@@ -29,35 +26,8 @@ class Post extends Component {
             imageSrc: "default.jpg",
             image: undefined,
             
-            tag_options: [
-                { key: "Healthcare", cat: "Topic" },
-                { key: "Covid-19", cat: "Topic" },
-                { key: "Finance", cat: "Topic" },
-                { key: "Marketing", cat: "Topic" },
-                { key: "Climate Change", cat: "Topic" },
-                { key: "Graphic Design", cat: "Topic" },
-                { key: "Film", cat: "Topic" },
-                { key: "Sports", cat: "Topic" },
-                { key: "Programming", cat: "Topic" },
-                { key: "Music", cat: "Topic" },
-                { key: "Artificial Intelligence", cat: "Topic" },
 
-                { key: "Biology", cat: "Subject" },
-                { key: "Chemistry", cat: "Subject" },
-                { key: "Physics", cat: "Subject" },
-                { key: "Maths", cat: "Subject" },
-                { key: "Economics", cat: "Subject" },
-                { key: "Geography", cat: "Subject" },
-                { key: "History", cat: "Subject" },
-                { key: "Law", cat: "Subject" },
-                { key: "Computer Science", cat: "Subject" },
-                
-                { key: "Startup", cat: "Project Type" },
-                { key: "Side Project", cat: "Project Type"},
-                { key: "Academic Project", cat: "Project Type"},
-            ],
-
-            /*multi_options: [
+            multi_options: [
                 { value: "Healthcare", label: "Healthcare" },
                 { value: "Covid-19", label: "Covid-19" },
                 { value: "Finance", label: "Finance" },
@@ -81,7 +51,7 @@ class Post extends Component {
                 { value: "Startup", label: "Startup" },
                 { value: "Side Project", label: "Side Project"},
                 { value: "Academic Project", label: "Academic Project"},
-            ],*/
+            ],
         }
     }
 
@@ -97,6 +67,8 @@ class Post extends Component {
     handleSubmit = async (e) => {
 
         e.preventDefault();
+        
+        await this.setState({tags: (this.refs.lol.state.value.map(t => t.value))});
 
         if(!this.validForm()) {
             alert("Complete missing information")
@@ -106,10 +78,6 @@ class Post extends Component {
         if(this.state.image !== undefined){
             let imageSrc = `${new Date().getTime()}_${this.state.image.name}`
             await this.setState({imageSrc: imageSrc});
-        }
-
-        if (this.multiselectRef.current.getSelectedItems().length !== 0) {
-            await this.setState({tags: this.state.tags.concat(this.multiselectRef.current.getSelectedItems().map(t => t.key))})
         }
 
         const projectData = { 
@@ -182,64 +150,42 @@ class Post extends Component {
         }
     }
 
-    handleAddTag = (e) =>{
-        e.preventDefault();
-        if(this.state.newTag !== "" && !this.state.tags.includes(this.state.newTag)){
-            const tags = [...this.state.tags, this.state.newTag];
-            this.setState({tags: tags});
-        }
-        this.setState({newTag: ""});
-    }
-    
-    /*handleChange = (newValue, actionMeta) => {
-        console.group('Value Changed');
-        console.log(newValue);
-        console.log(`action: ${actionMeta.action}`);
-        console.groupEnd();
-        if (actionMeta.action == "select-option") {
-           // this.setState({tags: [...this.state.tags, newValue]});
-        } else if (actionMeta.action == "remove-value") {
 
-        } else if (actionMeta.action == "create-option")
-        {
-
-        }    
-    };*/
 
     render() { 
         return (  
             <div data-testid='post'>
-                <h1 style={{textAlign: "center", marginTop: "20px", width: "100%"}}>Post a Project</h1>
+                <h1 style={{textAlign: "center", marginTop: "20px", width: "100%", color:"#50e4c9"}}>Post a Project</h1>
                 <form className = 'postForm'>
 
                     <label htmlFor="title" >Project title:</label><br/>
-                    <input type="text" id="title" name="title" margin="normal" maxLength="20" style={{width: "20em"}}
+                    <input type="text" id="title" name="title" margin="normal" maxLength="20" style={{width: "20em", borderRadius: "5px"}}
                          onChange={(e) => {this.setState({projectTitle: e.target.value})}} value={this.state.projectTitle} required/><br/>
 
                     Choose Image:<br/>
                     <input type="file" id="project_picture" encType="multipart/form-data" name="project_picture" 
-                    onChange={(e) => {this.setState({image: e.target.files[0]})}} /><br/>
+                    onChange={(e) => {this.setState({image: e.target.files[0]})}} style={{borderRadius: "5px"}} /><br/>
 
                     <label htmlFor="description">Project description:</label><br/>
-                    <textarea id="description" name="description" maxLength="255" style={{width: "80%", height: "7em"}}
+                    <textarea id="description" name="description" maxLength="255" style={{width: "50%", height: "5em",  borderRadius: "5px"}}
                          onChange={(e) => {this.setState({projectDescription: e.target.value})}} value={this.state.projectDescription} required /><br/>
 
                     <label htmlFor="leader">Leader name:</label><br/>
-                    <input type="text" id="leader" name="leader" maxLength="255" style={{width: "15em"}}
+                    <input type="text" id="leader" name="leader" maxLength="255" style={{width: "15em", borderRadius: "5px"}}
                         onChange={(e) => {this.setState({leaderName: e.target.value})}} value={this.state.leaderName} required /><br/>
 
                     <label htmlFor="leaderEmail">Leader email:</label><br/>
-                    <input type="text" id="leaderEmail" name="leaderEmail" maxLength="255" style={{width: "15em"}}
+                    <input type="text" id="leaderEmail" name="leaderEmail" maxLength="255" style={{width: "15em", borderRadius: "5px"}}
                         onChange={(e) => {this.setState({leaderEmail: e.target.value})}} value={this.state.leaderEmail} required/><br/>
 
                     <label htmlFor="members">Members (optional):</label><br/>
                     <ul style={{marginLeft: "25px"}}>
                         {this.state.members.map(member => {
-                               return (<div style={{display: "flex", width: "100%", justifyContent: "start"}}><li style={{width: "10em"}}>{member.name}{(member.link !== undefined) ? ("-" + member.link) : ""}</li>
-                                          <Button variant="danger" style={{marginLeft: "1em"}} type="button" onClick={() => {
+                               return (<div style={{display: "flex", width: "100%", justifyContent: "start"}}><li style={{width: "10em"}}>{member.name}{(member.link !== undefined) ? (" - " + member.link) : ""}</li>
+                                          <button className="remove-button" variant="danger" style={{marginLeft: "1em"}} type="button" onClick={() => {
                                               this.setState({members: this.state.members.filter(m => m.name !== member.name)})
-                                            }}>Remove</Button>
-                                            <Button type="button" onClick={() => {this.setState({popupLink: true})}}>Add link</Button> 
+                                            }}>Remove</button>
+                                            <button className="normal-button" type="button" onClick={() => {this.setState({popupLink: true})}} style={{marginLeft:"5px"}}>Add link</button> 
                                             <TextPopup trigger={this.state.popupLink} handler={(link)=>{
                                                                                                         if(link !== ""){
                                                                                                         const members = this.state.members.map(m=>{if(m===member){return {name:m.name,link:link};}else{return m;}});
@@ -249,54 +195,37 @@ class Post extends Component {
                                             </div>)
                             })}
                     </ul>
-                    <input value={this.state.newMember} maxLength="20" onChange={(event) => {this.setState({newMember: event.target.value});}} type="text" id="members" name="members" style={{width: "10em"}}/>
-                    <Button variant="primary" onClick={(e)=>this.handleAddMember(e)} style={{marginLeft: "1em"}}>Add member</Button><br/>
+                    <div style={{display:"flex"}}>
+                    <input value={this.state.newMember} maxLength="20" onChange={(event) => {this.setState({newMember: event.target.value});}} type="text" id="members" name="members" style={{width: "10em", borderRadius: "5px"}}/>
+                    <button className="normal-button" variant="primary" onClick={(e)=>this.handleAddMember(e)} style={{marginLeft: "1em"}}>ADD</button><br/>
+                    </div> 
 
                     <label htmlFor="looking_for">People we are looking for:</label><br/>
-                    <textarea type="text" id="looking_for" name="looking_for" maxLength="255" style={{width: "80%", height: "7em"}}
+                    <textarea type="text" id="looking_for" name="looking_for" maxLength="255" style={{width: "50%", height: "5em", borderRadius: "5px"}}
                     onChange={(e) => {this.setState({lookingFor: e.target.value})}} value={this.state.lookingFor} required/><br/>
 
                     <label htmlFor="tags">Tags (optional):</label><br/>
-                    Tags for filtering
-                    <Multiselect 
-                            options={this.state.tag_options}
-                            showCheckbox = {true}
-                            groupBy = "cat"
-                            displayValue = "key"
-                            ref={this.multiselectRef}
-                    />  
-                    {/*<CreatableSelect
+                    <CreatableSelect
                         isMulti
-                        onChange={this.handleChange}
+                        ref="lol"
                         options={this.state.multi_options}
-                    />*/}
-                    <ul style={{marginLeft: "25px"}}>
-                        {this.state.tags.map(tag => {
-                                return (<div style={{display: "flex", width: "100%", justifyContent: "start"}}><li style={{width: "10em"}}>{tag}</li>
-                                          <Button variant="danger" style={{marginLeft: "1em"}} type="button" onClick={() => {
-                                              this.setState({tags: this.state.tags.filter(t => t !== tag)})
-                                            }}>Remove</Button>
-                                            </div>)
-                            })}
-                    </ul>
-                    
-                    <input type="text" id="tags" name="tags" maxLength="20" value={this.state.newTag} onChange={(event) => {this.setState({newTag: event.target.value})}} style={{width: "10em"}}/>
-                    <Button variant="primary" onClick={(e)=>this.handleAddTag(e)} style={{marginLeft: "1em"}}>Add custom tag</Button><br/>
+                        className="tagDropdown"
+                    />
 
 
                     <label htmlFor="duration">Duration:</label><br/>
                     <input type="text" id="duration" name="duration" maxLength="20"
-                    onChange={(e) => {this.setState({duration: e.target.value})}} value={this.state.duration}/><br/>
+                    onChange={(e) => {this.setState({duration: e.target.value})}} value={this.state.duration} style={{ borderRadius: "5px"}}/><br/>
 
                     <label htmlFor="location">Location:</label><br/>
-                    <input type="text" id="location" name="location" maxLength="20"
+                    <input type="text" id="location" name="location" maxLength="20" style={{ borderRadius: "5px"}}
                     onChange={(e) => {this.setState({location: e.target.value})}} value={this.state.location}/><br/>
                     
                     <label htmlFor="paid"/>Paid<input type="checkbox" id="paid" name="paid" style={{marginLeft: "2em"}}
-                     onClick={this.handleCheckPaidCheckBox} defaultChecked={false}/><br/>Amount to be paid:<input type="text" disabled={true} id="amountToBePaid" name="amountToBePaid" maxLength="20" value={this.state.amountToBePaid} onChange={(event) => {this.setState({amountToBePaid: event.target.value})}} style={{width: "10em"}}/>
+                     onClick={this.handleCheckPaidCheckBox} defaultChecked={false}/><br/>Amount to be paid : <input type="text" disabled={true}  id="amountToBePaid" name="amountToBePaid" maxLength="20" value={this.state.amountToBePaid} onChange={(event) => {this.setState({amountToBePaid: event.target.value})}} style={{width: "10em", borderRadius: "5px"}}/>
 
 
-                    <Button variant="success" type="submit" style={{marginLeft: "90%", width:"6%"}} onClick={(e) => this.handleSubmit(e)}>Post</Button>
+                    <button className="normal-button" variant="success" type="submit" style={{marginLeft: "90%", marginTop:"-2.5%"}} onClick={(e) => this.handleSubmit(e)}>POST</button>
 
                     <Popup trigger={this.state.popupSubmit} setTrigger={() => {this.setState({popupSubmit: false});window.location.reload();}}><h3 style={{color: "white"}}>Post submitted</h3></Popup>
 

@@ -25,18 +25,20 @@ class ProjectTile extends React.Component {
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',
+              borderRadius: "30px",
               border: "2px solid gray",
               height: "100%",
               minWidth: "300px",
               maxWidth: "400px",
-              margin: "auto",
+              display: "flex",
+              alignItems: "center",
             },
         }
 
         return (
             <Link to={`/projectInfo/${this.state.id}`} style={{ textDecoration: 'none', color: 'black' }}>
             <div data-testid='projectTile' className="projectTile" style={styles.projectTile}>
-                <div className="projectInfo" style={styles.projectInfo}>
+                <div className="projectSummary">
                     <h3 className="projectTileTitle">{this.state.name}</h3>
                     <br></br>
                     <h4>Looking for:</h4><p className="projectTileLookingFor"> {this.state.lookingFor}</p>

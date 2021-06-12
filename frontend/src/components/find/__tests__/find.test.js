@@ -4,7 +4,7 @@ import { render, cleanup } from '@testing-library/react';
 import "@testing-library/jest-dom/extend-expect";
 import ProjectTileGrid from "../projectTileGrid";
 import Filters from "../filters";
-import Home from "../home"
+import Find from "../find"
 import Adapter from 'enzyme-adapter-react-16';
 import { shallow, configure } from 'enzyme';
 import Select from 'react-select';
@@ -16,16 +16,17 @@ afterEach(cleanup);
 
 it("renders without crashing", () => {
     const div = document.createElement("div");
-    ReactDOM.render(<Home/>, div);
+    ReactDOM.render(<Find/>, div);
 })
 
 it("renders home page correctly", () => {
-    const {getByTestId} = render(<Home/>);
+    const {getByTestId} = render(<Find/>);
     expect(getByTestId('home')).toHaveTextContent("All Projects");
-    expect(getByTestId('home')).toHaveTextContent("Filters:");
-    const wrapper = shallow(<Home/>);
+    const wrapper = shallow(<Find/>);
     expect(wrapper.containsMatchingElement(<Filters/>)).toEqual(true);
     expect(wrapper.containsMatchingElement(<ProjectTileGrid />)).toEqual(true);
-    expect(wrapper.containsMatchingElement(<Select />)).toEqual(true);
+
+    /* expect(wrapper.containsMatchingElement(<Select />)).toEqual(true); */
+    
 })
 

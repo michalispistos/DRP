@@ -39,7 +39,8 @@ class ProjectInfo extends React.Component {
             return <></>;
         }
         return (
-            <div  data-testid='projectInfo' className="projectInfo">
+            <div  data-testid='projectInfo' className="projectInfo" style={{backgroundImage:`url(${this.state.image})`, overflow: "hidden",
+      }}>
                 <h1 style={{textAlign: "center", marginTop: "20px", width: "100%"}}> {this.state.project.name} </h1>
                 <img src={this.state.image} style={{display:"block", float: "right", width: "40%", height: "20%", marginTop:"5%"}} alt="project preview"></img>
                 <h3>Description: </h3>
