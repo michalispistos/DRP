@@ -104,7 +104,7 @@ export default class Filters extends React.Component {
                     defaultValue={this.state.sortOptions[0]}
                     options={this.state.sortOptions}
                     onChange={(e) => {
-                      this.projectTileGridElem.current.handleSort(e.value);
+                      this.props.getProjectTileGridRef().current.handleSort(e.value);
                     }}
                   ></Select>
               </div>

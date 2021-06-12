@@ -1,12 +1,8 @@
-.home-container {
-    margin: 5% auto;
-    width: 80%;
-}
-
 .page-title {
-    color: #50E4C9;
+    color: black;
     margin-right: 1em;
-    font-size: 1.8em;
+    font-size: 3em;
+    font-family: 'Staatliches', cursive;
 }
 
 .header-container {

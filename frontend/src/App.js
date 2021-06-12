@@ -12,6 +12,7 @@ class App extends React.Component {
         return (
             <Router className="app">
             <NavBar />
+            <div className="content">
              <Switch>
                 <Route path='/' exact component={ Home } />
                 <Route path='/find' exact component={ Find } />
@@ -20,6 +21,7 @@ class App extends React.Component {
                 <Route path='/404' component={ ErrorPage }></Route>
                 <Redirect to='/404'></Redirect>
              </Switch>
+             </div>
             </Router>
         );
     };

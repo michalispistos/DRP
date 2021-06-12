@@ -155,7 +155,7 @@ class Post extends Component {
     render() { 
         return (  
             <div data-testid='post'>
-                <h1 style={{textAlign: "center", marginTop: "20px", width: "100%", color:"#50e4c9"}}>Post a Project</h1>
+                <h1 style={{textAlign: "center", marginTop: "20px", width: "100%", color:"black"}}>Post a Project</h1>
                 <form className = 'postForm'>
 
                     <label htmlFor="title" >Project title:</label><br/>

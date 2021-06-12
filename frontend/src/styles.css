@@ -12,8 +12,8 @@
 }
 
 body {
-  background: #3f3f3f;
 }
+
 
 .topbar {
   display: flex;
@@ -27,26 +27,26 @@ body {
 
 .navigation li {
   display: inline-block;
-  color: white;
+  color: black;
   padding: 10px;
   font-size: 1.1em;
 }
 
 .navigation li:hover {
-  color: #50e4c9;
+  color: turquoise;
   text-decoration: underline;
   transition: 300ms;
 }
 
 .logo-first {
-  color: white;
+  color: black;
   font-family: "Medula One", cursive;
   font-size: 50px;
   cursor: pointer;
 }
 
 .logo-second {
-  color: #50e4c9;
+  color: turquoise;
   font-family: "Medula One", cursive;
   font-size: 50px;
   cursor: pointer;
@@ -61,11 +61,16 @@ body {
   text-decoration: none;
 }
 
+.content {
+  width: 75%;
+  margin: 5% auto;
+}
+
 .filters {
   margin-top: 3%;
   display: flex;
   align-items: center;
-  color: white;
+  color: black;
 }
 
 .multi-select {
@@ -94,7 +99,7 @@ body {
 }
 
 .searchBox#css_custom_input::placeholder {
-  color: white;
+  color: black;
   opacity: 1;
 }
 
@@ -128,12 +133,10 @@ body {
 }
 
 .postForm {
-  margin: 0 auto;
   padding: 15px;
-  width:80%;
   line-height: 2em;
   border: 2px solid 3f3f3f;
-  color: white;
+  color: black;
 }
 
 .boarder {
@@ -179,7 +182,7 @@ body {
 
 .normal-button {
   position: relative;
-  background-color: #50e4c9;
+  background-color: turquoise;
   border: none;
   color: black;
   border-radius: 20px;

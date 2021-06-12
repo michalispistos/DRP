@@ -33,7 +33,7 @@ class Find extends React.Component {
 
   render() {
     return (
-      <div data-testid="home" className="home-container">
+      <div data-testid="find" className="find-container">
         <div className="header-container">
           <h1 className="page-title">All Projects</h1>
           <form
