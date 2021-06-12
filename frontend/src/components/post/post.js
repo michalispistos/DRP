@@ -68,7 +68,9 @@ class Post extends Component {
 
         e.preventDefault();
         
-        await this.setState({tags: (this.refs.lol.state.value.map(t => t.value))});
+        if(this.refsmultiSelect !== undefined){
+            await this.setState({tags: (this.refs.multiSelect.state.value.map(t => t.value))});
+        }
 
         if(!this.validForm()) {
             alert("Complete missing information")
@@ -205,13 +207,13 @@ class Post extends Component {
                     onChange={(e) => {this.setState({lookingFor: e.target.value})}} value={this.state.lookingFor} required/><br/>
 
                     <label htmlFor="tags">Tags (optional):</label><br/>
+
                     <CreatableSelect
                         isMulti
-                        ref="lol"
+                        ref="multiSelect"
                         options={this.state.multi_options}
                         className="tagDropdown"
-                    />
-
+                    /> 
 
                     <label htmlFor="duration">Duration:</label><br/>
                     <input type="text" id="duration" name="duration" maxLength="20"

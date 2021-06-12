@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Button from 'react-bootstrap/Button';
 
 class  Popup extends Component {
 
@@ -14,7 +13,7 @@ class  Popup extends Component {
             <div data-testid='popup' className="popup">
                 <div className="popup-inner">
                     {this.props.children}
-                    <Button variant="danger" type="button" style={{display: "block", float:"right"}} onClick={() => this.props.setTrigger()}>Close</Button>
+                    <button className = "remove-button" variant="danger" type="button" style={{display: "block", float:"right"}} onClick={() => this.props.setTrigger()}>Close</button>
                 </div>
         </div>) : "";
     }

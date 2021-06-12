@@ -5,7 +5,6 @@ import "@testing-library/jest-dom/extend-expect";
 import Adapter from 'enzyme-adapter-react-16';
 import { shallow, configure } from 'enzyme';
 import Popup from "../popup"
-import Button from 'react-bootstrap/Button';
 
 configure({adapter: new Adapter()});
 
@@ -18,7 +17,7 @@ it("renders without crashing", () => {
 
 it("renders popup correctly", () => {
     let wrapper = shallow(<Popup trigger={true}><h3>Children</h3></Popup>);
-    expect(wrapper.containsMatchingElement(<div><h3>Children</h3><Button variant="danger" type="button">Close</Button></div>)).toEqual(true);
+    expect(wrapper.containsMatchingElement(<div><h3>Children</h3><button variant="danger" type="button">Close</button></div>)).toEqual(true);
     wrapper = shallow(<Popup trigger={false}><h3>Children</h3></Popup>);
-    expect(wrapper.containsMatchingElement(<div><h3>Children</h3><Button variant="danger" type="button">Close</Button></div>)).toEqual(false);
+    expect(wrapper.containsMatchingElement(<div><h3>Children</h3><button variant="danger" type="button">Close</button></div>)).toEqual(false);
 })

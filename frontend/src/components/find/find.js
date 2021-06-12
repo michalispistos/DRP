@@ -1,7 +1,6 @@
 import React from "react";
 import ProjectTileGrid from "./projectTileGrid";
 import Filters from "./filters";
-import Button from "react-bootstrap/Button";
 import "./find.css";
 
 class Find extends React.Component {
@@ -53,14 +52,14 @@ class Find extends React.Component {
         </div>
         <div>
           <form>
-            <Button
+            <button
               id="filterBtn"
               onClick={() =>
                 this.setState({ showFilters: !this.state.showFilters })
               }
             >
               {this.state.showFilters ? "Hide Filters" : "Show Filters"}
-            </Button>
+            </button>
           </form>
         </div>
         <br></br>
