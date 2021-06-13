@@ -2,12 +2,15 @@ const SequelizeMock = require('sequelize-mock');
 const makeServer = require('../server');
 const dbMock = new SequelizeMock();
 const Project = require('../db/projectModel')(SequelizeMock, dbMock);
+const User = require('../db/userModel')(SequelizeMock, dbMock);
 const supertest = require('supertest');
 
 const db = {
     Sequelize: SequelizeMock,
     sequelize: dbMock,
     Project,
+    User,
+    models: Project,
 }
 
 

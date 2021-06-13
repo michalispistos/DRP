@@ -28,6 +28,7 @@ authenticate(sequelize);
 const db = {
     Sequelize,
     sequelize,
+    models: sequelize,
     Project : makeProjectModel(Sequelize, sequelize),
     User: makeUserModel(Sequelize, sequelize),
 }
