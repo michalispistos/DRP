@@ -22,12 +22,14 @@ it("renders without crashing", () => {
 it("renders home page correctly", () => {
     const {getByTestId} = render(<Find/>);
 
-    /* expect(getByTestId('home')).toHaveTextContent("All Projects");
+    expect(getByTestId('find')).toHaveTextContent("All Projects");
     const wrapper = shallow(<Find/>);
     expect(wrapper.containsMatchingElement(<Filters/>)).toEqual(true);
     expect(wrapper.containsMatchingElement(<ProjectTileGrid />)).toEqual(true);
-
-    expect(wrapper.containsMatchingElement(<Select />)).toEqual(true); */
+    expect(wrapper.containsMatchingElement( <div>
+    <h1>All Projects</h1>
+    <form><input/></form>
+    </div>)).toEqual(true); 
     
 })
 

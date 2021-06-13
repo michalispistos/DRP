@@ -2,13 +2,9 @@ import React from 'react';
 import  ReactDOM  from 'react-dom';
 import { render, cleanup } from '@testing-library/react';
 import "@testing-library/jest-dom/extend-expect";
-import ProjectTileGrid from "../projectTileGrid";
 import Filters from "../filters";
 import Adapter from 'enzyme-adapter-react-16';
 import { shallow, configure } from 'enzyme';
-import Select from 'react-select';
-import Button from 'react-bootstrap/Button';
-import { Multiselect } from 'multiselect-react-dropdown';
 
 configure({adapter: new Adapter()});
 
