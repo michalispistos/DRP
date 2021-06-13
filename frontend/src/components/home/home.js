@@ -49,7 +49,7 @@ class Home extends Component {
               </div>
             </div>
 
-            <Link to="/find" className="home-button">Find</Link>
+            <div className="find-button"><Link to="/find" className="home-button">Find</Link></div>
            
           </div>
         </div>
