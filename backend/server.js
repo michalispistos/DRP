@@ -4,9 +4,15 @@ function makeServer(db, port) {
   const app = express();
   const makeProjectRouter = require("./routes/project-routes");
   const makeUploadRouter = require("./routes/upload-routes");
+  const makeUserRouter = require("./routes/user-routes");
+  const makeAuthRouter = require("./routes/auth-routes");
+
+
+  // MIDDLEWARE
 
   app.use("*", cors());
   app.use(express.json());
+  app.use(express.urlencoded({ extended:true }));
 
   async function initialize_database() {
     try {
@@ -108,7 +114,6 @@ function makeServer(db, port) {
   });
 
   //ROUTES
-  // GET ALL PROJECTS
 
   const projectRouter = makeProjectRouter(db);
   app.use("/projects", projectRouter);
@@ -116,19 +121,18 @@ function makeServer(db, port) {
   const uploadRouter = makeUploadRouter(db);
   app.use("/upload", uploadRouter);
 
-  app.get("/users", async (req, res) => {
-    try {
-      const users = await db.User.findAll({
-        attributes: { exclude: ["password"] },
-      });
-      res.json(users);
-    } catch (err) {
-      console.error(err.message);
-    }
-  });
+  const userRouter = makeUserRouter(db);
+  app.use("/users", userRouter); 
+
+
+  const authRouter = makeAuthRouter(db);
+  app.use("/auth", authRouter);
+
+  // START SERVER
 
   return app.listen(port, () => {
     console.log(`Server has started on port ${port}`);
   });
 }
+
 module.exports = makeServer;
