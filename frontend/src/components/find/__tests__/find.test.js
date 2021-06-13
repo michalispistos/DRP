@@ -7,8 +7,6 @@ import Filters from "../filters";
 import Find from "../find"
 import Adapter from 'enzyme-adapter-react-16';
 import { shallow, configure } from 'enzyme';
-import Select from 'react-select';
-import Button from 'react-bootstrap/Button';
 
 configure({adapter: new Adapter()});
 
@@ -19,7 +17,7 @@ it("renders without crashing", () => {
     ReactDOM.render(<Find/>, div);
 })
 
-it("renders home page correctly", () => {
+it("renders find page correctly", () => {
     const {getByTestId} = render(<Find/>);
 
     expect(getByTestId('find')).toHaveTextContent("All Projects");

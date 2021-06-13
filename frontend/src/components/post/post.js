@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Popup from './popup';
 import TextPopup from './textPopup'
-import "./post.css"
 
 import CreatableSelect from 'react-select/creatable';
 
@@ -157,35 +156,35 @@ class Post extends Component {
 
     render() { 
         return (  
-            <div data-testid='post'>
-                <h1 className="post-a-project" style={{textAlign: "center", marginTop: "20px", width: "100%", color:"black"}}>Post a Project</h1>
+            <div data-testid='post' className='post'>
+                <h1 className="post-a-project">Post a Project</h1>
                 <form className = 'postForm'>
 
                     <label htmlFor="title" >Project title:</label><br/>
-                    <input type="text" id="title" name="title" margin="normal" maxLength="20" style={{width: "20em", borderRadius: "5px"}}
+                    <input className="text-box-title" type="text" id="title" name="title" margin="normal" maxLength="20"
                          onChange={(e) => {this.setState({projectTitle: e.target.value})}} value={this.state.projectTitle} required/><br/>
 
                     Choose Image:<br/>
-                    <input type="file" id="project_picture" encType="multipart/form-data" name="project_picture" 
-                    onChange={(e) => {this.setState({image: e.target.files[0]})}} style={{borderRadius: "5px"}} /><br/>
+                    <input className="image" type="file" id="project_picture" encType="multipart/form-data" name="project_picture" 
+                    onChange={(e) => {this.setState({image: e.target.files[0]})}} /><br/>
 
                     <label htmlFor="description">Project description:</label><br/>
-                    <textarea id="description" name="description" maxLength="255" style={{width: "50%", height: "5em",  borderRadius: "5px"}}
+                    <textarea className="text-area" id="description" name="description" maxLength="255"
                          onChange={(e) => {this.setState({projectDescription: e.target.value})}} value={this.state.projectDescription} required /><br/>
 
                     <label htmlFor="leader">Leader name:</label><br/>
-                    <input type="text" id="leader" name="leader" maxLength="255" style={{width: "15em", borderRadius: "5px"}}
+                    <input className="text-box-leader" type="text" id="leader" name="leader" maxLength="255" 
                         onChange={(e) => {this.setState({leaderName: e.target.value})}} value={this.state.leaderName} required /><br/>
 
                     <label htmlFor="leaderEmail">Leader email:</label><br/>
-                    <input type="text" id="leaderEmail" name="leaderEmail" maxLength="255" style={{width: "15em", borderRadius: "5px"}}
+                    <input className="text-box-leader" type="text" id="leaderEmail" name="leaderEmail" maxLength="255" 
                         onChange={(e) => {this.setState({leaderEmail: e.target.value})}} value={this.state.leaderEmail} required/><br/>
 
                     <label htmlFor="members">Members (optional):</label><br/>
-                    <ul style={{marginLeft: "25px"}}>
+                    <ul className="member">
                         {this.state.members.map(member => {
-                               return (<div style={{display: "flex", width: "100%", justifyContent: "start"}}><li style={{width: "10em"}}>{member.name}{(member.link !== undefined) ? (" - " + member.link) : ""}</li>
-                                          <button className="remove-button" variant="danger" style={{marginLeft: "1em"}} type="button" onClick={() => {
+                               return (<div className="member-info"><li className="member-bullet-point">{member.name}{(member.link !== undefined) ? (" - " + member.link) : ""}</li>
+                                          <button className="remove-button" type="button" onClick={() => {
                                               this.setState({members: this.state.members.filter(m => m.name !== member.name)})
                                             }}>Remove</button>
                                             <button className="normal-button" type="button" onClick={() => {this.setState({popupLink: true})}} style={{marginLeft:"5px"}}>Add link</button> 
@@ -204,7 +203,7 @@ class Post extends Component {
                     </div> 
 
                     <label htmlFor="looking_for">People we are looking for:</label><br/>
-                    <textarea type="text" id="looking_for" name="looking_for" maxLength="255" style={{width: "50%", height: "5em", borderRadius: "5px"}}
+                    <textarea className="text-area" type="text" id="looking_for" name="looking_for" maxLength="255"
                     onChange={(e) => {this.setState({lookingFor: e.target.value})}} value={this.state.lookingFor} required/><br/>
 
                     <label htmlFor="tags">Tags (optional):</label><br/>
@@ -217,14 +216,14 @@ class Post extends Component {
                     /> 
 
                     <label htmlFor="duration">Duration:</label><br/>
-                    <input type="text" id="duration" name="duration" maxLength="20"
-                    onChange={(e) => {this.setState({duration: e.target.value})}} value={this.state.duration} style={{ borderRadius: "5px"}}/><br/>
+                    <input className="duration-location-text-box" type="text" id="duration" name="duration" maxLength="20"
+                    onChange={(e) => {this.setState({duration: e.target.value})}} value={this.state.duration} /><br/>
 
                     <label htmlFor="location">Location:</label><br/>
-                    <input type="text" id="location" name="location" maxLength="20" style={{ borderRadius: "5px"}}
+                    <input className="duration-location-text-box" type="text" id="location" name="location" maxLength="20"
                     onChange={(e) => {this.setState({location: e.target.value})}} value={this.state.location}/><br/>
                     
-                    <label htmlFor="paid"/>Paid<input type="checkbox" id="paid" name="paid" style={{marginLeft: "2em"}}
+                    <label htmlFor="paid"/>Paid<input className="amount-to-be-paid-checkbox" type="checkbox" id="paid" name="paid"
                      onClick={this.handleCheckPaidCheckBox} defaultChecked={false}/><br/>Amount to be paid : <input type="text" disabled={true}  id="amountToBePaid" name="amountToBePaid" maxLength="20" value={this.state.amountToBePaid} onChange={(event) => {this.setState({amountToBePaid: event.target.value})}} style={{width: "10em", borderRadius: "5px"}}/>
 
 

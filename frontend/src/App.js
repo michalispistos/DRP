@@ -5,7 +5,7 @@ import Post from './components/post/post';
 import ProjectInfo from './components/find/projectInfo';
 import ErrorPage from './components/error'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import NavBar from './components/common/Navbar/NavBar';
+import NavBar from './components/common/Navbar/navBar';
 
 class App extends React.Component {
     render () {

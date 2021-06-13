@@ -1,5 +1,6 @@
 import React from 'react';
 import ProjectTile from './projectTile';
+import './projectTileGrid.css'
 
 class ProjectTileGrid extends React.Component {
     

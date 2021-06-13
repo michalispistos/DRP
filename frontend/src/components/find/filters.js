@@ -1,6 +1,7 @@
 import React from "react";
 import { Multiselect } from "multiselect-react-dropdown";
 import Select from "react-select";
+import './filters.css'
 
 export default class Filters extends React.Component {
   constructor(props) {
@@ -41,7 +42,6 @@ export default class Filters extends React.Component {
     };
   }
 
-  //
   handleSelect = () => {
     if (true || this.multiselectRef.current.getSelectedItems().length !== 0) {
       this.props

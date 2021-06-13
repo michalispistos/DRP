@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './projectTile.css'
 
 class ProjectTile extends React.Component {
     constructor(props) {

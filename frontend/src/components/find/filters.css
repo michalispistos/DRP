@@ -1,0 +1,28 @@
+.filters {
+    margin-top: 3%;
+    display: flex;
+    align-items: center;
+    color: black;
+}
+
+.filter-label {
+    margin-left: 3%;
+}
+
+.filter-name{
+    margin-left: 5px;
+}
+
+
+.multi-select {
+    margin-left: 30%;
+    width: 30%;
+    color: black;
+}
+
+.sort-by-date {
+    margin-left: 2.5%;
+    width: 20%;
+    color: black;
+}
+  

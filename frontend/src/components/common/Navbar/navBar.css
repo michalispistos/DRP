@@ -1,0 +1,51 @@
+
+.topbar {
+    display: flex;
+    align-items: center;
+    padding: 1vw;
+}
+
+.logo-link {
+    display: flex;
+    text-decoration: none;
+}
+  
+.logo-link:active {
+    text-decoration: none;
+}
+
+  
+.logo-first {
+    color: black;
+    font-family: "Medula One", cursive;
+    font-size: 50px;
+    cursor: pointer;
+}
+  
+.logo-second {
+    color: turquoise;
+    font-family: "Medula One", cursive;
+    font-size: 50px;
+    cursor: pointer;
+}
+
+.navigation {
+    margin-left: auto;
+}
+  
+.navigation li {
+    display: inline-block;
+    color: black;
+    padding: 10px;
+    font-size: 1.1em;
+}
+  
+.navigation li:hover {
+    color: turquoise;
+    text-decoration: underline;
+    transition: 500ms;
+}
+
+  
+ 
+  
