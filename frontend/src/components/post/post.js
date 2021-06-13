@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Popup from './popup';
 import TextPopup from './textPopup'
+import './post.css'
 
 import CreatableSelect from 'react-select/creatable';
 
