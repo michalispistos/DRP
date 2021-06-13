@@ -12,6 +12,7 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
 });
 
 const makeProjectModel = require('./projectModel.js');
+const makeUserModel = require('./userModel.js');
 
 authenticate = async (sequelize) => {
     try {
@@ -28,6 +29,7 @@ const db = {
     Sequelize,
     sequelize,
     Project : makeProjectModel(Sequelize, sequelize),
+    User: makeUserModel(Sequelize, sequelize),
 }
 
 module.exports = db;

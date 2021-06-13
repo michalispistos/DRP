@@ -39,28 +39,35 @@ class ProjectInfo extends React.Component {
             return <></>;
         }
         return (
-            <div  data-testid='projectInfo' className="projectInfo" style={{backgroundImage:`url(${this.state.image})`, overflow: "hidden",
-      }}>
-                <h1 style={{textAlign: "center", marginTop: "20px", width: "100%"}}> {this.state.project.name} </h1>
-                <img src={this.state.image} style={{display:"block", float: "right", width: "40%", height: "20%", marginTop:"5%"}} alt="project preview"></img>
-                <h3>Description: </h3>
-                <p className="boarder">{this.state.project.description}</p>
-                <h3>Looking for: </h3>
-                <p className="boarder">{this.state.project.looking_for}</p>
-                <h3>Leader:</h3>
-                <p className="boarder">{this.state.project.leader}</p>
-                <h3>Leader Email:</h3>
-                <p className="boarder">{this.state.project.email}</p>
-                <h3>Members:</h3>
-                <ul className="boarder" style={{marginLeft: "1%"}}>{this.state.project.members.map(member => <a href={member.link} target="_blank" rel="noopener noreferrer"><li style={{marginLeft: "1%"}}>{member.name}</li></a>)}</ul>
-                <h3>Tags:</h3>
-                <ul className="boarder" style={{marginLeft: "1%"}}>{this.state.project.tags.map(tag => <li style={{marginLeft: "1%"}}>{tag}</li>)}</ul>
-                <h3>Duration:</h3>
-                <p className="boarder">{this.state.project.duration}</p>
-                <h3>Location:</h3>
-                <p className="boarder">{this.state.project.location}</p>
-                <h3>Amount To Be Paid: <p className="boarder">{this.state.project.amount_to_be_paid}</p></h3>
-            </div>
+            <div  data-testid='projectInfo' className="projectInfo" style={{overflow: "hidden"}}>
+                 <h1 className="title" > {this.state.project.name} </h1>
+                    <div className="details-container">
+                    <div className="details-text">
+                    <div className="box-left"/>
+                    <div className="box-right"/>
+                    <h3 style={{marginTop: "2em"}}>Description :</h3>
+                    <p>{this.state.project.description}</p>
+                    <h3 style={{marginTop: "2em"}}>We are looking for... :</h3>
+                    <p >{this.state.project.looking_for}</p>
+                    <h3 style={{marginTop:"2em"}}>Leader:</h3>
+                    <p>{this.state.project.leader}</p>
+                    <h3 style={{marginTop: "2em"}}>Leader Email:</h3>
+                    <p>{this.state.project.email}</p>
+                    <h3  style={{marginTop: "2em"}} >Members:</h3>
+                    <ul style={{marginLeft: "5%"}}>{this.state.project.members.map(member => <a href={member.link} target="_blank" rel="noopener noreferrer"><li style={{marginLeft: "1%"}}>{member.name}</li></a>)}</ul>
+                 
+                    <h3 style={{marginTop: "2em"}}>Tags:</h3>
+                    <ul className style={{marginLeft: "5%"}}>{this.state.project.tags.map(tag => <li style={{marginLeft: "1%"}}>{tag}</li>)}</ul>
+                    <h3 style={{marginTop: "2em"}}>Duration:</h3>
+                    <p className>{this.state.project.duration}</p>
+                    <h3 style={{marginTop: "2em"}}>Location:</h3>
+                    <p className>{this.state.project.location}</p>
+                    <h3 style={{marginTop: "2em"}}>Amount To Be Paid: </h3>
+                    <p>{this.state.project.amount_to_be_paid}</p>
+                    </div>
+                    <img className="detials-image" src={this.state.image} alt="project preview"></img>
+                  </div>  
+            </div>       
         );
     };
 }

@@ -49,12 +49,36 @@ class Home extends Component {
               </div>
             </div>
 
-            <div className="find-button"><Link to="/find" className="home-button">Find</Link></div>
+            <div className="find-button-container"><Link to="/find" className="find-button">Find</Link></div>
            
           </div>
         </div>
         <div className="home-third">
-            <h1>Share your project</h1>
+            <h1>Introduce your ideas to the <span className="highlighted">world</span>.</h1>
+            <div className="home-post-container">
+              <div class="home-post-text">
+                <h1>
+                  Post your project and relax as the applications come rolling in.
+                </h1>
+                <p>
+                  Simply post your project in 2 minutes. Choose from a variety of pre-existing tags, and if you don't like them, create your own tags!
+                </p>
+
+                <p>
+                  Find only the most skilled and determined people for your project.
+                </p>
+
+                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed blandit sollicitudin volutpat. Aenean id odio ut massa imperdiet sodales. In vulputate ipsum sed sem hendrerit, et porttitor felis sagittis. Curabitur sit amet mattis neque, non mattis libero. Vestibulum tortor felis, porttitor id cursus quis, dapibus eget dolor. Nulla orci nisi, suscipit ut dolor eu, vehicula pulvinar nisl. Pellentesque consequat posuere turpis ut convallis.</p>
+
+                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed blandit sollicitudin volutpat. Aenean id odio ut massa imperdiet sodales. In vulputate ipsum sed sem hendrerit, et porttitor felis sagittis. Curabitur sit amet mattis neque, non mattis libero. Vestibulum tortor felis, porttitor id cursus quis, dapibus eget dolor. Nulla orci nisi, suscipit ut dolor eu, vehicula pulvinar nisl. Pellentesque consequat posuere turpis ut convallis.</p>
+
+                <div class="post-button-container"><Link to="/post" className="post-button">Post</Link></div>
+
+                
+              </div>
+              <img className="home-post-image" src="https://images.unsplash.com/photo-1592188627153-8157de983392?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="sharing project"></img>
+            </div>
+            
         </div>
       </>
     );

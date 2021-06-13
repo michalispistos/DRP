@@ -41,14 +41,28 @@
 .project-type-list {
   margin-top: 5%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
+
 .project-type {
+  --angle : 0deg;
   color: white;
-  border-radius: 100px;
   margin: 0 auto;
   padding: 10%;
+  border: 1px solid;
+  border-image-slice: 1;
+  border-image: linear-gradient(var(--angle), #5073b8, #1098ad,turquoise, #07b39b, #6fba82) 1;
+  animation: 1s gradientanimation linear infinite;
+}
+
+@keyframes gradientanimation {
+  from {
+    angle: 0deg;
+  }
+  to {
+    angle: 360deg;
+  }
 }
 
 .img-container {
@@ -68,20 +82,19 @@
 }
 
 .home-third {
-  background: white;
   width: 75%;
   position: relative;
   height: fit-content;
-  margin-top: 10%;
+  margin: 5% auto;
 }
 
 .home-third h1 {
-  margin-top: 15%;
+  margin-top: 5%;
   font-family: "Staatliches", cursive;
   font-size: 3em;
 }
 
-.home-button {
+.find-button {
   display: inline-block;
   padding: 0.35em 1.2em;
   border: 0.1em solid #ffffff;
@@ -96,12 +109,59 @@
   transition: all 0.2s;
 }
 
-.home-button:hover {
+.find-button:hover {
     color:#000000;
     background-color:#FFFFFF;
 }
 
-.find-button {
+.find-button-container {
   margin-top: 2em;
   padding-bottom: 5em;
+}
+
+.home-post-container {
+  border: 5px solid black;
+  display: flex;
+  margin-top: 5%;
+}
+
+.home-post-text {
+  width: 60%;
+  padding: 10px;
+}
+
+.home-post-image {
+  width: 40%;
+}
+
+.home-post-text p {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.post-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20%;
+}
+
+.post-button {
+  display: inline-block;
+  padding: 0.35em 1.2em;
+  border: 0.1em solid black;
+  margin: 3em 0.3em 0.3em 0;
+  border-radius: 0.12em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  color: black;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.post-button:hover {
+  color:white;
+  background-color:black;
 }

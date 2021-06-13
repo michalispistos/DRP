@@ -50,6 +50,39 @@ function makeServer(db, port) {
         amount_to_be_paid: "£7 an hour",
         location: "China"
       });
+      await db.User.create({
+        username: "john123",
+        email: "johnappleseed@gmail.com",
+        firstname: "john",
+        lastname: "appleseed",
+        password: "hashedpassword",
+        bio: "I am John and this is my bio",
+        degree: "Mathematics",
+        degree_level: "Msc",
+        skills: ["problem-solving", "logic"],
+      });
+      await db.User.create({
+        username: "ianwright",
+        email: "ianwright999@gmail.com",
+        firstname: "ian",
+        lastname: "wright",
+        password: "hashedpassword2",
+        bio: "I am Ian and this is my bio",
+        degree: "Computing",
+        degree_level: "BEng",
+        skills: ["java", "coding", "web-dev"],
+      });
+      await db.User.create({
+        username: "fiona13",
+        email: "fiona@yahoo.com",
+        firstname: "fiona",
+        lastname: "adeola",
+        password: "hashedpassword3",
+        bio: "I am Fiona and this is my bio",
+        degree: "Business",
+        degree_level: "MBA",
+        skills: ["marketing", "business"],
+      });
 
     } catch (err) {
       console.log(err.message);
@@ -65,7 +98,7 @@ function makeServer(db, port) {
     }
   });
 
-  db.Project.sync({ force: true }).then(() => {
+  db.sequelize.sync({ force: true }).then(() => {
     console.log('dropped and resynced database');
     initialize_database();
   });
@@ -79,6 +112,17 @@ function makeServer(db, port) {
     } catch (err) {
         console.error(err.message)
     }
+});
+
+app.get("/users", async(req, res) => {
+  try {
+    const users = await db.User.findAll({
+      attributes: { exclude: ['password'] }
+    });
+    res.json(users);
+  } catch (err) {
+    console.error(err.message);
+  }
 });
 
 // GET A PROJECT 

@@ -3,3 +3,8 @@
     font-size: 3em;
     font-family: 'Staatliches', cursive;
 }
+
+.post {
+    width: 80%;
+    margin: 5vw auto;
+}
