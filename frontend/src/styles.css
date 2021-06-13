@@ -15,7 +15,7 @@
 .topbar {
   display: flex;
   align-items: center;
-  padding: 20px;
+  padding: 1vw;
 }
 
 .navigation {
@@ -32,7 +32,7 @@
 .navigation li:hover {
   color: turquoise;
   text-decoration: underline;
-  transition: 300ms;
+  transition: 500ms;
 }
 
 .logo-first {
@@ -56,11 +56,6 @@
 
 .logo-link:active {
   text-decoration: none;
-}
-
-.content {
-  width: 75%;
-  margin: 5% auto;
 }
 
 .filters {

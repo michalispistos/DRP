@@ -1,11 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
 
+.home {
+  width: 85%;
+  margin: 10vw auto;
+  height: 20vw;
+}
+
 .home-message {
   font-family: "Staatliches", cursive;
   color: black;
-  font-size: max(3em, 5vw);
-  width: 100%;
+  font-size: max(3em, 4.5vw);
 }
+
 
 .highlighted {
   font-family: "Staatliches", cursive;
@@ -15,18 +21,14 @@
 
 .home-second {
   background: #232323;
-  width: 100vw;
-  position: relative;
-  left: calc(-50vw + 50%);
   height: fit-content;
-  margin-top: 12vw;
   display: flex;
   text-align: center;
 }
 
 .home-second-container {
   width: 75%;
-  margin: 0 auto;
+  margin: 5vw auto;
   color: white;
 }
 
@@ -39,7 +41,7 @@
 .project-type-list {
   margin-top: 5%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))
 }
 
 .project-type {
