@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Popup from './popup';
 import TextPopup from './textPopup'
+import "./post.css"
 
 import CreatableSelect from 'react-select/creatable';
 
@@ -157,7 +158,7 @@ class Post extends Component {
     render() { 
         return (  
             <div data-testid='post'>
-                <h1 style={{textAlign: "center", marginTop: "20px", width: "100%", color:"black"}}>Post a Project</h1>
+                <h1 className="post-a-project" style={{textAlign: "center", marginTop: "20px", width: "100%", color:"black"}}>Post a Project</h1>
                 <form className = 'postForm'>
 
                     <label htmlFor="title" >Project title:</label><br/>
