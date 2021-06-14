@@ -69,7 +69,7 @@ class Post extends Component {
 
         e.preventDefault();
         
-        if(this.refsmultiSelect !== undefined){
+        if(this.refs.multiSelect){
             await this.setState({tags: (this.refs.multiSelect.state.value.map(t => t.value))});
         }
 
