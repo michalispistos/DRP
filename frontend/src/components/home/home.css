@@ -3,7 +3,8 @@
 .home {
   width: 85%;
   margin: 10vw auto;
-  height: 20vw;
+  height: fit-content;
+  position: relative;
 }
 
 .home-message {
@@ -22,8 +23,9 @@
 .home-second {
   background: #232323;
   height: fit-content;
-  display: flex;
   text-align: center;
+  display: flex;
+  position: relative;
 }
 
 .home-second-container {
@@ -126,12 +128,12 @@
 }
 
 .home-post-text {
-  width: 60%;
+
   padding: 10px;
 }
 
 .home-post-image {
-  width: 40%;
+
 }
 
 .home-post-text p {
@@ -143,6 +145,7 @@
 .post-button-container {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-top: 20%;
 }
 
@@ -164,4 +167,13 @@
 .post-button:hover {
   color:white;
   background-color:black;
+}
+
+@media only screen and (max-width: 1386px) {
+  .home-post-image{
+    display:none;
+  }
+  .home-post-text {
+    width: 100%;
+  }
 }

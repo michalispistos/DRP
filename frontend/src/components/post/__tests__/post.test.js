@@ -8,10 +8,6 @@ import { shallow, configure } from 'enzyme';
 import Popup from "../popup";
 import CreatableSelect from 'react-select/creatable';
 
-it("does something", () => {
-
-})
-
 
 configure({adapter: new Adapter()});
 

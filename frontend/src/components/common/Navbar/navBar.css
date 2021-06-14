@@ -46,6 +46,14 @@
     transition: 500ms;
 }
 
+@media only screen and (max-width: 768px) {
+
+    .navigation li {
+        display: block;
+    }
+    
+}
+
   
  
   

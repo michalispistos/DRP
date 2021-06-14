@@ -1,0 +1,53 @@
+.login-title{
+    color: black;
+    font-size: 3em;
+    font-family: 'Staatliches', cursive;
+    text-align: center;
+    margin-top: 20px; 
+    width: 100%;
+    color: black;
+}
+
+.login-container {
+    margin-top: 10vw;
+}
+
+.login-box{
+    margin: auto;
+    width: 23em;
+    max-height: 30em;
+    border: 5px solid black;
+    padding: 10px;
+}
+
+.login-form {
+    position:relative; 
+    text-align:Center;
+    width:100%;
+    font-size: 1.2em;
+}
+
+.field{
+    margin-top:5%;
+}
+
+.button {
+    margin-top: 5%;
+    justify-content: center;
+    margin-left:10%;
+    width:80%;
+    position: relative;
+    background-color: turquoise;
+    border: none;
+    color: black;
+    border-radius: 20px;
+    padding: 5px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    font-size: 1.2em;
+}
+
+.no-account{
+    margin-top:5%;
+}
