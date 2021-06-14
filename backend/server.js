@@ -108,8 +108,8 @@ function makeServer(db, port) {
     }
   }
 
-  db.models.sync({ force: true }).then(() => {
-    console.log("dropped and resynced database");
+  db.models.sync().then(() => {
+    console.log("resynced database");
     initialize_database();
   });
 
