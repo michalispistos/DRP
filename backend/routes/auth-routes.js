@@ -38,7 +38,7 @@ makeAuthRouter = (db) => {
             }
         }).then(async user => {
             if (!user) {
-                res.status(404).send("User does not exist");
+                return res.status(404).send({message: "User does not exist"});
             }
 
             const isPasswordValid = await argon2.verify(user.password, req.body.password, {
@@ -51,7 +51,7 @@ makeAuthRouter = (db) => {
                     expiresIn: 86400,
                 });
 
-                res.status(200).send({
+                return res.status(200).send({
                     id: user.id,
                     username: user.username,
                     email: user.email,
@@ -71,7 +71,7 @@ makeAuthRouter = (db) => {
                 });
             } 
         }).catch(err => {
-            res.status(500).send({message: err.message});
+            return res.status(500).send({message: err.message});
         });
     });
 

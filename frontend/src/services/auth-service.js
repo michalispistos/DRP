@@ -27,11 +27,13 @@ const AuthService = {
                 password,
             }),
         };
-        return await fetch(`${process.env.REACT_APP_SERVER}/auth/signin`, requestOptions).then(res => res.json()).then(data => {
+        return await fetch(`${process.env.REACT_APP_SERVER}/auth/signin`, requestOptions).then(async res => {
+            const ok = res.ok;
+            const data = await res.json();
             if (data.accessToken) {
                 localStorage.setItem('user', JSON.stringify(data));
             }
-            return data;
+            return {ok, data};
         }).catch(err => console.log(err));
     },
 
