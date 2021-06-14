@@ -6,6 +6,7 @@ function makeServer(db, port) {
   const makeUploadRouter = require("./routes/upload-routes");
   const makeUserRouter = require("./routes/user-routes");
   const makeAuthRouter = require("./routes/auth-routes");
+  const makeMetricRouter = require("./routes/metric-routes");
 
 
   // MIDDLEWARE
@@ -70,39 +71,6 @@ function makeServer(db, port) {
         amount_to_be_paid: "£7 an hour",
         location: "China",
       });
-      await db.User.create({
-        username: "john123",
-        email: "johnappleseed@gmail.com",
-        firstname: "john",
-        lastname: "appleseed",
-        password: "hashedpassword",
-        bio: "I am John and this is my bio",
-        degree: "Mathematics",
-        degree_level: "Msc",
-        skills: ["problem-solving", "logic"],
-      });
-      await db.User.create({
-        username: "ianwright",
-        email: "ianwright999@gmail.com",
-        firstname: "ian",
-        lastname: "wright",
-        password: "hashedpassword2",
-        bio: "I am Ian and this is my bio",
-        degree: "Computing",
-        degree_level: "BEng",
-        skills: ["java", "coding", "web-dev"],
-      });
-      await db.User.create({
-        username: "fiona13",
-        email: "fiona@yahoo.com",
-        firstname: "fiona",
-        lastname: "adeola",
-        password: "hashedpassword3",
-        bio: "I am Fiona and this is my bio",
-        degree: "Business",
-        degree_level: "MBA",
-        skills: ["marketing", "business"],
-      });
     } catch (err) {
       console.log(err.message);
     }
@@ -110,7 +78,6 @@ function makeServer(db, port) {
 
   db.models.sync().then(() => {
     console.log("resynced database");
-    initialize_database();
   });
 
   //ROUTES
@@ -127,6 +94,9 @@ function makeServer(db, port) {
 
   const authRouter = makeAuthRouter(db);
   app.use("/auth", authRouter);
+
+  const metricRouter = makeMetricRouter(db);
+  app.use("/metrics", metricRouter);
 
   // START SERVER
 

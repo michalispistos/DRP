@@ -26,6 +26,7 @@ class Post extends Component {
             amountToBePaid: "0",
             imageSrc: "default.jpg",
             image: undefined,
+            startTime: 0,
             
 
             multi_options: [
@@ -56,6 +57,10 @@ class Post extends Component {
         }
     }
 
+    componentDidMount(){
+        this.setState({startTime: Date.now()});
+    }
+
     validForm = () => {
         //maybe security check
         return this.state.projectTitle !== "" && 
@@ -68,15 +73,32 @@ class Post extends Component {
     handleSubmit = async (e) => {
 
         e.preventDefault();
+
+        const metricData = await (Date.now() - this.state.startTime);
+
+        const metricRequest = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                name: "post time",
+                data: [metricData],
+            }),
+        };
         
-        if(this.refs.multiSelect){
-            await this.setState({tags: (this.refs.multiSelect.state.value.map(t => t.value))});
+        console.log(metricRequest.body);
+        
+        if(this.multiselectRef.current.state.value){
+            await this.setState({tags: (this.multiselectRef.current.state.value.map(t => t.value))});
         }
 
         if(!this.validForm()) {
             alert("Complete missing information")
             return;
         }
+
+        //time to post
+        await fetch(`${process.env.REACT_APP_SERVER}/metrics`, metricRequest).then(response => console.log("Post time recorded successfully")).catch(err => console.log("Error recording post time", err));
+        
         
         if(this.state.image !== undefined){
             let imageSrc = `${new Date().getTime()}_${this.state.image.name}`
@@ -211,7 +233,7 @@ class Post extends Component {
 
                     <CreatableSelect
                         isMulti
-                        ref="multiSelect"
+                        ref={this.multiselectRef}
                         options={this.state.multi_options}
                         className="tagDropdown"
                     /> 
