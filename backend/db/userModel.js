@@ -35,6 +35,10 @@ const makeUserModel = (Sequelize, sequelize) => {
         },
         skills: {
             type: Sequelize.ARRAY(Sequelize.STRING),
+        }, 
+        projects: {
+            type: Sequelize.ARRAY(Sequelize.INTEGER),
+            default: [],
         }
     
     });

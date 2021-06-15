@@ -1,0 +1,45 @@
+.project {
+    display: flex;
+    justify-content: center;
+}
+
+.delete-button {
+    position: relative;
+    background-color: red;
+    border: none;
+    color: white;
+    border-radius: 20px;
+    padding: 5px 15px;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    display: flex;
+    vertical-align: middle;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.delete-button:hover {
+    background-color: darkred;
+    color: black;
+}
+
+.edit-button {
+    position: relative;
+    background-color: turquoise;
+    border: none;
+    color: black;
+    border-radius: 20px;
+    padding: 5px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    vertical-align: middle;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.edit-button:hover {
+    background-color: dodgerblue;
+    color: black;
+}

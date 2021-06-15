@@ -6,6 +6,7 @@ import ProjectInfo from './components/find/projectInfo';
 import Register from './components/register/register';
 import Login from './components/login/login';
 import ErrorPage from './components/error'
+import MyProjects from './components/my-projects/my-projects'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import NavBar from './components/common/Navbar/NavBar';
 import AuthService from './services/auth-service';
@@ -36,6 +37,7 @@ class App extends React.Component {
                 <Route path='/404' component={ ErrorPage }></Route>
                 <Route path='/login' render={(props) => <Login {...props} updateUser={this.updateUser}/>}></Route>
                 <Route path='/register' component= { Register }></Route>
+                <Route path='/myProjects' component= { MyProjects }></Route>
                 <Redirect to='/404'></Redirect>
              </Switch>
              </div>

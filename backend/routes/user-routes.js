@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const Sequelize = require('sequelize');
 
 makeUserRouter = (db) => {
     const userRouter = Router();
@@ -10,6 +11,25 @@ makeUserRouter = (db) => {
         } catch (err) {
           console.error(err.message);
         }
+      });
+
+      userRouter.route('/:id').put(async (req, res) => {
+        const { id } = req.params;
+        const { project } = req.body;
+        await db.User.update(
+            {projects: Sequelize.fn("array_append", Sequelize.col("projects"),  project)},
+            {where: {id,}}
+        ).then(user => res.json(user.projects)).catch(err => console.log(error));
+    
+      }).get(async (req, res) => {
+          const { id } = req.params;
+          await db.User.findOne({
+            where: {
+              id,
+            }
+          }).then(user => {
+            res.json(user.projects);
+          }).catch(err => console.log(error));
       });
 
     return userRouter;

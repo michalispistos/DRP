@@ -73,7 +73,12 @@
     display: flex;
     vertical-align: middle;
     font-size: 16px;
-    
+    transition: 0.3s;
+}
+
+.remove-button:hover {
+    background-color: darkred;
+    color: black;
 }
 
 .normal-button {
@@ -94,7 +99,7 @@
 .normal-button:hover {
     background-color: dodgerblue;
     color: black;
-  }
+}
 
 .tagDropdown {
     color:black;
