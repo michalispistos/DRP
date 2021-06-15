@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Popup from './popup';
 import TextPopup from './textPopup'
 import './post.css'
+import TemplatePopup from './templatePopup';
 
 import CreatableSelect from 'react-select/creatable';
 
@@ -27,6 +28,7 @@ class Post extends Component {
             imageSrc: "default.jpg",
             image: undefined,
             startTime: 0,
+            popupTemplate: false,
             
 
             multi_options: [
@@ -55,6 +57,10 @@ class Post extends Component {
                 { value: "Academic Project", label: "Academic Project"},
             ],
         }
+    }
+
+    requiredStar() {
+        return (<em style={{color: "red", fontStyle: "normal"}} className="tooltip"> *<span className="tooltiptext">(Required field)</span></em>);
     }
 
     componentDidMount(){
@@ -149,7 +155,7 @@ class Post extends Component {
 
         this.setState({projectTitle: "", projectDescription: "", leaderName: "", members:[], lookingFor: "", tags:[], duration:"Indefinite", paid:false,
                         newMember:"", newTag:"", location:"Remote", leaderEmail:"", amountToBePaid:"0", imageSrc:"default.jpg",
-                    popupSubmit:true, popupLink:false});
+                    popupSubmit:true, popupLink:false, popupTemplate:false});
     };
 
     handleAddMember = (e) =>{
@@ -183,27 +189,57 @@ class Post extends Component {
                 <h1 className="post-a-project">Post a Project</h1>
                 <form className = 'postForm'>
 
-                    <label htmlFor="title" >Project title:</label><br/>
+                    <label htmlFor="title" >Project title:{this.requiredStar()}</label><br/>
                     <input className="text-box-title" type="text" id="title" name="title" margin="normal" maxLength="20"
                          onChange={(e) => {this.setState({projectTitle: e.target.value})}} value={this.state.projectTitle} required/><br/>
 
-                    Choose Image:<br/>
-                    <input className="image" type="file" id="project_picture" encType="multipart/form-data" name="project_picture" 
-                    onChange={(e) => {this.setState({image: e.target.files[0]})}} /><br/>
+                    <label htmlFor="description">Project description:{this.requiredStar()}</label>
 
-                    <label htmlFor="description">Project description:</label><br/>
+                    <button className="normal-button" onClick={() => this.setState({popupTemplate:true})}>Use Template</button><br/>
+                    <TemplatePopup trigger={this.state.popupTemplate} setTrigger={() => {this.setState({popupTemplate: false})}}
+                    handler={(description) => {
+                        this.setState({projectDescription: description});
+                        }}
+                    ></TemplatePopup>
+                   
                     <textarea className="text-area" id="description" name="description" maxLength="255"
                          onChange={(e) => {this.setState({projectDescription: e.target.value})}} value={this.state.projectDescription} required /><br/>
 
-                    <label htmlFor="leader">Leader name:</label><br/>
+                    <label htmlFor="leader">Leader name:{this.requiredStar()}</label><br/>
                     <input className="text-box-leader" type="text" id="leader" name="leader" maxLength="255" 
                         onChange={(e) => {this.setState({leaderName: e.target.value})}} value={this.state.leaderName} required /><br/>
 
-                    <label htmlFor="leaderEmail">Leader email:</label><br/>
-                    <input className="text-box-leader" type="text" id="leaderEmail" name="leaderEmail" maxLength="255" 
-                        onChange={(e) => {this.setState({leaderEmail: e.target.value})}} value={this.state.leaderEmail} required/><br/>
+                    <label htmlFor="leaderEmail">Leader email:{this.requiredStar()}</label><br/>
+                    <input className="text-box-leader" type="text" id="leader" name="leader" maxLength="255" 
+                        onChange={(e) => {this.setState({leaderName: e.target.value})}} value={this.state.leaderName} required /><br/>
 
-                    <label htmlFor="members">Members (optional):</label><br/>
+                    <label htmlFor="looking_for">People we are looking for:{this.requiredStar()}</label><br/>
+                    <textarea className="text-area" type="text" id="looking_for" name="looking_for" maxLength="255"
+                    onChange={(e) => {this.setState({lookingFor: e.target.value})}} value={this.state.lookingFor} required/><br/>
+
+                    <label htmlFor="duration">Duration:</label><br/>
+                    <input className="duration-location-text-box" type="text" id="duration" name="duration" maxLength="20"
+                    onChange={(e) => {this.setState({duration: e.target.value})}} value={this.state.duration} /><br/>
+
+                    <label htmlFor="location">Location:</label><br/>
+                    <input className="duration-location-text-box" type="text" id="location" name="location" maxLength="20"
+                    onChange={(e) => {this.setState({location: e.target.value})}} value={this.state.location}/><br/>
+
+                    <label htmlFor="paid"/>Paid<input className="amount-to-be-paid-checkbox" type="checkbox" id="paid" name="paid"
+                     onClick={this.handleCheckPaidCheckBox} defaultChecked={false}/><br/>Amount to be paid : <input type="text" disabled={true}  id="amountToBePaid" name="amountToBePaid" maxLength="20" value={this.state.amountToBePaid} onChange={(event) => {this.setState({amountToBePaid: event.target.value})}} style={{width: "10em", borderRadius: "5px"}}/>
+                    <br/><br/>
+
+                    {/*OPTIONAL*/}
+                    <h2>Optional Details:</h2>
+
+                    <div style={{marginTop: "1em"}}>
+                    Choose Project Image:<br/>
+                    </div>
+                    <input className="image" type="file" id="project_picture" encType="multipart/form-data" name="project_picture" 
+                    onChange={(e) => {this.setState({image: e.target.files[0]})}} /><br/>
+
+
+                    <label htmlFor="members">Add Group Members:</label><br/>   
                     <ul className="member">
                         {this.state.members.map(member => {
                                return (<div className="member-info"><li className="member-bullet-point">{member.name}{(member.link !== undefined) ? (" - " + member.link) : ""}</li>
@@ -225,11 +261,9 @@ class Post extends Component {
                     <button className="normal-button" variant="primary" onClick={(e)=>this.handleAddMember(e)} style={{marginLeft: "1em"}}>ADD</button><br/>
                     </div> 
 
-                    <label htmlFor="looking_for">People we are looking for:</label><br/>
-                    <textarea className="text-area" type="text" id="looking_for" name="looking_for" maxLength="255"
-                    onChange={(e) => {this.setState({lookingFor: e.target.value})}} value={this.state.lookingFor} required/><br/>
-
-                    <label htmlFor="tags">Tags (optional):</label><br/>
+                    <div style={{marginTop: "1em"}}>
+                    <label htmlFor="tags">Tags:</label><br/>
+                    </div>
 
                     <CreatableSelect
                         isMulti
@@ -237,18 +271,6 @@ class Post extends Component {
                         options={this.state.multi_options}
                         className="tagDropdown"
                     /> 
-
-                    <label htmlFor="duration">Duration:</label><br/>
-                    <input className="duration-location-text-box" type="text" id="duration" name="duration" maxLength="20"
-                    onChange={(e) => {this.setState({duration: e.target.value})}} value={this.state.duration} /><br/>
-
-                    <label htmlFor="location">Location:</label><br/>
-                    <input className="duration-location-text-box" type="text" id="location" name="location" maxLength="20"
-                    onChange={(e) => {this.setState({location: e.target.value})}} value={this.state.location}/><br/>
-                    
-                    <label htmlFor="paid"/>Paid<input className="amount-to-be-paid-checkbox" type="checkbox" id="paid" name="paid"
-                     onClick={this.handleCheckPaidCheckBox} defaultChecked={false}/><br/>Amount to be paid : <input type="text" disabled={true}  id="amountToBePaid" name="amountToBePaid" maxLength="20" value={this.state.amountToBePaid} onChange={(event) => {this.setState({amountToBePaid: event.target.value})}} style={{width: "10em", borderRadius: "5px"}}/>
-
 
                     <button className="normal-button" variant="success" type="submit" style={{marginLeft: "90%", marginTop:"-2.5%"}} onClick={(e) => this.handleSubmit(e)}>POST</button>
 

@@ -8,7 +8,7 @@ class Home extends Component {
       <>
         <div className="home">
           <h1 className="home-message">
-            Build <span class="highlighted">Connections</span>
+            Build <span className="highlighted">Connections</span>
             <br></br>With The Brightest<br></br>
             <span className="highlighted">Students</span> In The UK.{" "}
           </h1>
@@ -16,7 +16,7 @@ class Home extends Component {
         <div className="home-second">
           <div className="home-second-container">
             <h1>
-              Find the <span class="highlighted">right</span> project for you.
+              Find the <span className="highlighted">right</span> project for you.
             </h1>
 
             <div className="project-type-list">
@@ -56,7 +56,7 @@ class Home extends Component {
         <div className="home-third">
             <h1>Introduce your ideas to the <span className="highlighted">world</span>.</h1>
             <div className="home-post-container">
-              <div class="home-post-text">
+              <div className="home-post-text">
                 <h1>
                   Post your project and relax as the applications come rolling in.
                 </h1>
@@ -72,7 +72,7 @@ class Home extends Component {
 
                 <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed blandit sollicitudin volutpat. Aenean id odio ut massa imperdiet sodales. In vulputate ipsum sed sem hendrerit, et porttitor felis sagittis. Curabitur sit amet mattis neque, non mattis libero. Vestibulum tortor felis, porttitor id cursus quis, dapibus eget dolor. Nulla orci nisi, suscipit ut dolor eu, vehicula pulvinar nisl. Pellentesque consequat posuere turpis ut convallis.</p>
 
-                <div class="post-button-container"><Link to="/post" className="post-button">Post</Link></div>
+                <div className="post-button-container"><Link to="/post" className="post-button">Post</Link></div>
 
                 
               </div>
