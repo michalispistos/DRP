@@ -206,13 +206,13 @@ class Post extends Component {
                          onChange={(e) => {this.setState({projectDescription: e.target.value})}} value={this.state.projectDescription} required /><br/>
 
                     <label htmlFor="leader">Leader name:{this.requiredStar()}</label><br/>
-                    <input className="text-box-leader" type="text" id="leaderEmail" name="leaderEmail" maxLength="255" 
-                        onChange={(e) => {this.setState({leaderEmail: e.target.value})}} value={this.state.leaderEmail} required/><br/>
-<br/>
-
-                    <label htmlFor="leaderEmail">Leader email:{this.requiredStar()}</label><br/>
                     <input className="text-box-leader" type="text" id="leader" name="leader" maxLength="255" 
                         onChange={(e) => {this.setState({leaderName: e.target.value})}} value={this.state.leaderName} required /><br/>
+
+                    <label htmlFor="leaderEmail">Leader email:{this.requiredStar()}</label><br/>
+                    <input className="text-box-leader" type="text" id="leaderEmail" name="leaderEmail" maxLength="255" 
+                        onChange={(e) => {this.setState({leaderEmail: e.target.value})}} value={this.state.leaderEmail} required/><br/>
+                   
 
                     <label htmlFor="looking_for">People we are looking for:{this.requiredStar()}</label><br/>
                     <textarea className="text-area" type="text" id="looking_for" name="looking_for" maxLength="255"
