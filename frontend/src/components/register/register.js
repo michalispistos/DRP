@@ -52,7 +52,7 @@ class Register extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.formRef.current.validate();
+        this.formRef.current.validateAll();
         if (!this.errorRef.current.context._errors.length) {
             AuthService.register(this.state.username, this.state.email, this.state.password, this.state.firstname, this.state.lastname, this.state.bio ? this.state.bio : "no bio", this.state.degree, this.state.degree_level, this.state.skills).then(() => {
                 alert("Registration successful. Please log in.");
