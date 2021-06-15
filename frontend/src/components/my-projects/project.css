@@ -1,6 +1,19 @@
 .project {
     display: flex;
-    justify-content: center;
+    border: 3px solid black;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2em;
+    border-radius: 5px;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 5em;
+}
+
+.projectButtons {
+    display: flex;
+    padding-right: 1em;
 }
 
 .delete-button {
@@ -17,6 +30,7 @@
     vertical-align: middle;
     font-size: 16px;
     transition: 0.3s;
+    margin-left: 1em;
 }
 
 .delete-button:hover {
@@ -42,4 +56,37 @@
 .edit-button:hover {
     background-color: dodgerblue;
     color: black;
+}
+
+.project-title{
+    margin-left:1em;
+}
+
+@media only screen and (max-width: 600px) {
+    .project {
+        justify-content: start;
+        align-content: start;
+        min-width: 400px;
+        display: block;
+        height: 100%;
+        padding-top: 1em;
+        padding-bottom: 1em;
+    }
+
+    .projectButtons {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: column;
+        margin-left: 2em;
+    }
+
+    .edit-button {
+        margin-top: 1em;
+    }
+
+    .delete-button {
+        margin-left: 0em;
+        margin-top: 1em;
+    }
 }

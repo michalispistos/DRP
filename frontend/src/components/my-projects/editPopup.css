@@ -1,0 +1,41 @@
+.edit-popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-popup-inner {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    position: relative;
+    padding: 32px;
+    border-radius: 5px;
+    width: 60%;
+    background-color: white;
+    z-index: 50;
+}
+  
+.edit-popup-inner .close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+@media only screen and (max-width: 600px) {
+    .project {
+        justify-content: start;
+        align-content: start;
+        min-width: 400px;
+        display: block;
+        height: 100%;
+        padding-top: 1em;
+        padding-bottom: 1em;
+    }
+}
+
+

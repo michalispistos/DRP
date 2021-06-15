@@ -30,7 +30,6 @@ class Post extends Component {
             startTime: 0,
             popupTemplate: false,
             
-
             multi_options: [
                 { value: "Healthcare", label: "Healthcare" },
                 { value: "Covid-19", label: "Covid-19" },
@@ -134,7 +133,10 @@ class Post extends Component {
         };
 
         await fetch(`${process.env.REACT_APP_SERVER}/projects`, requestOptions)
-            .then(response => console.log('Submitted'))
+            .then(response => {
+                console.log(response);
+                //console.log('Submitted');
+        })
             .catch(error => console.log('Error submitting project', error));
 
         if(this.state.image !== undefined){   
@@ -150,8 +152,23 @@ class Post extends Component {
                 body: formData
             }
         
-            await fetch(`${process.env.REACT_APP_SERVER}/upload`, requestOptions2).then(response => console.log('Submitted')).catch(error => console.log("error"));
+            await fetch(`${process.env.REACT_APP_SERVER}/upload`, requestOptions2)
+                .then(response => console.log('Submitted'))
+                .catch(error => console.log("error"));
         }
+
+        //post a project in users project list
+
+        // const requestOptions2 = {
+        //     method: 'PUT',
+        //     body: formData
+        // }
+
+        // await fetch(`${process.env.REACT_APP_SERVER}/user`, requestOptions)
+        //     .then(response => console.log('Submitted'))
+        //     .catch(error => console.log('Error submitting project', error));
+
+
 
         this.setState({projectTitle: "", projectDescription: "", leaderName: "", members:[], lookingFor: "", tags:[], duration:"Indefinite", paid:false,
                         newMember:"", newTag:"", location:"Remote", leaderEmail:"", amountToBePaid:"0", imageSrc:"default.jpg",
