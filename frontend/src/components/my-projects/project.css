@@ -36,6 +36,7 @@
 .delete-button:hover {
     background-color: darkred;
     color: black;
+    cursor: pointer;
 }
 
 .edit-button {
@@ -56,6 +57,29 @@
 .edit-button:hover {
     background-color: dodgerblue;
     color: black;
+    cursor: pointer; 
+}
+
+.done-button {
+    position: relative;
+    background-color: limegreen;
+    border: none;
+    color: black;
+    border-radius: 20px;
+    padding: 5px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    vertical-align: middle;
+    font-size: 16px;
+    margin-right:1em;
+    transition: 0.3s;
+}
+
+.done-button:hover {
+    background-color: darkgreen;
+    color: white;
+    cursor: pointer; 
 }
 
 .project-title{

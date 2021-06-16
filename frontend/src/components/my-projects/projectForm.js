@@ -215,8 +215,8 @@ class ProjectForm extends Component {
                     /> 
 
                     <div style={{display: "flex", justifyContent:'center', alignItems: 'center', marginLeft:"90%", marginTop:"-5%"}}>
-                        <button className="normal-button" variant="success" type="submit" onClick={(e) => this.handleSave(e)}>Save</button>
-                        <button className="delete-button" onClick={(e) => this.props.pressClose()}>Cancel</button>
+                        <button  className="normal-button" variant="success" type="submit" onClick={(e) => {e.stopPropagation(); this.handleSave(e)}}>Save</button>
+                        <button className="delete-button" onClick={(e) => {e.stopPropagation(); this.props.pressClose()}}>Cancel</button>
                     </div>
 
                 </form>

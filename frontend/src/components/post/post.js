@@ -30,6 +30,7 @@ class Post extends Component {
             imageSrc: "default.jpg",
             image: undefined,
             startTime: 0,
+            done: false,
             popupTemplate: false,
             
             multi_options: [
@@ -121,7 +122,6 @@ class Post extends Component {
         }
 
         
-
         const projectData = { 
             name: this.state.projectTitle,
             description: this.state.projectDescription,
@@ -136,6 +136,7 @@ class Post extends Component {
             location: this.state.location,
             amount_to_be_paid: this.state.amountToBePaid,
             leader_id:this.state.leader_id,
+            done: false,
         };
         
 

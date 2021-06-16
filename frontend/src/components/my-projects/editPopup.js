@@ -10,13 +10,14 @@ class  EditPopup extends Component {
     }
 
     pressClose = () =>{
+
         this.props.setTrigger();
         this.props.updateProjectComponent();
     }
-
+ 
     render() { 
         return (this.props.trigger) ? (
-             <div data-testid='popup' className="edit-popup" onClick={() => 0}>
+             <div data-testid='popup' className="edit-popup" onClick={(e) => {e.stopPropagation(); e.preventDefault();}}>
                  <div className = "edit-popup-inner">
                       <ProjectForm pressClose={this.pressClose} project={this.props.project}/> 
                  </div> 

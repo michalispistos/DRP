@@ -71,6 +71,7 @@ class ProjectTileGrid extends React.Component {
         return (    
             <div data-testid='projectTileGrid' className="projectTileGrid">
                 {this.state.projects
+                .filter(project => !project.done)
                 .filter(project => this.state.paid ? project.paid : true)
                 .filter(project => this.state.remote ? project.location === "Remote" : true)
                 .filter(project => this.state.filterByTags ? 

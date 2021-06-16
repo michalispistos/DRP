@@ -1,0 +1,50 @@
+
+
+
+.confirm-remove-button {
+    position: relative;
+    background-color: red;
+    border: none;
+    color: white;
+    border-radius: 20px;
+    padding: 5px 15px;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    display: flex;
+    vertical-align: middle;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.confirm-remove-button:hover {
+    background-color: darkred;
+    color: black;
+}
+
+.confirm-normal-button {
+    position: relative;
+    background-color: turquoise;
+    border: none;
+    color: black;
+    border-radius: 20px;
+    padding: 5px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    vertical-align: middle;
+    font-size: 16px;
+    transition: 0.3s;
+    margin-right: 1em;
+}
+
+.confirm-normal-button:hover {
+    background-color: dodgerblue;
+    color: black;
+}
+
+.confirm-popup-buttons {
+    display: flex;
+    margin-top: 1em;
+    float: right;
+}
