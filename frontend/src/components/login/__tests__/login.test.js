@@ -20,23 +20,3 @@ it("renders without crashing", () => {
 })
 
 
-it("renders login page correctly", () => {
-    const {getByTestId} = render(<BrowserRouter><Login /></BrowserRouter>);
-    expect(getByTestId('login')).toHaveTextContent("Login");
-    const wrapper = shallow(<Login />);
-    expect(wrapper.containsMatchingElement(<form>
-        <label>
-            <p>Username</p>
-            <input/>
-        </label>
-        <label>
-            <p>Password</p>
-            <input/>
-            <br/>
-        </label>
-            <button>Login</button>
-            <h4>Don't have an account yet?</h4>
-        <Link to="/register">Create An Account</Link>
-    </form>)).toEqual(true);
-})
-
