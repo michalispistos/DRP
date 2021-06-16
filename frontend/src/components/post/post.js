@@ -14,8 +14,8 @@ class Post extends Component {
         this.state = {  
             projectTitle: "",
             projectDescription: "",
-            leaderName: "",
-            leaderEmail: "",
+            leaderName: AuthService.getUser()?.username,
+            leaderEmail: AuthService.getUser()?.email,
             leader_id: AuthService.getUser()?.id,
             newMember: "",
             tags: [],
