@@ -12,6 +12,7 @@ class Project extends React.Component {
             project : undefined,
             popup: false,
             user_id: AuthService.getUser().id,
+            image: undefined,
         }
     }
 
@@ -20,9 +21,19 @@ class Project extends React.Component {
     }
 
     getProject = async () => {
+        try{
             const response = await fetch(process.env.REACT_APP_SERVER + "/projects/" + this.props.project_id);
-            response.json().then(jsonData => this.setState({project: jsonData}));
-            
+            await response.json().then(jsonData => this.setState({project: jsonData}));
+
+            await fetch(`${process.env.REACT_APP_SERVER}/upload/${this.state.project.image_filepath}`)
+            .then(response => response.blob())
+            .then(images => {
+                // Then create a local URL for that image and print it
+               this.setState({image: URL.createObjectURL(images)});
+            })
+        }catch (err) {
+            console.error(err.message);
+        }
     }
 
     render() {
@@ -30,7 +41,7 @@ class Project extends React.Component {
             return <></>;
         }
         return (
-            <div className="project" style={{ backgroundImage: `linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url(${this.state.project.image_filepath})` }}>
+            <div className="project" style={{ backgroundImage: `linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url(${this.state.image})` }}>
                 <Link to={`/projectInfo/${this.state.project.id}`} style={{ textDecoration: 'none', color: 'black' }}>
                 <h1 className="project-title">{this.state.project.name}</h1>
                 </Link>
