@@ -184,8 +184,15 @@ class Post extends Component {
         }
 
         await fetch(`${process.env.REACT_APP_SERVER}/users/${this.state.leader_id}`, requestOptionsForProjectList)
-             .then(response => console.log('Updated'))
+             .then(response => console.log('Updated Leader'))
              .catch(error => console.log('Error updating project', error));
+
+        
+        this.state.members.map(async (member) => {
+            await fetch(`${process.env.REACT_APP_SERVER}/users/username/${member.name}`, requestOptionsForProjectList)
+                .then(response => console.log("Updated members"))
+                .catch(err => console.log("Error updating project"));
+        });
 
 
 

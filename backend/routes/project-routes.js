@@ -98,6 +98,13 @@ makeProjectRouter = (db) => {
       {where: {id,},},
     ).then(rowsUpdated => res.json(rowsUpdated)).catch(err => console.log(err));
 
+  }).delete(async (req, res) => {
+    const { id } = req.params;
+    await db.Project.destroy({
+      where: {
+        id,
+      }
+    })
   });
   return projectRouter;
 };

@@ -38,7 +38,7 @@ class MyProjects extends React.Component {
             <div>
                 <h1 className="my-projects-title">My Projects</h1>
                 <div className="projectList">
-                    {this.state.project_ids.map(project_id => <div><Project project_id={project_id}/><br/></div>)}
+                    {this.state.project_ids.map(project_id => <div><Project project_id={project_id} updateProjects={this.getProjects} /><br/></div>)}
                 </div>
             </div>
         )

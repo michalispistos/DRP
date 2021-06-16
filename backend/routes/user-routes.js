@@ -33,6 +33,33 @@ makeUserRouter = (db) => {
           }).catch(err => console.log(error));
       });
 
+      userRouter.route('/:id/rm-project').put(async (req, res) => {
+          const { id } = req.params;
+          const { project } = req.body;
+          await db.User.update(
+            {projects: Sequelize.fn("array_remove", Sequelize.col("projects"), project)},
+            {where: {id,}},
+          ).then(rowsUpdated=> res.json(rowsUpdated)).catch(err => console.log(err));
+      });
+
+      userRouter.route('/username/:username/rm-project').put(async (req, res) => {
+        const { username } = req.params;
+        const { project } = req.body;
+        await db.User.update(
+          {projects: Sequelize.fn("array_remove", Sequelize.col("projects"), project)},
+          {where: {username,}},
+        ).then(rowsUpdated=> res.json(rowsUpdated)).catch(err => console.log(err));
+    });
+
+      userRouter.route('/username/:username').put(async (req, res) => {
+        const { username } = req.params;
+        const { project } = req.body;
+        await db.User.update(
+          {projects: Sequelize.fn("array_append", Sequelize.col("projects"), project)},
+          {where: {username}}
+        ).then(rowsUpdated => res.json(rowsUpdated)).catch(err => console.log(err));
+      });
+
     return userRouter;
 }
 

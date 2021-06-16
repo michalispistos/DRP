@@ -115,7 +115,7 @@ class Register extends React.Component {
                     <br></br>
                     <label htmlFor="confirmPassword">Confirm Password: </label>
                     <br></br>
-                    <div style={{display:"flex", alignItems: "center"}}>
+                    <div style={{display:"flex", alignItems:"center"}}>
                         <Input className="text-box" type={this.state.confirmPasswordShown ? "text" : "password"} validations={[this.validateConfirm]}></Input>
                         <i onClick={()=>{this.setState({confirmPasswordShown: !this.state.confirmPasswordShown})}}>{eye}</i>
                     </div>

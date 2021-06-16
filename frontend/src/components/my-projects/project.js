@@ -20,6 +20,43 @@ class Project extends React.Component {
         this.getProject();
     }
 
+    handleDelete = async () => {
+        
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                project: this.state.project.id,
+            }),
+        };
+        
+
+        await fetch(`${process.env.REACT_APP_SERVER}/users/${this.state.user_id}/rm-project`, requestOptions)
+
+        this.state.project.members.map(async (member) => {
+            await fetch(`${process.env.REACT_APP_SERVER}/users/username/${member.name}/rm-project`, requestOptions)
+                .then(response => console.log("Deleted project"))
+                .then(this.props.updateProjects())
+                .catch(err => console.log("Error updating project"));
+        });
+
+
+        const requestOptions1 = {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json'},
+        };
+
+        await fetch(`${process.env.REACT_APP_SERVER}/projects/${this.state.project.id}`, requestOptions1)
+            .then(async response => {
+                console.log('Deleted');
+            })
+            .catch(error => console.log('Error submitting project', error));
+
+        
+
+    }
+
+
     getProject = async () => {
         try{
             const response = await fetch(process.env.REACT_APP_SERVER + "/projects/" + this.props.project_id);
@@ -45,12 +82,14 @@ class Project extends React.Component {
                 <Link to={`/projectInfo/${this.state.project.id}`} style={{ textDecoration: 'none', color: 'black' }}>
                 <h1 className="project-title">{this.state.project.name}</h1>
                 </Link>
-                {/* {this.state.project.leader_id === this.state.user_id && <div>Leader</div>} */}
+                {this.state.project.leader_id === this.state.user_id ? (<div style={{display:"flex", alignContent:"center"}}>
+                <div className="position-box">Leader</div> 
                 <div className="projectButtons">
                     <button className="edit-button" onClick={() => {this.setState({popup:true})}}>EDIT</button>
-                    <button className="delete-button" style={{display: "none"}}>DELETE</button>
+                    <button className="delete-button" onClick={this.handleDelete}>DELETE</button>
                 </div>
                 <EditPopup trigger={this.state.popup} setTrigger={() => {this.setState({popup: false})}} updateProjectComponent={this.getProject} project={this.state.project}></EditPopup>
+                </div>) : (<div className="position-box">Member</div>)}
             </div>
         )
     }
