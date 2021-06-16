@@ -16,13 +16,13 @@ makeProjectRouter = (db) => {
     .post(async (req, res) => {
       try {
         const {
-          id,
           name,
           description,
           looking_for,
           paid,
           leader,
           members,
+          leader_id,
           tags,
           duration,
           email,
@@ -31,13 +31,13 @@ makeProjectRouter = (db) => {
           amount_to_be_paid,
         } = req.body;
         const project = await db.Project.create({
-          id,
           name,
           description,
           looking_for,
           paid,
           leader,
           members,
+          leader_id,
           tags,
           duration,
           email,
@@ -64,6 +64,40 @@ makeProjectRouter = (db) => {
     } catch (err) {
       console.error(err.message);
     }
+  }).put(async (req, res) => {
+    const { id } = req.params;
+    const {
+      name,
+      description,
+      looking_for,
+      paid,
+      leader,
+      members,
+      tags,
+      duration,
+      email,
+      image_filepath,
+      location,
+      amount_to_be_paid,
+    } = req.body;
+    await db.Project.update(
+      {
+        name,
+        description,
+        looking_for,
+        paid,
+        leader,
+        members,
+        tags,
+        duration,
+        email,
+        image_filepath,
+        location,
+        amount_to_be_paid,
+      },
+      {where: {id,},},
+    ).then(rowsUpdated => res.json(rowsUpdated)).catch(err => console.log(err));
+
   });
   return projectRouter;
 };

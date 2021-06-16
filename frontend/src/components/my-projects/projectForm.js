@@ -9,41 +9,41 @@ class ProjectForm extends Component {
         super(props);
         this.multiselectRef = React.createRef();
         this.state = {  
-            // projectTitle: props.project.name,
-            // projectDescription: props.project.description,
-            // leaderName: props.project.leader,
-            // leaderEmail: props.project.email,
-            // newMember: "",
-            // tags: props.project.tags,
-            // members: props.project.members,
-            // lookingFor: props.project.lookingFor,
-            // duration: props.project.duration,
-            // paid: props.project.paid,
-            // popupSubmit: false,
-            // popupLink: false,
-            // location: props.project.location,
-            // amountToBePaid: props.project.amount_to_be_paid,
-            // imageSrc: "default.jpg",
-            // image: props.project.imamge_filepath,
-            // popupTemplate: false,
-
-            projectTitle: "fe",
-            projectDescription: "fe",
-            leaderName: "fe",
-            leaderEmail: "fe",
+            projectTitle: props.project.name,
+            projectDescription: props.project.description,
+            leaderName: props.project.leader,
+            leaderEmail: props.project.email,
             newMember: "",
-            tags: [{ value: "Healthcare", label: "Healthcare" }],
-            members: [{name:"john"}],
-            lookingFor: "lf",
-            duration: "Dr",
-            paid: false,
+            tags: props.project.tags,
+            members: props.project.members,
+            lookingFor: props.project.lookingFor,
+            duration: props.project.duration,
+            paid: props.project.paid,
             popupSubmit: false,
             popupLink: false,
-            location: "loc",
-            amountToBePaid: 0,
+            location: props.project.location,
+            amountToBePaid: props.project.amount_to_be_paid,
             imageSrc: "default.jpg",
-            image: undefined,
+            image: props.project.image_filepath,
             popupTemplate: false,
+
+            // projectTitle: "fe",
+            // projectDescription: "fe",
+            // leaderName: "fe",
+            // leaderEmail: "fe",
+            // newMember: "",
+            // tags: [{ value: "Healthcare", label: "Healthcare" }],
+            // members: [{name:"john"}],
+            // lookingFor: "lf",
+            // duration: "Dr",
+            // paid: false,
+            // popupSubmit: false,
+            // popupLink: false,
+            // location: "loc",
+            // amountToBePaid: 0,
+            // imageSrc: "default.jpg",
+            // image: undefined,
+            // popupTemplate: false,
             
             multi_options: [
                 { value: "Healthcare", label: "Healthcare" },
@@ -89,6 +89,34 @@ class ProjectForm extends Component {
     handleSave = async (e) => {
 
         e.preventDefault();
+        const projectData = { 
+            name: this.state.projectTitle,
+            description: this.state.projectDescription,
+            leader: this.state.leaderName,
+            email: this.state.leaderEmail,
+            image_filepath: this.state.imageSrc,
+            members: this.state.members,
+            looking_for: this.state.lookingFor,
+            tags: this.state.tags,
+            duration: this.state.duration,
+            paid: this.state.paid,
+            location: this.state.location,
+            amount_to_be_paid: this.state.amountToBePaid,
+        };
+        
+
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(projectData)
+        };
+
+        
+        await fetch(`${process.env.REACT_APP_SERVER}/projects/${this.props.project.id}`, requestOptions)
+            .then(async response => {
+                await response.json();
+        })
+            .catch(error => console.log('Error submitting project', error));
 
        this.props.pressClose();
     };

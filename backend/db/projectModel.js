@@ -57,6 +57,12 @@ const makeProjectModel = (Sequelize, sequelize) => {
             type: Sequelize.STRING,
             default: "Indefinite",
         },
+
+        leader_id: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            default: 0,
+        },
     });
     
     return Project;

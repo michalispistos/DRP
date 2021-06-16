@@ -8,48 +8,36 @@ class MyProjects extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            projects: [{}],
-            projectIds: [],
-            id: AuthService.getUser()?.id,
-        }
+            id: AuthService.getUser().id,
+            project_ids: undefined,
+        }   
+    }
+
+    componentDidMount() {
         this.getProjects();
     }
 
     getProjects = async () =>{
         try {
-            const response = await fetch(process.env.REACT_APP_SERVER + "/user/" + this.state.id);
-            const jsonData = await response.json();
-    
-            this.setState({projectIds: jsonData})
+            const response = await fetch(process.env.REACT_APP_SERVER + "/users/" + this.state.id);
+            const project_ids = await response.json();
+            await this.setState({project_ids, });
+            
         } catch (err) {
             console.error(err.message);
         }
-
-        let projects = [];
-        this.state.projectIds.map(async (id) => {
-            try {
-                const response = await fetch(process.env.REACT_APP_SERVER + "/projects/" + id);
-                const jsonData = await response.json();
-    
-                projects = [...projects,jsonData];
-            } catch (err) {
-                console.error(err.message);
-            }});
-
-        this.setState({projects: projects});
     }
 
+
     render() {
-        if(AuthService.getUser() === undefined){
+        if((this.state.id === undefined )|| (this.state.project_ids === undefined)){
             return("");
         }
-        return (
+        return (   
             <div>
                 <h1 className="my-projects-title">My Projects</h1>
                 <div className="projectList">
-                    {/* {this.state.projects.map(project => <div><Project project={project}/><br/></div>)} */}
-                    <Project></Project>
-                    <Project></Project>
+                    {this.state.project_ids.map(project_id => <div><Project project_id={project_id}/><br/></div>)}
                 </div>
             </div>
         )

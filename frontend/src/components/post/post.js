@@ -3,6 +3,7 @@ import Popup from './popup';
 import TextPopup from './textPopup'
 import './post.css'
 import TemplatePopup from './templatePopup';
+import AuthService from '../../services/auth-service';
 
 import CreatableSelect from 'react-select/creatable';
 
@@ -15,6 +16,7 @@ class Post extends Component {
             projectDescription: "",
             leaderName: "",
             leaderEmail: "",
+            leader_id: AuthService.getUser().id,
             newMember: "",
             tags: [],
             members: [],
@@ -110,6 +112,8 @@ class Post extends Component {
             await this.setState({imageSrc: imageSrc});
         }
 
+        
+
         const projectData = { 
             name: this.state.projectTitle,
             description: this.state.projectDescription,
@@ -122,19 +126,23 @@ class Post extends Component {
             duration: this.state.duration,
             paid: this.state.paid,
             location: this.state.location,
-            amount_to_be_paid: this.state.amountToBePaid
+            amount_to_be_paid: this.state.amountToBePaid,
+            leader_id:this.state.leader_id,
         };
+        
 
-      
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify(projectData)
         };
 
+        let project_id;
+        
         await fetch(`${process.env.REACT_APP_SERVER}/projects`, requestOptions)
-            .then(response => {
-                console.log(response);
+            .then(async response => {
+                const project = await response.json();
+                project_id = project.id;
                 //console.log('Submitted');
         })
             .catch(error => console.log('Error submitting project', error));
@@ -159,14 +167,17 @@ class Post extends Component {
 
         //post a project in users project list
 
-        // const requestOptions2 = {
-        //     method: 'PUT',
-        //     body: formData
-        // }
+        const requestOptionsForProjectList = {
+             method: 'PUT',
+             headers: { 'Content-Type': 'application/json'},
+             body: JSON.stringify({
+                project: project_id,
+             }),
+        }
 
-        // await fetch(`${process.env.REACT_APP_SERVER}/user`, requestOptions)
-        //     .then(response => console.log('Submitted'))
-        //     .catch(error => console.log('Error submitting project', error));
+        await fetch(`${process.env.REACT_APP_SERVER}/users/${this.state.leader_id}`, requestOptionsForProjectList)
+             .then(response => console.log('Updated'))
+             .catch(error => console.log('Error updating project', error));
 
 
 

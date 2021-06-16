@@ -19,7 +19,7 @@ makeUserRouter = (db) => {
         await db.User.update(
             {projects: Sequelize.fn("array_append", Sequelize.col("projects"),  project)},
             {where: {id,}}
-        ).then(user => res.json(user.projects)).catch(err => console.log(error));
+        ).then(rowsUpdated => res.json(rowsUpdated)).catch(err => console.log(err));
     
       }).get(async (req, res) => {
           const { id } = req.params;
