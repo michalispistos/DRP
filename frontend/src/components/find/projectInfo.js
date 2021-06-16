@@ -14,24 +14,16 @@ class ProjectInfo extends React.Component {
             image: undefined,
 
             popupApply: false,
-            applyMsg: "",
         }
         this.getProject();
     }
 
-    handleApply = async () => {
-        const message = `Hi ${this.state.project.leader},
 
-        ${AuthService.getUser().firstname} wants to join your project.
+
+    handleApply = async (msg) => {
+        const message = `Hi ${this.state.project.leader},<br>${AuthService.getUser().firstname} wants to join your project.<br>Their email is: ${AuthService.getUser().email}.<br>Their username is: ${AuthService.getUser().username}.<br>Their message for you is:<br>${msg}`;
+
         
-        Their email is: ${AuthService.getUser().email}.
-
-        Their username is: ${AuthService.getUser().username}.
-
-        Their message for you is:
-
-        ${this.state.applyMsg}`
-
         const requestOptions = {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -46,6 +38,7 @@ class ProjectInfo extends React.Component {
             console.log(err);
             alert("Application Failed!");
         })
+        
     }
 
     getProject = async () => {    
@@ -99,9 +92,8 @@ class ProjectInfo extends React.Component {
                         
                         <button className="apply-button" type="button" onClick={() => {this.setState({popupApply: true})}}>Apply</button> 
                         <ApplyPopup trigger={this.state.popupApply} 
-                                    handler={(msg) => { if (msg !== "") { 
-                                                            this.setState({applyMsg: msg});
-                                                            this.handleApply();
+                                    handler={(msg) => { if (msg !== "") {
+                                                            this.handleApply(msg);
                                                         }}} 
                                     setTrigger={() => {this.setState({popupApply: false})}} />
                     </div>
