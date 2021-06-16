@@ -30,11 +30,11 @@ class Project extends React.Component {
             return <></>;
         }
         return (
-            <div className="project" style={{ backgroundImage: `linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url(images/default.jpg)` }}>
+            <div className="project" style={{ backgroundImage: `linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url(${this.state.project.image_filepath})` }}>
                 <Link to={`/projectInfo/${this.state.project.id}`} style={{ textDecoration: 'none', color: 'black' }}>
                 <h1 className="project-title">{this.state.project.name}</h1>
                 </Link>
-                {this.state.project.leader_id === this.state.user_id && <div>Leader</div>}
+                {/* {this.state.project.leader_id === this.state.user_id && <div>Leader</div>} */}
                 <div className="projectButtons">
                     <button className="edit-button" onClick={() => {this.setState({popup:true})}}>EDIT</button>
                     <button className="delete-button" style={{display: "none"}}>DELETE</button>
