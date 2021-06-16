@@ -52,7 +52,7 @@ class MyProjects extends React.Component {
     }
 
     handleSelect = (value) => {
-        this.state.current = value;
+        this.setState({current: value});
         this.getProjects();
     }
 
