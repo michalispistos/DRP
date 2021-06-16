@@ -22,7 +22,7 @@ class MyProjects extends React.Component {
         try {
             const response = await fetch(process.env.REACT_APP_SERVER + "/users/" + this.state.id, {headers: authHeader()});
             const project_ids = await response.json();
-            await this.setState({project_ids, });
+            await this.setState({project_ids});
             
         } catch (err) {
             console.error(err.message);

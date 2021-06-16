@@ -21,7 +21,10 @@ class ProjectInfo extends React.Component {
 
 
     handleApply = async (msg) => {
-        const message = `Hi ${this.state.project.leader},<br>${AuthService.getUser().firstname} wants to join your project.<br>Their email is: ${AuthService.getUser().email}.<br>Their username is: ${AuthService.getUser().username}.<br>Their message for you is:<br>${msg}`;
+        const message = `Hi ${this.state.project.leader},
+        <br>${AuthService.getUser().firstname} wants to join your project.
+        <br>Their email is: ${AuthService.getUser().email}.<br>Their username is: ${AuthService.getUser().username}.
+        <br>Their message for you is:<br>${msg}`;
 
         
         const requestOptions = {
@@ -60,6 +63,24 @@ class ProjectInfo extends React.Component {
         
       };
 
+
+    checkMemberOfProject = () => {
+        
+        if (AuthService.getUser()?.id === this.state.project.leader_id) {
+            return true;
+        }
+
+        
+        let names = this.state.project.members.map(m => m.name);
+        names = names.filter((name) => AuthService.getUser()?.username === name);
+
+        if (names.length !== 0) {
+            return true;
+        }
+
+        return false;
+    }
+
     render () {
         if (!this.state.project) {
             return <></>;
@@ -90,7 +111,8 @@ class ProjectInfo extends React.Component {
                         <h3 className="topic">Amount To Be Paid: </h3>
                         <p>{this.state.project.amount_to_be_paid}</p>
                         
-                        <button className="apply-button" type="button" onClick={() => {this.setState({popupApply: true})}}>Apply</button> 
+                        <button className="apply-button" type="button" onClick={() => {this.setState({popupApply: true})}}
+                        style={this.checkMemberOfProject() ? {display: "none"} : {}}>Apply</button> 
                         <ApplyPopup trigger={this.state.popupApply} 
                                     handler={(msg) => { if (msg !== "") {
                                                             this.handleApply(msg);
