@@ -58,8 +58,8 @@ class Post extends Component {
                 { value: "Academic Project", label: "Academic Project"},
             ],
         }
-        if (!AuthService.getUser()) {
-            this.props?.history?.push({
+        if (!AuthService.getUser() && this.props.history) {
+            this.props.history.push({
                 pathname: '/login',
                 state: {
                     message: "Please login to post a project.",
