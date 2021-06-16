@@ -6,6 +6,7 @@ const authHeader = () => {
     if (user?.accessToken) {
       return {
         'Authorization': `Bearer ${user.accessToken}`,
+        'Content-Type': 'application/json',
       };
     } else {
       return {
