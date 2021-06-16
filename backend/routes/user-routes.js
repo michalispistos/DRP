@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const Sequelize = require('sequelize');
+const authenticateToken = require('../middleware/authenticateToken');
 
 makeUserRouter = (db) => {
     const userRouter = Router();
@@ -13,7 +13,7 @@ makeUserRouter = (db) => {
         }
       });
 
-      userRouter.route('/:id').put(async (req, res) => {
+      userRouter.route('/:id').put(authenticateToken, async (req, res) => {
         const { id } = req.params;
         const { project } = req.body;
         await db.User.update(
@@ -21,7 +21,7 @@ makeUserRouter = (db) => {
             {where: {id,}}
         ).then(rowsUpdated => res.json(rowsUpdated)).catch(err => console.log(err));
     
-      }).get(async (req, res) => {
+      }).get(authenticateToken, async (req, res) => {
           const { id } = req.params;
           await db.User.findOne({
             where: {

@@ -21,9 +21,9 @@ it("renders without crashing", () => {
 
 
 it("renders login page correctly", () => {
-    const {getByTestId} = render(<BrowserRouter><Login/></BrowserRouter>);
+    const {getByTestId} = render(<BrowserRouter><Login /></BrowserRouter>);
     expect(getByTestId('login')).toHaveTextContent("Login");
-    const wrapper = shallow(<Login/>);
+    const wrapper = shallow(<Login />);
     expect(wrapper.containsMatchingElement(<form>
         <label>
             <p>Username</p>

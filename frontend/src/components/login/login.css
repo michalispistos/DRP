@@ -51,3 +51,8 @@
 .no-account{
     margin-top:5%;
 }
+
+.login-message {
+    color: red;
+    text-align: center;
+}

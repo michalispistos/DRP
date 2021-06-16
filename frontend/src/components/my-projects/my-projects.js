@@ -1,6 +1,7 @@
 import React from 'react'
 import Project from './project'
 import AuthService from '../../services/auth-service';
+import authHeader from '../../services/auth-header';
 import './my-projects.css'
 
 class MyProjects extends React.Component {
@@ -19,7 +20,7 @@ class MyProjects extends React.Component {
 
     getProjects = async () =>{
         try {
-            const response = await fetch(process.env.REACT_APP_SERVER + "/users/" + this.state.id);
+            const response = await fetch(process.env.REACT_APP_SERVER + "/users/" + this.state.id, {headers: authHeader()});
             const project_ids = await response.json();
             await this.setState({project_ids, });
             

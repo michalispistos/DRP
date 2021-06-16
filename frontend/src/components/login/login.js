@@ -31,6 +31,7 @@ class Login extends React.Component {
       <div data-testid="login" className="login-container">
         <div className="login-box">
           <h1 className="login-title">Login</h1>
+          <h4 className="login-message">{this.props?.location?.state ? this.props.location.state.message : ""}</h4>
           <form className="login-form">
             <label>
               <p className="field">Username</p>
