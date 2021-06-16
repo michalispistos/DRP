@@ -16,7 +16,7 @@ class Post extends Component {
             projectDescription: "",
             leaderName: "",
             leaderEmail: "",
-            leader_id: AuthService.getUser().id,
+            leader_id: AuthService.getUser()?.id,
             newMember: "",
             tags: [],
             members: [],
