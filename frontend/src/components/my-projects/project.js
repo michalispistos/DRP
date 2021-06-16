@@ -39,7 +39,7 @@ class Project extends React.Component {
                     <button className="edit-button" onClick={() => {this.setState({popup:true})}}>EDIT</button>
                     <button className="delete-button" style={{display: "none"}}>DELETE</button>
                 </div>
-                <EditPopup trigger={this.state.popup} setTrigger={() => {this.setState({popup: false})}} project={this.state.project}></EditPopup>
+                <EditPopup trigger={this.state.popup} setTrigger={() => {this.setState({popup: false})}} updateProjectComponent={this.getProject} project={this.state.project}></EditPopup>
             </div>
         )
     }

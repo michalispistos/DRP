@@ -11,6 +11,7 @@ class  EditPopup extends Component {
 
     pressClose = () =>{
         this.props.setTrigger();
+        this.props.updateProjectComponent();
     }
 
     render() { 

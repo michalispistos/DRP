@@ -16,7 +16,7 @@ class ProjectForm extends Component {
             newMember: "",
             tags: props.project.tags,
             members: props.project.members,
-            lookingFor: props.project.lookingFor,
+            lookingFor: props.project.looking_for,
             duration: props.project.duration,
             paid: props.project.paid,
             popupSubmit: false,
