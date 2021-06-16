@@ -71,6 +71,12 @@ class ProjectForm extends Component {
     handleSave = async (e) => {
 
         e.preventDefault();
+
+           
+        if(this.multiselectRef.current.state.value){
+            await this.setState({tags: (this.multiselectRef.current.state.value.map(t => t.value))});
+        }
+
         const projectData = { 
             name: this.state.projectTitle,
             description: this.state.projectDescription,
@@ -204,10 +210,9 @@ class ProjectForm extends Component {
                         isMulti
                         ref={this.multiselectRef}
                         options={this.state.multi_options}
-                        value={this.state.tags}
+                        defaultValue={this.props.project.tags.map(t => {return {value: t, label: t}})}
                         className="tagDropdown"
                     /> 
-
 
                     <div style={{display: "flex", justifyContent:'center', alignItems: 'center', marginLeft:"90%", marginTop:"-5%"}}>
                         <button className="normal-button" variant="success" type="submit" onClick={(e) => this.handleSave(e)}>Save</button>

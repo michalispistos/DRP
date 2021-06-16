@@ -32,7 +32,7 @@ class MyProjects extends React.Component {
 
     render() {
         if((this.state.id === undefined ) || (this.state.project_ids === undefined) || (this.state.project_ids === null)){
-            return("");
+            return(<h1 className="my-projects-title">My Projects</h1>);
         }
         return (   
             <div>

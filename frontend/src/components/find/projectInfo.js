@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import './projectInfo.css'
-
+import ApplyPopup from './applyPopup'
 
 class ProjectInfo extends React.Component {
     constructor(props) {
@@ -11,10 +11,16 @@ class ProjectInfo extends React.Component {
             id: this.props.match.params.id,
             project: undefined,
             image: undefined,
+
+            popupApply: false,
+            applyMsg: "",
         }
         this.getProject();
     }
 
+    handleApply() {
+        
+    }
 
     getProject = async () => {    
         try {
@@ -64,6 +70,14 @@ class ProjectInfo extends React.Component {
                         <p className>{this.state.project.location}</p>
                         <h3 className="topic">Amount To Be Paid: </h3>
                         <p>{this.state.project.amount_to_be_paid}</p>
+                        
+                        <button className="apply-button" type="button" onClick={() => {this.setState({popupApply: true})}}>Apply</button> 
+                        <ApplyPopup trigger={this.state.popupApply} 
+                                    handler={(msg) => { if (msg !== "") { 
+                                                            this.setState({applyMsg: msg});
+                                                            this.handleApply();
+                                                        }}} 
+                                    setTrigger={() => {this.setState({popupApply: false})}} />
                     </div>
                     <img className="detials-image" src={this.state.image} alt="project preview"></img>
                 </div>  

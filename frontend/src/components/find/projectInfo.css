@@ -71,3 +71,26 @@
     margin-left: 6%;
 }
 
+.apply-button {
+    position: relative;
+    background-color: turquoise;
+    border: none;
+    color: black;
+    border-radius: 20px;
+    padding: 10px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    vertical-align: middle;
+    font-size: 18px;
+    transition: 0.3s;
+    float: right ;
+    margin-left: 1em;
+    margin-top: 2em;
+}
+
+.apply-button:hover {
+    background-color: dodgerblue;
+    color: black;
+    cursor: pointer; 
+}
