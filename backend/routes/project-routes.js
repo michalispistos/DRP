@@ -29,6 +29,7 @@ makeProjectRouter = (db) => {
           image_filepath,
           location,
           amount_to_be_paid,
+          done,
         } = req.body;
         const project = await db.Project.create({
           name,
@@ -44,6 +45,7 @@ makeProjectRouter = (db) => {
           image_filepath,
           location,
           amount_to_be_paid,
+          done,
         });
         res.json(project);
       } catch (err) {
@@ -79,6 +81,7 @@ makeProjectRouter = (db) => {
       image_filepath,
       location,
       amount_to_be_paid,
+      done,
     } = req.body;
     await db.Project.update(
       {
@@ -94,6 +97,7 @@ makeProjectRouter = (db) => {
         image_filepath,
         location,
         amount_to_be_paid,
+        done,
       },
       {where: {id,},},
     ).then(rowsUpdated => res.json(rowsUpdated)).catch(err => console.log(err));

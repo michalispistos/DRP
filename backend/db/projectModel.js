@@ -63,6 +63,11 @@ const makeProjectModel = (Sequelize, sequelize) => {
             allowNull: false,
             default: 0,
         },
+
+        done: {
+            type: Sequelize.BOOLEAN,
+            default: false,
+        }
     });
     
     return Project;
