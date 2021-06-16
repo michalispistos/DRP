@@ -30,7 +30,7 @@ class MyProjects extends React.Component {
 
 
     render() {
-        if((this.state.id === undefined )|| (this.state.project_ids === undefined)){
+        if((this.state.id === undefined ) || (this.state.project_ids === undefined) || (this.state.project_ids === null)){
             return("");
         }
         return (   
