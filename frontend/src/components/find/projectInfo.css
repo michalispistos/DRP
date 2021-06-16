@@ -86,7 +86,7 @@
     transition: 0.3s;
     float: right ;
     margin-left: 1em;
-    margin-top: 2em;
+    margin-top: 0em;
 }
 
 .apply-button:hover {

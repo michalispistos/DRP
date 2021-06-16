@@ -7,6 +7,7 @@ function makeServer(db, port) {
   const makeUserRouter = require("./routes/user-routes");
   const makeAuthRouter = require("./routes/auth-routes");
   const makeMetricRouter = require("./routes/metric-routes");
+  const makeMailRouter = require("./routes/mail-routes");
 
 
   // MIDDLEWARE
@@ -97,6 +98,9 @@ function makeServer(db, port) {
 
   const metricRouter = makeMetricRouter(db);
   app.use("/metrics", metricRouter);
+
+  const mailRouter = makeMailRouter(db);
+  app.use("/mail", mailRouter);
 
   // START SERVER
 

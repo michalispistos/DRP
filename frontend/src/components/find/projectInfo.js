@@ -1,7 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router';
-import './projectInfo.css'
-import ApplyPopup from './applyPopup'
+import './projectInfo.css';
+import ApplyPopup from './applyPopup';
+import AuthService from '../../services/auth-service';
 
 class ProjectInfo extends React.Component {
     constructor(props) {
@@ -18,8 +19,33 @@ class ProjectInfo extends React.Component {
         this.getProject();
     }
 
-    handleApply() {
+    handleApply = async () => {
+        const message = `Hi ${this.state.project.leader},
+
+        ${AuthService.getUser().firstname} wants to join your project.
         
+        Their email is: ${AuthService.getUser().email}.
+
+        Their username is: ${AuthService.getUser().username}.
+
+        Their message for you is:
+
+        ${this.state.applyMsg}`
+
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                to: this.state.project.email,
+                subject: `New Application For ${this.state.project.name}`,
+                message,
+            }),
+        }
+
+        await fetch(`${process.env.REACT_APP_SERVER}/mail/send`, requestOptions).then(alert("Application successful!")).catch(err => {
+            console.log(err);
+            alert("Application Failed!");
+        })
     }
 
     getProject = async () => {    
