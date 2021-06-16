@@ -2,6 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import AuthService from "../../services/auth-service";
 import "./login.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+const eye = <FontAwesomeIcon icon={faEye} />;
 
 class Login extends React.Component {
   constructor(props) {
@@ -9,6 +12,7 @@ class Login extends React.Component {
     this.state = {
       username: "",
       password: "",
+      passwordShown: false,
     };
   }
 
@@ -17,7 +21,6 @@ class Login extends React.Component {
 
     AuthService.login(this.state.username, this.state.password).then(authRes => {
       if (authRes.ok) {
-        alert("success");
         this.props.updateUser();
         this.props.history.push("/find");
       } else {
@@ -44,12 +47,13 @@ class Login extends React.Component {
             </label>
             <label>
               <p className="field">Password</p>
-              <input
-                type="password"
-                placeholder="Enter your password"
-                value={this.state.password}
-                onChange={(e) => this.setState({ password: e.target.value })}
-              />
+                <input style={{marginLeft:"3em"}}
+                  type={this.state.passwordShown ? "text" : "password"}
+                  placeholder="Enter your password"
+                  value={this.state.password}
+                  onChange={(e) => this.setState({ password: e.target.value })}
+                />
+                <i style={{marginLeft:"1em"}} onClick={()=>{this.setState({passwordShown: !this.state.passwordShown})}}>{eye}</i>
               <br />
             </label>
             <button

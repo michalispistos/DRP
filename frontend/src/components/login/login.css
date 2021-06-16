@@ -56,3 +56,16 @@
     color: red;
     text-align: center;
 }
+
+i {
+    position: relative;
+}
+
+i:hover {
+    color: #00fcb6;
+    cursor: pointer;
+}
+
+.password-text-box{
+    margin-left: 1em;
+}

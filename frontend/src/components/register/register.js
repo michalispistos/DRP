@@ -6,6 +6,10 @@ import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
 import validator from 'validator';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+const eye = <FontAwesomeIcon icon={faEye} />;
+
 
 class Register extends React.Component {
 
@@ -23,6 +27,8 @@ class Register extends React.Component {
             degree: "",
             degree_level: "Undergraduate",
             skills: [],
+            passwordShown: false,
+            confirmPasswordShown: false,
         }
     }
 
@@ -49,14 +55,23 @@ class Register extends React.Component {
             return <div style={{color: "red", fontWeight: "bold"}}>Password must be between 8 and 25 characters long</div>
         }
     }
+                                       
+    validateConfirm = (password) => {
+        if (password !== this.state.password) {
+            return <div style={{color: "red", fontWeight: "bold"}}>Passwords do not match</div>
+        }
+    }
 
     handleSubmit = (e) => {
         e.preventDefault();
         this.formRef.current.validateAll();
         if (!this.errorRef.current.context._errors.length) {
-            AuthService.register(this.state.username, this.state.email, this.state.password, this.state.firstname, this.state.lastname, this.state.bio ? this.state.bio : "no bio", this.state.degree, this.state.degree_level, this.state.skills).then(() => {
-                alert("Registration successful. Please log in.");
-                this.props.history.push('/login');
+            AuthService.register(this.state.username, this.state.email, this.state.password, this.state.firstname, this.state.lastname, this.state.bio ? this.state.bio : "no bio", this.state.degree, this.state.degree_level, this.state.skills).then((authRes) => {
+                if (authRes.ok) {
+                    this.props.history.push('/login');
+                } else {
+                    alert(authRes.data.message);
+                }
             });
         }
     }
@@ -93,7 +108,17 @@ class Register extends React.Component {
                     </select>
                     <br></br>
                     <label htmlFor="password">Password: </label><br/>
-                    <Input className="text-box" name="password" type="password" onChange={(e) => this.setState({password: e.target.value})} validations={[this.required, this.validatePassword]}></Input>
+                    <div style={{display:"flex", alignItems: "center"}}>
+                        <Input className="text-box" name="password" type={this.state.passwordShown ? "text" : "password"}  onChange={(e) => this.setState({password: e.target.value})} validations={[this.required, this.validatePassword]}></Input>
+                        <i onClick={()=>{this.setState({passwordShown: !this.state.passwordShown})}}>{eye}</i>
+                    </div>
+                    <br></br>
+                    <label htmlFor="confirmPassword">Confirm Password: </label>
+                    <br></br>
+                    <div style={{display:"flex", alignItems: "center"}}>
+                        <Input className="text-box" type={this.state.confirmPasswordShown ? "text" : "password"} validations={[this.validateConfirm]}></Input>
+                        <i onClick={()=>{this.setState({confirmPasswordShown: !this.state.confirmPasswordShown})}}>{eye}</i>
+                    </div>
                     <br></br>
                     <CheckButton style={{display: "none"}} ref={this.errorRef}></CheckButton>
                     <button className = "button-register">Register</button>

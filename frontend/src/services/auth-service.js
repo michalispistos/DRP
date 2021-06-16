@@ -15,7 +15,16 @@ const AuthService = {
                 skills,
             }),
         }
-        return await fetch(`${process.env.REACT_APP_SERVER}/auth/signup`, requestOptions);
+        return await fetch(`${process.env.REACT_APP_SERVER}/auth/signup`, requestOptions).then(async res => {
+            const ok = res.ok;
+            let data;
+            try {
+                data = await res.json();
+            } catch (err) {
+                console.log(err);
+            }
+            return {ok, data};
+        });
     },
 
     async login(username, password) {
