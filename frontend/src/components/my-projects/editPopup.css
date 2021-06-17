@@ -17,6 +17,7 @@
     border-radius: 5px;
     width: 60%;
     background-color: white;
+    z-index:50;
 }
   
 .edit-popup-inner .close-btn {

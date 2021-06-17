@@ -14,7 +14,6 @@ it("renders without crashing", () => {
     const div = document.createElement("div");
     ReactDOM.render(<ConfirmationPopup/>, div);
 })
-/*
 
 it("renders confirmationPopup correctly", () => {
     let wrapper = shallow(<ConfirmationPopup trigger={true}><h3>Hello</h3></ConfirmationPopup>);
@@ -22,7 +21,7 @@ it("renders confirmationPopup correctly", () => {
         <div>
         <h3>Hello</h3>
         <div> 
-        <button>Submit</button><br/>
+        <button>Confirm</button><br/>
         <button>Cancel</button>
         </div> 
         </div>
@@ -31,9 +30,8 @@ it("renders confirmationPopup correctly", () => {
     expect(wrapper.containsMatchingElement(<div>
         <h3>Hello</h3>
         <div> 
-        <button>Submit</button><br/>
+        <button>Confirm</button><br/>
         <button>Cancel</button>
         </div> 
         </div>)).toEqual(false); 
-})
-*/
+});
