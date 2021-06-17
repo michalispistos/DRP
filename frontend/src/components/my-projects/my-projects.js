@@ -1,7 +1,6 @@
 import React from 'react'
 import Project from './project'
 import AuthService from '../../services/auth-service';
-import authHeader from '../../services/auth-header';
 import './my-projects.css'
 
 class MyProjects extends React.Component {
@@ -9,11 +8,19 @@ class MyProjects extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: AuthService.getUser().id,
+            id: AuthService.getUser()?.id,
             project_ids: undefined,
             current: true,
             projects: []
         }   
+        if (!AuthService.getUser() && this.props.history) {
+            this.props.history.push({
+                pathname: '/login',
+                state: {
+                    message: "Please login to view your projects.",
+                },
+            });
+        }
     }
 
     componentDidMount() {
@@ -23,16 +30,14 @@ class MyProjects extends React.Component {
     getProjects = async () =>{
         this.setState({projects: []});
         try {
-            const response = await fetch(process.env.REACT_APP_SERVER + "/users/" + this.state.id, {headers: authHeader()});
-            await response.json().then(async data => {
-                await this.setState({project_ids: data.projects});
-                await this.state.project_ids.forEach(async id => {
-                    let curProject = await this.getProject(id);
-                    if (curProject) {
-                        this.setState({projects: [...this.state.projects, curProject]});
-                    }}
-                );
-            });
+            const data = await AuthService.authorizedFetch(process.env.REACT_APP_SERVER + "/users/" + this.state.id, this.props);
+            await this.setState({project_ids: data.projects});
+            await this.state.project_ids.forEach(async id => {
+                let curProject = await this.getProject(id);
+                if (curProject) {
+                    this.setState({projects: [...this.state.projects, curProject]});
+                }}
+            );
         } catch (err) {
             console.error(err.message);
         }

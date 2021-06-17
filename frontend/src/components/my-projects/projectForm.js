@@ -77,7 +77,7 @@ class ProjectForm extends Component {
             await this.setState({tags: (this.multiselectRef.current.state.value.map(t => t.value))});
         }
 
-        if(this.state.image !== undefined){
+        if(this.state.image !== this.props.project.image_filepath){
             let imageSrc = `${new Date().getTime()}_${this.state.image.name}`
             await this.setState({imageSrc: imageSrc});
         }
@@ -122,8 +122,8 @@ class ProjectForm extends Component {
             }),
        }
 
-       
-       this.state.members.map(async (member) => {
+       let new_members = this.state.members.filter(member => !this.props.project.members.includes(member));
+       new_members.map(async (member) => {
            await fetch(`${process.env.REACT_APP_SERVER}/users/username/${member.name}`, requestOptionsForProjectList)
                .then(response => console.log("Updated members"))
                .catch(err => console.log("Error updating project"));
@@ -131,23 +131,23 @@ class ProjectForm extends Component {
 
        //upload image
 
-        if(this.state.image !== undefined){   
-        const formData = new FormData();
-        formData.append(
-            "project_picture",
-            this.state.image,
-            this.state.imageSrc,
-        );
+        if(this.state.image !== this.props.project.image_filepath){   
+            const formData = new FormData();
+            formData.append(
+                "project_picture",
+                this.state.image,
+                this.state.imageSrc,
+            );
 
-        const requestOptions2 = {
-            method: 'POST',
-            body: formData
+            const requestOptions2 = {
+                method: 'POST',
+                body: formData
+            }
+        
+            await fetch(`${process.env.REACT_APP_SERVER}/upload`, requestOptions2)
+                .then(response => console.log('Submitted'))
+                .catch(error => console.log("error"));
         }
-    
-        await fetch(`${process.env.REACT_APP_SERVER}/upload`, requestOptions2)
-            .then(response => console.log('Submitted'))
-            .catch(error => console.log("error"));
-    }
 
 
        this.props.pressClose();

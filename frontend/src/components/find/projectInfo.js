@@ -3,7 +3,6 @@ import { withRouter } from 'react-router';
 import './projectInfo.css';
 import ApplyPopup from './applyPopup';
 import AuthService from '../../services/auth-service';
-import authHeader from '../../services/auth-header';
 
 class ProjectInfo extends React.Component {
     constructor(props) {
@@ -22,10 +21,8 @@ class ProjectInfo extends React.Component {
 
 
     getApplications = async () =>{
-        const response = await fetch(process.env.REACT_APP_SERVER + "/users/" + AuthService.getUser()?.id, {headers: authHeader()});
-        await response.json().then(async data => {
-            this.setState({applications: data.applications});
-        });
+        const data = await AuthService.authorizedFetch(process.env.REACT_APP_SERVER + "/users/" + AuthService.getUser()?.id, this.props);
+        this.setState({applications: data.applications});
     }
 
 

@@ -33,11 +33,11 @@ class App extends React.Component {
                 <Route path='/' exact component={ Home } />
                 <Route path='/find' exact component={ Find } />
                 <Route path='/post' component={ Post }></Route>
-                <Route path='/projectInfo/:id' component={ ProjectInfo }></Route>
+                <Route path='/projectInfo/:id' render={(props) => <ProjectInfo {...props} updateUser={this.updateUser}/>}></Route>
                 <Route path='/404' component={ ErrorPage }></Route>
                 <Route path='/login' render={(props) => <Login {...props} updateUser={this.updateUser}/>}></Route>
                 <Route path='/register' component= { Register }></Route>
-                <Route path='/myProjects' component= { MyProjects }></Route>
+                <Route path='/myProjects' render={(props) => <MyProjects {...props} updateUser={this.updateUser}/>}></Route>
                 <Redirect to='/404'></Redirect>
              </Switch>
              </div>
