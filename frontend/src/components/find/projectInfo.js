@@ -22,7 +22,7 @@ class ProjectInfo extends React.Component {
 
 
     getApplications = async () =>{
-        const response = await fetch(process.env.REACT_APP_SERVER + "/users/" + AuthService.getUser().id, {headers: authHeader()});
+        const response = await fetch(process.env.REACT_APP_SERVER + "/users/" + AuthService.getUser()?.id, {headers: authHeader()});
         await response.json().then(async data => {
             this.setState({applications: data.applications});
         });
