@@ -90,26 +90,32 @@ class Project extends React.Component {
 
     render() {
         return (
-            <Link to={`/projectInfo/${this.state.project.id}`} style={{ textDecoration: 'none', color: 'black' }}>
-            <div className="project" onClick={() => console.log("CLICK")} style={{ backgroundImage: `linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url(${this.state.image})` }}>
-                   
+            <>
+                <Link to={`/projectInfo/${this.state.project.id}`} style={{ textDecoration: 'none', color: 'black' }}>
+                <div className="project" onClick={() => console.log("CLICK")} style={{ backgroundImage: `linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url(${this.state.image})` }}>
+                    
                     <h1 className="project-title">{this.state.project.name}</h1>
-                   
-                    {this.state.project.leader_id === this.state.user_id ? (<div style={{display:"flex", alignContent:"center"}}>
-                    <div className="position-box">Leader</div> 
-                <div className="projectButtons">
-                    <button className="done-button" onClick={(e) => {e.stopPropagation(); e.preventDefault();this.handleDone(); }}>MARK AS {this.state.project.done? "NOT" : ""} DONE</button>
-                    <button className="edit-button" onClick={(e) => {e.stopPropagation(); e.preventDefault(); this.setState({editPopup:true}); }}>EDIT</button>
-                    <button className="delete-button" onClick={(e) => {e.stopPropagation(); e.preventDefault(); this.setState({confirmationPopup:true});}}>DELETE</button>
-                    <ConfirmationPopup trigger={this.state.confirmationPopup} setTrigger={() => {this.setState({confirmationPopup: false})}} delete={() => {this.handleDelete()}}>
-                        <h3 >Are you sure you want to delete?</h3>
-                    </ConfirmationPopup>
-
+                    
+                    {this.state.project.leader_id === this.state.user_id ? 
+                        (<div style={{display:"flex", alignContent:"center"}}>
+                            
+                            <div className="projectButtons">
+                            <div className="position-box">Leader</div> 
+                                <button className="done-button" onClick={(e) => { this.handleDone(); e.preventDefault(); e.stopPropagation();}}>MARK AS {this.state.project.done? "NOT" : ""} DONE</button>
+                                <button className="edit-button" onClick={(e) => {  this.setState({editPopup:true}); e.preventDefault(); e.stopPropagation();}}>EDIT</button>
+                                <button className="delete-button" onClick={(e) => {  this.setState({confirmationPopup:true}); e.preventDefault(); e.stopPropagation();}}>DELETE</button>
+                                
+                            </div>
+                            
+                        </div>) 
+                        : (<div className="position-box">Member</div>)}       
                 </div>
+                </Link>
+                <ConfirmationPopup style={{zIndex: "10"}} trigger={this.state.confirmationPopup} setTrigger={() => {this.setState({confirmationPopup: false})}} delete={() => {this.handleDelete()}}>
+                                    <h3>Are you sure you want to delete?</h3>
+                                </ConfirmationPopup>
                 <EditPopup trigger={this.state.editPopup} setTrigger={() => {this.setState({editPopup: false})}} updateProjectComponent={this.props.updateProjects} project={this.state.project}></EditPopup>
-                </div>) : (<div className="position-box">Member</div>)}       
-            </div>
-        </Link>
+            </>
         )
     }
 }

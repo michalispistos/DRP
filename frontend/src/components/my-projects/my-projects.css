@@ -1,4 +1,4 @@
-.my-projects-title{
+.my-projects-title {
     color: black;
     font-size: 3em;
     font-family: 'Staatliches', cursive;
@@ -8,10 +8,26 @@
     color: black;
 }
 
-.dropdown-box{
+.dropdown-box {
     color: black;
     margin: 20px auto;
     display: flex;
     align-items: center;
     font-size: medium;
+}
+
+.my-projects-tab {
+    font-size: 1.5em;
+    font-family: 'Staatliches', cursive;
+    text-align: left;
+    margin-top: 20px; 
+    cursor: pointer;
+}
+
+.my-projects-tabs {
+    display: flex;
+    margin: auto;
+    width: 60%;
+    justify-content: flex-start;
+    align-items: center;
 }

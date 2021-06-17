@@ -142,9 +142,7 @@ class ProjectInfo extends React.Component {
                             style={(this.checkMemberOfProject() || !AuthService.getUser())? {display: "none"} : {}}>Apply</button>)}
                         
                         <ApplyPopup trigger={this.state.popupApply} 
-                                    handler={(msg) => { if (msg !== "") {
-                                                            this.handleApply(msg);
-                                                        }}} 
+                                    handler={(msg) => {this.handleApply(msg);}} 
                                     setTrigger={() => {this.setState({popupApply: false})}} />
                     </div>
                     <img className="detials-image" src={this.state.image} alt="project preview"></img>

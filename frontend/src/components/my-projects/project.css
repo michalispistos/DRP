@@ -35,7 +35,6 @@
 
 .delete-button:hover {
     background-color: darkred;
-    color: black;
     cursor: pointer;
 }
 
@@ -55,14 +54,14 @@
 }
 
 .edit-button:hover {
-    background-color: dodgerblue;
-    color: black;
+    background-color: darkcyan;
+    color: white;
     cursor: pointer; 
 }
 
 .done-button {
     position: relative;
-    background-color: limegreen;
+    background-color: lightgreen;
     border: none;
     color: black;
     border-radius: 20px;
@@ -86,7 +85,7 @@
     margin-left:1em;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 1000px) {
     .project {
         justify-content: start;
         align-content: start;
@@ -112,6 +111,11 @@
     .delete-button {
         margin-left: 0em;
         margin-top: 1em;
+    }
+
+    .position-box {
+        margin-top: 1em;
+        margin-bottom: 1em;
     }
 }
 

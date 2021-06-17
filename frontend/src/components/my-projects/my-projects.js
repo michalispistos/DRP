@@ -56,6 +56,7 @@ class MyProjects extends React.Component {
         this.getProjects();
     }
 
+    
 
     render() {
         if((this.state.id === undefined ) || (this.state.project_ids === undefined) || (this.state.project_ids === null)){
@@ -65,15 +66,17 @@ class MyProjects extends React.Component {
         return (   
             <div>
                 <h1 className="my-projects-title">My Projects</h1>
-                <select className="dropdown-box" onChange={(e) => this.handleSelect(e.target.value)}>
-                    <option value="1">Current Projects</option>
-                    <option value="">Past Projects</option>
-                </select>
+                <div className="my-projects-tabs">
+                    <h2 onClick={() => { (!this.state.current) ? this.handleSelect(true):   console.log(""); }}
+                        style={this.state.current ? {color: "black"} : {color: "grey"}} 
+                        className="my-projects-tab">Current Projects</h2>
+                    <h2 onClick={() => {(this.state.current) ? this.handleSelect(false):  console.log("");}} 
+                        style={this.state.current ? {color: "grey", marginLeft: "1em"} : {color: "black", marginLeft: "1em"}}
+                        className="my-projects-tab">Past Projects</h2>
+                </div>
                 <div className="projectList">
                     {this.state.projects.filter(project => this.state.current ? !project.done: project.done).map(project => <div><Project project={project} updateProjects={this.getProjects} /><br/></div>)}
                 </div>
-                
-             
             </div>
         )
     }

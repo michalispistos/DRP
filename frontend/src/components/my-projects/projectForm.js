@@ -77,6 +77,11 @@ class ProjectForm extends Component {
             await this.setState({tags: (this.multiselectRef.current.state.value.map(t => t.value))});
         }
 
+        if(this.state.image !== undefined){
+            let imageSrc = `${new Date().getTime()}_${this.state.image.name}`
+            await this.setState({imageSrc: imageSrc});
+        }
+
         const projectData = { 
             name: this.state.projectTitle,
             description: this.state.projectDescription,
@@ -106,8 +111,48 @@ class ProjectForm extends Component {
         })
             .catch(error => console.log('Error submitting project', error));
 
+        
+        //Adds project to my_projects of members
+
+        const requestOptionsForProjectList = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify({
+               project: this.props.project.id,
+            }),
+       }
+
+       
+       this.state.members.map(async (member) => {
+           await fetch(`${process.env.REACT_APP_SERVER}/users/username/${member.name}`, requestOptionsForProjectList)
+               .then(response => console.log("Updated members"))
+               .catch(err => console.log("Error updating project"));
+       });
+
+       //upload image
+
+        if(this.state.image !== undefined){   
+        const formData = new FormData();
+        formData.append(
+            "project_picture",
+            this.state.image,
+            this.state.imageSrc,
+        );
+
+        const requestOptions2 = {
+            method: 'POST',
+            body: formData
+        }
+    
+        await fetch(`${process.env.REACT_APP_SERVER}/upload`, requestOptions2)
+            .then(response => console.log('Submitted'))
+            .catch(error => console.log("error"));
+    }
+
+
        this.props.pressClose();
     };
+
 
     handleAddMember = (e) =>{
         e.preventDefault();
@@ -129,12 +174,13 @@ class ProjectForm extends Component {
         }else{
             this.setState({amountToBePaid:"0"});
         }
+        console.log(this.state.paid);
     }
 
 
     render() { 
         return (  
-            <div data-testid='post' className='post'>
+            <div data-testid='post' className='post' >
                 <h1 className="post-a-project">Edit Project</h1>
                 <form className = 'postForm'>
 
@@ -167,7 +213,10 @@ class ProjectForm extends Component {
                     onChange={(e) => {this.setState({location: e.target.value})}}/><br/>
 
                     <label htmlFor="paid"/>Paid<input className="amount-to-be-paid-checkbox" type="checkbox" id="paid" name="paid" value={this.state.paid}
-                     onClick={this.handleCheckPaidCheckBox} defaultChecked={false}/><br/>Amount to be paid : <input type="text" disabled={true}  id="amountToBePaid" name="amountToBePaid" maxLength="20" value={this.state.amountToBePaid} onChange={(event) => {this.setState({amountToBePaid: event.target.value})}} style={{width: "10em", borderRadius: "5px"}}/>
+                     onClick={(e) => { this.handleCheckPaidCheckBox(); }}/><br/>
+                     Amount to be paid: 
+                     <input type="text" disabled={true}  id="amountToBePaid" name="amountToBePaid" maxLength="20" value={this.state.amountToBePaid} 
+                     onChange={(event) => {this.setState({amountToBePaid: event.target.value}); }} style={{width: "10em", borderRadius: "5px"}}/>
                     <br/><br/>
 
                     {/*OPTIONAL*/}
@@ -177,7 +226,7 @@ class ProjectForm extends Component {
                     Upload Different Project Image:<br/>
                     </div>
                     <input className="image" type="file" id="project_picture" encType="multipart/form-data" name="project_picture"
-                    onChange={(e) => {this.setState({image: e.target.files[0]})}} /><br/>
+                    onChange={(e) => {this.setState({image: e.target.files[0]}); }} /><br/>
 
 
                     <label htmlFor="members">Edit Group Members:</label><br/>   
@@ -215,8 +264,8 @@ class ProjectForm extends Component {
                     /> 
 
                     <div style={{display: "flex", justifyContent:'center', alignItems: 'center', marginLeft:"90%", marginTop:"-5%"}}>
-                        <button  className="normal-button" variant="success" type="submit" onClick={(e) => {e.stopPropagation(); this.handleSave(e)}}>Save</button>
-                        <button className="delete-button" onClick={(e) => {e.stopPropagation(); this.props.pressClose()}}>Cancel</button>
+                        <button  className="normal-button" variant="success" type="submit" onClick={(e) => {this.handleSave(e)}}>Save</button>
+                        <button className="delete-button" onClick={(e) => { this.props.pressClose()}}>Cancel</button>
                     </div>
 
                 </form>

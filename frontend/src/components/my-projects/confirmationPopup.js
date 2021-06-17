@@ -15,7 +15,7 @@ class  ConfirmationPopup extends Component {
                 <div style={{color: "black", backgroundColor: "white", height: "auto"}} className="popup-inner">
                     {this.props.children}
                     <div className="confirm-popup-buttons"> 
-                    <button className="confirm-normal-button" type="submit" onClick={(e) => {e.stopPropagation(); e.preventDefault(); this.props.delete();this.props.setTrigger()}}>Submit</button><br/>
+                    <button className="confirm-normal-button" type="submit" onClick={(e) => {e.stopPropagation(); e.preventDefault(); this.props.delete();this.props.setTrigger()}}>Confirm</button><br/>
                     <button className = "confirm-remove-button" variant="danger" type="button" onClick={(e) => {e.stopPropagation(); e.preventDefault(); this.props.setTrigger()}}>Cancel</button>
                     </div>                
                 </div>
