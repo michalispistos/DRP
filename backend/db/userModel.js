@@ -39,7 +39,11 @@ const makeUserModel = (Sequelize, sequelize) => {
         projects: {
             type: Sequelize.ARRAY(Sequelize.INTEGER),
             default: [],
-        }
+        },
+        applications: {
+            type: Sequelize.ARRAY(Sequelize.INTEGER),
+            default: [],
+        },
     
     });
     

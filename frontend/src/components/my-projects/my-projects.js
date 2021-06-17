@@ -25,7 +25,7 @@ class MyProjects extends React.Component {
         try {
             const response = await fetch(process.env.REACT_APP_SERVER + "/users/" + this.state.id, {headers: authHeader()});
             await response.json().then(async data => {
-                await this.setState({project_ids: data});
+                await this.setState({project_ids: data.projects});
                 await this.state.project_ids.forEach(async id => {
                     let curProject = await this.getProject(id);
                     if (curProject) {

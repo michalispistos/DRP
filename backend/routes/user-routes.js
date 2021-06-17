@@ -16,9 +16,11 @@ makeUserRouter = (db) => {
 
       userRouter.route('/:id').put(async (req, res) => {
         const { id } = req.params;
-        const { project } = req.body;
+        const { project, application } = req.body;
         await db.User.update(
-            {projects: Sequelize.fn("array_append", Sequelize.col("projects"),  project)},
+            {projects: Sequelize.fn("array_append", Sequelize.col("projects"),  project),
+            applications: Sequelize.fn("array_append", Sequelize.col("applications"),application)
+            },
             {where: {id,}}
         ).then(rowsUpdated => res.json(rowsUpdated)).catch(err => console.log(err));
     
@@ -29,7 +31,7 @@ makeUserRouter = (db) => {
               id,
             }
           }).then(user => {
-            res.json(user.projects);
+            res.json({projects: user.projects, applications: user.applications});
           }).catch(err => console.log(error));
       });
 

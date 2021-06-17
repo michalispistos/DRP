@@ -26,6 +26,8 @@ makeAuthRouter = (db) => {
             degree: req.body.degree,
             degree_level: req.body.degree_level,
             skills: req.body.skills,
+            projects: [],
+            applications: [],
         }).then(res.send({message: "Registration Successful"})).catch(err => {
             res.status(500).send({message: err.message});
         });

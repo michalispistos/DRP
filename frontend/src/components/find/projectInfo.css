@@ -89,6 +89,22 @@
     margin-top: 0em;
 }
 
+
+.applied-button {
+    position: relative;
+    border: none;
+    padding: 10px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    vertical-align: middle;
+    font-size: 18px;
+    transition: 0.3s;
+    float: right ;
+    margin-left: 1em;
+    margin-top: 0em;
+}
+
 .apply-button:hover {
     background-color: dodgerblue;
     color: black;

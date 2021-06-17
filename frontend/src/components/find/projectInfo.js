@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 import './projectInfo.css';
 import ApplyPopup from './applyPopup';
 import AuthService from '../../services/auth-service';
+import authHeader from '../../services/auth-header';
 
 class ProjectInfo extends React.Component {
     constructor(props) {
@@ -12,20 +13,43 @@ class ProjectInfo extends React.Component {
             id: this.props.match.params.id,
             project: undefined,
             image: undefined,
-
+            applications: [],
             popupApply: false,
         }
         this.getProject();
+        this.getApplications();
+    }
+
+
+    getApplications = async () =>{
+        const response = await fetch(process.env.REACT_APP_SERVER + "/users/" + AuthService.getUser().id, {headers: authHeader()});
+        await response.json().then(async data => {
+            this.setState({applications: data.applications});
+        });
     }
 
 
 
-    handleApply = async (msg) => {
-        const message = `Hi ${this.state.project.leader},
-        <br>${AuthService.getUser().firstname} wants to join your project.
-        <br>Their email is: ${AuthService.getUser().email}.<br>Their username is: ${AuthService.getUser().username}.
-        <br>Their message for you is:<br>${msg}`;
+    handleApply = async (msg) => { 
 
+        const requestOptionsForApplicationsList = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify({
+               application: this.state.project.id,
+            }),
+       }
+
+       await fetch(`${process.env.REACT_APP_SERVER}/users/${AuthService.getUser().id}`, requestOptionsForApplicationsList)
+            .then(response => console.log('Updated Applications'))
+            .catch(error => console.log('Error updating applications', error));
+        
+        const message = `Hi ${this.state.project.leader},
+        <br>${AuthService.getUser().firstname} wants to join your project: ${this.state.project.name}.
+        <br>Their email is: ${AuthService.getUser().email}.<br>Their username is: ${AuthService.getUser().username}.
+        ${(msg.trim() !== "") ? "<br>Their message for you is:<br>" + msg + "." : ""}<br>
+        To add the applicant in your team go here:
+        <a href="https://drp12.herokuapp.com/myProjects"><button>GO TO MY PROJECTS</button></a>`;
         
         const requestOptions = {
             method: 'POST',
@@ -36,12 +60,13 @@ class ProjectInfo extends React.Component {
                 message,
             }),
         }
-
+        
         await fetch(`${process.env.REACT_APP_SERVER}/mail/send`, requestOptions).then(alert("Application successful!")).catch(err => {
             console.log(err);
             alert("Application Failed!");
         })
         
+        this.getApplications();
     }
 
     getProject = async () => {    
@@ -111,8 +136,11 @@ class ProjectInfo extends React.Component {
                         <h3 className="topic">Amount To Be Paid: </h3>
                         <p>{this.state.project.amount_to_be_paid}</p>
                         
-                        <button className="apply-button" type="button" onClick={() => {this.setState({popupApply: true})}}
-                        style={this.checkMemberOfProject() ? {display: "none"} : {}}>Apply</button> 
+                        {(this.state.applications.includes(this.state.project.id)) ? 
+                        (<button className="applied-button" disabled>Applied</button>) :
+                        (<button className="apply-button" type="button" onClick={() => {this.setState({popupApply: true})}}
+                            style={(this.checkMemberOfProject() || !AuthService.getUser())? {display: "none"} : {}}>Apply</button>)}
+                        
                         <ApplyPopup trigger={this.state.popupApply} 
                                     handler={(msg) => { if (msg !== "") {
                                                             this.handleApply(msg);
