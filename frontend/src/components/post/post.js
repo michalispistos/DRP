@@ -239,7 +239,7 @@ class Post extends Component {
 
                     <label htmlFor="description">Project description:{this.requiredStar()}</label>
 
-                    <button className="normal-button" onClick={() => this.setState({popupTemplate:true})}>Use Template</button><br/>
+                    <button className="normal-button" type="button" onClick={() => this.setState({popupTemplate:true})}>Use Template</button><br/>
                     <TemplatePopup trigger={this.state.popupTemplate} setTrigger={() => {this.setState({popupTemplate: false})}}
                     handler={(description) => {
                         this.setState({projectDescription: description});
