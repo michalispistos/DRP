@@ -23,7 +23,7 @@ class Register extends React.Component {
             password: "",
             firstname: "",
             lastname: "",
-            bio: "no bio",
+            bio: "",
             degree: "",
             is_public: true,
             degree_level: "Undergraduate",
@@ -67,7 +67,7 @@ class Register extends React.Component {
         e.preventDefault();
         this.formRef.current.validateAll();
         if (!this.errorRef.current.context._errors.length) {
-            AuthService.register(this.state.username, this.state.email, this.state.password, this.state.firstname, this.state.lastname, this.state.bio ? this.state.bio : "no bio", this.state.degree, this.state.degree_level, this.state.skills, this.state.is_public).then((authRes) => {
+            AuthService.register(this.state.username, this.state.email, this.state.password, this.state.firstname, this.state.lastname, this.state.bio, this.state.degree, this.state.degree_level, this.state.skills, this.state.is_public).then((authRes) => {
                 if (authRes.ok) {
                     this.props.history.push('/login');
                 } else {

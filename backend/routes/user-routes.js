@@ -1,6 +1,8 @@
 const { Router } = require('express');
 const authenticateToken = require('../middleware/authenticateToken');
 const Sequelize = require('sequelize');
+const jwt = require('jsonwebtoken');
+const secret = process.env.SECRET || "testing";
 
 makeUserRouter = (db) => {
     const userRouter = Router();
@@ -72,20 +74,27 @@ makeUserRouter = (db) => {
         ).then(rowsUpdated => res.json(rowsUpdated)).catch(err => console.log(err));
       }).get(async (req, res) => {
         const { username } = req.params;
-        await db.User.findOne({
+        const authHeader = req.headers['authorization']
+        const token = authHeader && authHeader.split(' ')[1]
+        const user = await db.User.findOne({
           where: {
             username, 
           },
           attributes: { exclude: ["password"] },
-        }).then(user => {
-            if (!user) {
-              res.status(404).json({message: "User not found!"});
-            } else if (user.is_public) {
-              res.json(user);
+        });
+        if (!user) {
+          res.status(404).send({message: "User not found!"});
+        } else {
+          jwt.verify(token, secret, (err, decoded) => {
+            if (!user.is_public && (err || req.params.username != decoded.username)) {
+                res.status(401).send({
+                    message: "Unauthorized! Profile not public.",
+                });
             } else {
-              res.status(404).json({message: "Profile not public!"});
+              res.json(user);
             }
-        }).catch(err => console.log(err));
+          });
+        }
       });
 
     return userRouter;

@@ -23,6 +23,7 @@ class NavBar extends Component {
                     <NavLink to="/post"><li>Post</li></NavLink>
                     {!this.props.user && <NavLink to="/login"><li>Login</li></NavLink>}
                     {this.props.user && <NavLink to="/myProjects"><li>My Projects</li></NavLink>}
+                    {this.props.user && <NavLink to={`/profileInfo/${this.props.user.username}`}><li>My Profile</li></NavLink>}
                     {this.props.user && <NavLink to="/" onClick={(e) => this.handleLogout(e)}><li>Logout</li></NavLink>}
                     
                 </ul>

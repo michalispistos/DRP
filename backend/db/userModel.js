@@ -23,7 +23,6 @@ const makeUserModel = (Sequelize, sequelize) => {
         },
         bio: {
             type: Sequelize.STRING,
-            allowNull: false,
         },
         degree: {
             type: Sequelize.STRING,

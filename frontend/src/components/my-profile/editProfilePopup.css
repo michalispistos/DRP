@@ -1,0 +1,23 @@
+.edit-profile-popup {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    top: 0;
+    left: 0;
+    overflow-y: scroll;
+    width: 100%;
+    height:fit-content;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-profile-popup-inner {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    position: relative;
+    padding: 32px;
+    border-radius: 5px;
+    width: 80%;
+    background-color: white;
+    z-index:50;
+}
