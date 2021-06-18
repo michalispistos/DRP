@@ -46,7 +46,7 @@ class ProjectInfo extends React.Component {
         <br>Their email is: ${AuthService.getUser().email}.<br>Their username is: ${AuthService.getUser().username}.
         ${(msg.trim() !== "") ? "<br>Their message for you is:<br>" + msg + "." : ""}<br>
         To add the applicant in your team go here:
-        <a href="https://drp12.herokuapp.com/myProjects"><button>GO TO MY PROJECTS</button></a>`;
+        <a href="https://projectsgo.herokuapp.com/myProjects"><button>GO TO MY PROJECTS</button></a>`;
         
         const requestOptions = {
             method: 'POST',

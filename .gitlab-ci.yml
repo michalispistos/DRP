@@ -41,7 +41,7 @@ deploy_heroku_frontend:
     - apt-get install -y ruby
     - gem install dpl
     - cd frontend/
-    - dpl --provider=heroku --app=drp12 --api-key=$HEROKU_FRONTEND_TOKEN
+    - dpl --provider=heroku --app=projectsgo --api-key=$HEROKU_FRONTEND_TOKEN
 
 deploy_heroku_backend:
   stage: deploy
