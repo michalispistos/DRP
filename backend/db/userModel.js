@@ -44,6 +44,16 @@ const makeUserModel = (Sequelize, sequelize) => {
             type: Sequelize.ARRAY(Sequelize.INTEGER),
             default: [],
         },
+
+        image_filepath: {
+            type: Sequelize.STRING,
+            default: "default.jpeg",  
+        },
+
+        is_public : {
+            type: Sequelize.BOOLEAN,
+            default: true,
+        }
     
     });
     

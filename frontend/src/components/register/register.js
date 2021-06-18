@@ -25,6 +25,7 @@ class Register extends React.Component {
             lastname: "",
             bio: "no bio",
             degree: "",
+            is_public: true,
             degree_level: "Undergraduate",
             skills: [],
             passwordShown: false,
@@ -66,7 +67,7 @@ class Register extends React.Component {
         e.preventDefault();
         this.formRef.current.validateAll();
         if (!this.errorRef.current.context._errors.length) {
-            AuthService.register(this.state.username, this.state.email, this.state.password, this.state.firstname, this.state.lastname, this.state.bio ? this.state.bio : "no bio", this.state.degree, this.state.degree_level, this.state.skills).then((authRes) => {
+            AuthService.register(this.state.username, this.state.email, this.state.password, this.state.firstname, this.state.lastname, this.state.bio ? this.state.bio : "no bio", this.state.degree, this.state.degree_level, this.state.skills, this.state.is_public).then((authRes) => {
                 if (authRes.ok) {
                     this.props.history.push('/login');
                 } else {
@@ -74,6 +75,10 @@ class Register extends React.Component {
                 }
             });
         }
+    }
+
+    handlePrivacy = (e) => {
+        this.setState({is_public: e.target.value === "public"});
     }
 
 
@@ -106,6 +111,13 @@ class Register extends React.Component {
                         <option value="Undergraduate" name="undergrad" >Undergraduate</option>
                         <option value="Postgraduate" name="postgrad">Postgraduate</option>
                     </select>
+                    <br></br>
+                    <div onChange={(e) => this.handlePrivacy(e)}>
+                        <label htmlFor="privacy">Public: </label>
+                        <input type="radio" name="privacy" value="public" defaultChecked></input>
+                        <label htmlFor="privacy">Private: </label>
+                        <input type="radio" name="privacy" value="private"></input>
+                    </div>
                     <br></br>
                     <label htmlFor="password">Password: </label><br/>
                     <div style={{display:"flex", alignItems: "center"}}>

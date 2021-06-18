@@ -3,6 +3,7 @@ import Home from './components/home/home'
 import Find from './components/find/find';
 import Post from './components/post/post';
 import ProjectInfo from './components/find/projectInfo';
+import ProfileInfo from './components/find/profileInfo';
 import Register from './components/register/register';
 import Login from './components/login/login';
 import ErrorPage from './components/error'
@@ -34,6 +35,7 @@ class App extends React.Component {
                 <Route path='/find' exact component={ Find } />
                 <Route path='/post' component={ Post }></Route>
                 <Route path='/projectInfo/:id' render={(props) => <ProjectInfo {...props} updateUser={this.updateUser}/>}></Route>
+                <Route path='/profileInfo/:username' render={(props) => <ProfileInfo {...props} updateUser={this.updateUser}/>}></Route>
                 <Route path='/404' component={ ErrorPage }></Route>
                 <Route path='/login' render={(props) => <Login {...props} updateUser={this.updateUser}/>}></Route>
                 <Route path='/register' component= { Register }></Route>

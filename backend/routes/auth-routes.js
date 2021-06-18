@@ -26,6 +26,8 @@ makeAuthRouter = (db) => {
             degree: req.body.degree,
             degree_level: req.body.degree_level,
             skills: req.body.skills,
+            image_filepath: "default.jpeg",
+            is_public: req.body.is_public,
             projects: [],
             applications: [],
         }).then(res.send({message: "Registration Successful"})).catch(err => {

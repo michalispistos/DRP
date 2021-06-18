@@ -1,7 +1,7 @@
 import React from "react";
 import { Multiselect } from "multiselect-react-dropdown";
 import Select from "react-select";
-import './filters.css'
+import "./filters.css";
 
 export default class Filters extends React.Component {
   constructor(props) {
@@ -35,6 +35,23 @@ export default class Filters extends React.Component {
         { key: "Side Project", cat: "Project Type" },
         { key: "Academic Project", cat: "Project Type" },
       ],
+      profileOptions: [
+        { key: "Biology", cat: "Degree" },
+        { key: "Chemistry", cat: "Degree" },
+        { key: "Physics", cat: "Degree" },
+        { key: "Maths", cat: "Degree" },
+        { key: "Economics", cat: "Degree" },
+        { key: "Geography", cat: "Degree" },
+        { key: "History", cat: "Degree" },
+        { key: "Law", cat: "Degree" },
+        { key: "Computer Science", cat: "Degree" },
+        { key: "English", cat: "Degree" },
+        { key: "Mechanical Engineering", cat: "Degree" },
+        { key: "Electrical Engineering", cat: "Degree" },
+        { key: "Aeronautic Engineering", cat: "Degree" },
+        { key: "Art", cat: "Degree" },
+        { key: "Graphics Design", cat: "Degree" },
+      ],
       sortOptions: [
         { value: "0", label: "Sort By Oldest" },
         { value: "1", label: "Sort By Latest" },
@@ -54,62 +71,92 @@ export default class Filters extends React.Component {
     return (
       <>
         <div data-testid="filters">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-              }}
-              className="filters"
-            >
-              <div  className="filter-label"> 
-              <input
-                type="checkbox"
-                onClick={() =>
-                  this.props.getProjectTileGridRef().current.handlePaid()
-                }
-                name="Paid"
-              />
-              <label htmlFor="paid" className="filter-name">
-                Paid
-              </label>
-              </div>
-              
-              <div className="filter-label">
-              <input
-                name="location"
-                type="checkbox"
-                onClick={() => {
-                  this.props.getProjectTileGridRef().current.handleRemote();
-                }}
-              />
-              <label htmlFor="location" className="filter-name">
-                Remote
-              </label>
-              </div>
-
-              <div className="multi-select">
-              <Multiselect
-                options={this.state.tag_options}
-                showCheckbox={true}
-                groupBy="cat"
-                displayValue="key"
-                ref={this.multiselectRef}
-                onSelect={this.handleSelect}
-                onRemove={this.handleSelect}
-                placeholder="Filter By Tags"
-                id="css_custom"
-                />
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+            className="filters"
+          >
+            {this.props.projectMode ? (
+              <>
+                <div className="filter-label">
+                  <input
+                    type="checkbox"
+                    onClick={() =>
+                      this.props.getProjectTileGridRef().current.handlePaid()
+                    }
+                    name="Paid"
+                  />
+                  <label htmlFor="paid" className="filter-name">
+                    Paid
+                  </label>
                 </div>
-              <div className="sort-by-date">
-                  <Select
-                    defaultValue={this.state.sortOptions[0]}
-                    options={this.state.sortOptions}
-                    onChange={(e) => {
-                      this.props.getProjectTileGridRef().current.handleSort(e.value);
+
+                <div className="filter-label">
+                  <input
+                    name="location"
+                    type="checkbox"
+                    onClick={() => {
+                      this.props.getProjectTileGridRef().current.handleRemote();
                     }}
-                  ></Select>
+                  />
+                  <label htmlFor="location" className="filter-name">
+                    Remote
+                  </label>
+                </div>
+              </>
+            ) : (
+              <div className="filter-label">
+                <input
+                  name="undergraduate"
+                  type="checkbox"
+                  onClick={() => {
+                    this.props
+                      .getProfileTileGridRef()
+                      .current.handleUndergraduate();
+                  }}
+                />
+                <label htmlFor="undergraduate" className="filter-name">
+                  Undergraduate
+                </label>
               </div>
-            </form>
-          </div>
+            )}
+
+            {this.props.projectMode ? (
+              <div className="multi-select">
+                <Multiselect
+                  options={this.state.tag_options}
+                  showCheckbox={true}
+                  groupBy="cat"
+                  displayValue="key"
+                  ref={this.multiselectRef}
+                  onSelect={this.handleSelect}
+                  onRemove={this.handleSelect}
+                  placeholder="Filter By Tags"
+                  id="css_custom"
+                />
+              </div>
+            ) : (
+              <></>
+            )}
+
+            <div className="sort-by-date">
+              <Select
+                defaultValue={this.state.sortOptions[0]}
+                options={this.state.sortOptions}
+                onChange={(e) => {
+                  this.props.projectMode
+                    ? this.props
+                        .getProjectTileGridRef()
+                        .current.handleSort(e.value)
+                    : this.props
+                        .getProfileTileGridRef()
+                        .current.handleSort(e.value);
+                }}
+              ></Select>
+            </div>
+          </form>
+        </div>
       </>
     );
   }

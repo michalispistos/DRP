@@ -15,9 +15,9 @@ class NavBar extends Component {
 
     render() {
         return (
-            <div class="topbar">
-                <Link to="/" class="logo-link"><h1 class="logo-first">PROJECT:</h1><h1 class="logo-second">GO</h1></Link>
-                <ul class="navigation">
+            <div className="topbar">
+                <Link to="/" className="logo-link"><h1 className="logo-first">PROJECT:</h1><h1 className="logo-second">GO</h1></Link>
+                <ul className="navigation">
                     <NavLink to="/"><li>Home</li></NavLink>
                     <NavLink to="/find"><li>Find</li></NavLink>
                     <NavLink to="/post"><li>Post</li></NavLink>

@@ -10,7 +10,8 @@ const AuthService = {
     bio,
     degree,
     degree_level,
-    skills
+    skills,
+    is_public,
   ) {
     const requestOptions = {
       method: "POST",
@@ -25,6 +26,7 @@ const AuthService = {
         degree,
         degree_level,
         skills,
+        is_public: is_public,
       }),
     };
     return await fetch(
