@@ -74,8 +74,8 @@ makeUserRouter = (db) => {
         ).then(rowsUpdated => res.json(rowsUpdated)).catch(err => console.log(err));
       }).get(async (req, res) => {
         const { username } = req.params;
-        const authHeader = req.headers['authorization']
-        const token = authHeader && authHeader.split(' ')[1]
+        const authHeader = req.headers['authorization'];
+        const token = authHeader && authHeader.split(' ')[1];
         const user = await db.User.findOne({
           where: {
             username, 
@@ -86,7 +86,7 @@ makeUserRouter = (db) => {
           res.status(404).send({message: "User not found!"});
         } else {
           jwt.verify(token, secret, (err, decoded) => {
-            if (!user.is_public && (err || req.params.username != decoded.username)) {
+            if ((!token || req.params.username !== decoded.username) && (err || !user.is_public)) {
                 res.status(401).send({
                     message: "Unauthorized! Profile not public.",
                 });

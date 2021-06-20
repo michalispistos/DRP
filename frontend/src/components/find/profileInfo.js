@@ -14,26 +14,28 @@ class ProfileInfo extends React.Component {
             image: undefined,
             editProfilePopup: false,
         }
+    }
+
+    async componentDidMount() {
         this.getProfile();
     }
 
 
     getProfile = async () => {    
         try {
-            const response = await fetch(`${process.env.REACT_APP_SERVER}/users/username/${this.state.username}`);
-            const ok = response.ok;
-            const jsonData = await response.json();
+            const jsonData = await AuthService.authorizedFetch(`${process.env.REACT_APP_SERVER}/users/username/${this.state.username}`, this.props);
 
             this.setState({profile: jsonData});
             
-            if (ok) {
+            if (jsonData.status === 200) {
                 await fetch(`${process.env.REACT_APP_SERVER}/upload/profiles/${this.state.profile.image_filepath}`)
-                .then(response => response.blob())
+                .then(res => res.blob())
                 .then(images => {
                     // Then create a local URL for that image and print it
                    this.setState({image: URL.createObjectURL(images)});
                 })
             }
+            this.setState({loaded: true});
         } catch (err) {
          console.error(err.message);
         }
@@ -42,10 +44,14 @@ class ProfileInfo extends React.Component {
 
 
     render () {
-        if (!this.state.profile || this.state.profile.message === "User not found!") {
-            return <></>;
-        } else if (this.state.profile.message === "Profile not public!") {
-            return <h1>Profile not public!</h1>;
+        if (!this.state.profile) {
+            return (<></>);
+        } else if (this.state.profile.status !== 200) {
+            return (
+            <>
+                {this.state.profile.message}
+            </>
+            );
         }
         return (
             <div  data-testid='projectInfo' className="project-info">

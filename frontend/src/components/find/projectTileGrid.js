@@ -15,7 +15,10 @@ class ProjectTileGrid extends React.Component {
             search_queries: [],
             lastSortOption: "0",
         }
-        
+
+    }
+
+    componentDidMount() {
         if(this.state.projects.length === 0){
             this.getProjects();
         }

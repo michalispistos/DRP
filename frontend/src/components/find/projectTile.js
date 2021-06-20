@@ -12,11 +12,14 @@ class ProjectTile extends React.Component {
             lookingFor: props.lookingFor,
             tags: props.tags
         };
+    }
+
+    componentDidMount() {
         fetch(`${process.env.REACT_APP_SERVER}/upload/${this.state.imageSrc}`)
-            .then(response => response.blob())
-            .then(images => {
-               this.setState({imageSrc: URL.createObjectURL(images)});
-            })
+        .then(response => response.blob())
+        .then(images => {
+           this.setState({imageSrc: URL.createObjectURL(images)});
+        })
     }
 
     render() {

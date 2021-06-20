@@ -90,7 +90,7 @@ class ProfileForm extends React.Component {
             <div className="register-container">
                 <h1 className="register-title">Edit</h1>
 
-                <Form data-testid='register' ref={this.formRef}>
+                <Form data-testid='register' ref={this.formRef} onSubmit={(e) => {e.preventDefault(); this.handleSave(e)}}>
                     <label htmlFor="username">Username: </label><br/>
                     <Input className="text-box" name="username" type="text" value={this.state.username} disabled></Input>
                     <br></br>
@@ -117,9 +117,9 @@ class ProfileForm extends React.Component {
                     <br></br>
                     <div onChange={(e) => this.handlePrivacy(e)}>
                         <label htmlFor="privacy">Public: </label>
-                        <input type="radio" name="privacy" value="public" defaultChecked></input>
+                        <input type="radio" name="privacy" value="public" defaultChecked={this.state.is_public}></input>
                         <label htmlFor="privacy">Private: </label>
-                        <input type="radio" name="privacy" value="private"></input>
+                        <input type="radio" name="privacy" value="private" defaultChecked={!this.state.is_public}></input>
                     </div>
                     <br></br>
                     <label htmlFor="password">Password: </label><br/>

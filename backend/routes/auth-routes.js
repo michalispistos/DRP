@@ -51,7 +51,7 @@ makeAuthRouter = (db) => {
 
             if (isPasswordValid) {
 
-                const token = jwt.sign({id: user.id}, secret, {
+                const token = jwt.sign({id: user.id, username: user.username}, secret, {
                     expiresIn: 86400,
                 });
 

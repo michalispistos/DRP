@@ -90,6 +90,7 @@ const AuthService = {
             },
         });
     }
+    jsonData.status = res.status;
     return jsonData;
   },
 };
