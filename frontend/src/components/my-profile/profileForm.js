@@ -211,7 +211,7 @@ class ProfileForm extends React.Component {
                     <CheckButton style={{display: "none"}} ref={this.errorRef}></CheckButton>
                     <div style={{display: "flex", justifyContent:'center', alignItems: 'center', marginLeft:"90%", marginTop:"-5%"}}>
                         <button  className="normal-button" variant="success" type="submit" onClick={(e) => {this.handleSave(e)}}>Save</button>
-                        <button className="delete-button" onClick={(e) => { this.props.pressClose()}}>Cancel</button>
+                        <button className="delete-button" style={{marginLeft: "1em", marginRight: "1em"}} onClick={(e) => { this.props.pressClose()}}>Cancel</button>
                     </div>
 
                    

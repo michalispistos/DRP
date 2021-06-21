@@ -20,9 +20,9 @@ class Messages extends React.Component {
         await this.getMessages();
         socket.connect();
         socket.emit('join', this.state.id);
-        socket.on("private message", content => {
+        socket.on("private message", data => {
             const div = document.createElement('div');
-            div.innerHTML = "FROM: " + this.state.from + " TO: " + this.state.to + "<br></br>" + content;
+            div.innerHTML = "FROM: " + data.from + " TO: " + data.to + "<br></br>" + data.content;
             const message_container = document.getElementsByClassName('message-container')[0];
             message_container.appendChild(div);
         });
@@ -36,6 +36,9 @@ class Messages extends React.Component {
         jsonData.messages.forEach(message =>{ 
             const div = document.createElement('div');
             div.innerHTML = "FROM: " + message.from + " TO: " + message.to + "<br></br>" + message.message;
+            div.style.border = "2px solid black";
+            div.style.padding = "10px";
+            div.style.margin = "2px";
             const message_container = document.getElementsByClassName('message-container')[0];
             message_container.appendChild(div);
         });
@@ -43,9 +46,14 @@ class Messages extends React.Component {
 
     handleSend = async (e) => {
         e.preventDefault();
+
+        this.setState({msg:""})
+
         socket.emit("private message", {
             content: this.state.msg,
             room: this.state.id,
+            from: this.state.from,
+            to: this.state.to
         });
 
         const requestOptions = {
@@ -64,6 +72,7 @@ class Messages extends React.Component {
 
 
         this.setState({msg: ""});
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     }
 
 
@@ -75,7 +84,7 @@ class Messages extends React.Component {
             </div>
 
             <form onSubmit={(e) => this.handleSend(e)}>
-                <input type="text" placeholder="Type your message here..." onChange={(e) => this.setState({msg: e.target.value})}></input>
+                <input type="text" value={this.state.msg} placeholder="Type your message here..." onChange={(e) => this.setState({msg: e.target.value})}></input>
                 <button type="submit">SEND</button>
             </form>
             </>
