@@ -55,25 +55,25 @@ export default class Filters extends React.Component {
         { key: "Graphics Design", cat: "Degree" },
       ],
 
-      skills_options: [
-        { value: "Programming", label: "Programming" },
-        { value: "Java", label: "Java" },
-        { value: "Sports", label: "Sports" },
-        { value: "Organisation", label: "Organisation" },
-        { value: "Determination", label: "Determination" },
-        { value: "Flexible", label: "Flexible" },
-        { value: "Fast-learner", label: "Fast-learner" },
-        { value: "Teamwork", label: "Teamwork" },
-        { value: "Cooking", label: "Cooking" },
-        { value: "Graphic Design", label: "Graphic Design" },
-        { value: "Marketing", label: "Marketing" },
-        { value: "Networking", label: "Networking" },
-        { value: "Python", label: "Python" },
-        { value: "Carpentry", label: "Carpentry" },
-        { value: "UX Design", label: "UX Design" },
-        { value: "Music Technology", label: "Music Technology" },
-        { value: "Drawing", label: "Drawing" },
-        { value: "Team Management", label: "Team Management" },
+      skill_options: [
+        { value: "Programming", label: "Skills" },
+        { value: "Java", label: "Skills" },
+        { value: "Sports", label: "Skills" },
+        { value: "Organisation", label: "Skills" },
+        { value: "Determination", label: "Skills" },
+        { value: "Flexible", label: "Skills" },
+        { value: "Fast-learner", label: "Skills" },
+        { value: "Teamwork", label: "Skills" },
+        { value: "Cooking", label: "Skills" },
+        { value: "Graphic Design", label: "Skills" },
+        { value: "Marketing", label: "Skills" },
+        { value: "Networking", label: "Skills" },
+        { value: "Python", label: "Skills" },
+        { value: "Carpentry", label: "Skills" },
+        { value: "UX Design", label: "Skills" },
+        { value: "Music Technology", label: "Skills" },
+        { value: "Drawing", label: "Skills" },
+        { value: "Team Management", label: "Skills" },
     ],
       sortOptions: [
         { value: "0", label: "Sort By Oldest" },
@@ -157,10 +157,10 @@ export default class Filters extends React.Component {
               {!this.props.projectMode ? (
               <div className="multi-select">
                 <Multiselect
-                  options={this.state.skills_options}
+                  options={this.state.skill_options}
                   showCheckbox={true}
-                  groupBy="cat"
-                  displayValue="key"
+                  groupBy="label"
+                  displayValue="value"
                   ref={this.multiselectRefSkills}
                   onSelect={this.handleSelectSkills}
                   onRemove={this.handleSelectSkills}

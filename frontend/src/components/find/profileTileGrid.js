@@ -74,7 +74,7 @@ class ProfileTileGrid extends React.Component {
                 {this.state.profiles
                 .filter(profile => this.state.undergraduate ? profile.degree_level === "Undergraduate" : true)
                 .filter(profile => this.state.filterBySkills ? 
-                                        this.state.skills.some(skill => profile.skills.map(s=>s.toLowerCase()).includes(skill.key.toLowerCase())) : 
+                                        this.state.skills.some(skill => profile.skills.map(s=>s.toLowerCase()).includes(skill.value.toLowerCase())) : 
                                         true)
                 .filter(profile => this.state.search_queries ? 
                                         (this.state.search_queries.every(

@@ -103,7 +103,7 @@ class Register extends React.Component {
         }
 
         if (!this.errorRef.current.context._errors.length) {
-            AuthService.register(this.state.username, this.state.email, this.state.password, this.state.firstname, this.state.lastname, this.state.bio, this.state.degree, this.state.degree_level, this.state.skills, this.state.is_public).then((authRes) => {
+            AuthService.register(this.state.username, this.state.email, this.state.password, this.state.firstname, this.state.lastname, this.state.bio, this.state.degree, this.state.degree_level, this.state.skills, this.state.is_public, this.state.imageSrc).then((authRes) => {
                 if (authRes.ok) {
                     this.props.history.push('/login');
                 } else {

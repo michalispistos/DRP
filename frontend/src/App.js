@@ -41,7 +41,7 @@ class App extends React.Component {
                 <Route path='/login' render={(props) => <Login {...props} updateUser={this.updateUser}/>}></Route>
                 <Route path='/register' component= { Register }></Route>
                 <Route path='/myProjects' render={(props) => <MyProjects {...props} updateUser={this.updateUser}/>}></Route>
-                <Route path='/messages' component={ Messages }></Route>
+                <Route path='/message/:to' component={ Messages }></Route>
                 <Redirect to='/404'></Redirect>
              </Switch>
              </div>
