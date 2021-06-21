@@ -1,16 +1,6 @@
 import { io } from "socket.io-client";
 
-const URL = "*";
+const URL = process.env.REACT_APP_SERVER;
 const socket = io(URL, { autoConnect: false });
-
-socket.on("connect_error", (err) => {
-  if (err.message) {
-    console.log("error");
-  }
-});
-
-socket.onAny((event, ...args) => {
-    console.log(event, args);
-  });
 
 export default socket;
