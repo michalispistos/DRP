@@ -111,11 +111,16 @@ makeUserRouter = (db) => {
         }
 
         if (userFrom.chat_ids[to]) {
-          const chat = await db.Message.findOne({
-            where: {
-              id: userFrom.chat_ids[to],
-            }
-          });
+          try {
+            const chat = await db.Message.findOne({
+              where: {
+                id: userFrom.chat_ids[to],
+              }
+            });
+          } catch (err) {
+            console.log(err);
+          }
+
           res.json(chat);
         } else {
           console.log("l");

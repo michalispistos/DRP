@@ -55,7 +55,7 @@ const makeUserModel = (Sequelize, sequelize) => {
         },
 
         chat_ids: {
-            type: Sequelize.JSON,
+            type: Sequelize.JSONB,
         }
     
     });
