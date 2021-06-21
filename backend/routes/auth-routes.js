@@ -30,6 +30,7 @@ makeAuthRouter = (db) => {
             is_public: req.body.is_public,
             projects: [],
             applications: [],
+            chat_ids: {},
         }).then(res.send({message: "Registration Successful"})).catch(err => {
             res.status(500).send({message: err.message});
         });

@@ -45,7 +45,7 @@ makeUploadRouter = (db) => {
   });
 
   uploadRouter.route("/profiles").post(function (req, res) {
-    upload.single("profile_picture")(req, res, function (err) {
+    profileUpload.single("profile_picture")(req, res, function (err) {
       if (err) {
         console.log(err.message);
         return;

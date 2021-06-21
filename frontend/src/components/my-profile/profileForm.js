@@ -80,7 +80,7 @@ class ProfileForm extends React.Component {
         }
 
 
-        console.log("Hello")
+        
         if(this.state.image !== this.props.profile.image_filepath){
             let imageSrc = `${new Date().getTime()}_${this.state.image.name}`
             await this.setState({imageSrc: imageSrc});

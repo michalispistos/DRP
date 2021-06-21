@@ -100,11 +100,16 @@ makeUserRouter = (db) => {
 
       userRouter.route('/chats/:from/:to').get(async (req, res) => {
         const { from, to } = req.params;
-        const userFrom = await db.User.findOne({
-          where: {
-            username: from
-          },
-        });
+        try {
+          const userFrom = await db.User.findOne({
+            where: {
+              username: from
+            },
+          });
+        } catch (err) {
+          console.log(err);
+        }
+
         if (userFrom.chat_ids[to]) {
           const chat = await db.Message.findOne({
             where: {
@@ -113,6 +118,7 @@ makeUserRouter = (db) => {
           });
           res.json(chat);
         } else {
+          console.log("l");
           const message = await db.Message.create();
           userFrom.chat_ids[to] = message.id;
           await db.User.update({
