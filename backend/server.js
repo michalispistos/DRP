@@ -76,7 +76,15 @@ function makeServer(db, port) {
 
   io.on('connection', (socket) => {
     console.log("A user has connected");
+    socket.on("private message", ({ content, to }) => {
+      socket.to(to).emit("private message", {
+        content,
+        from: socket.username,
+      });
+    });
   });
+
+
 
   return server;
 }
