@@ -55,7 +55,7 @@ function makeServer(db, port) {
 
   const io = require("socket.io")(server, {
     cors: {
-      origin: "http://localhost:3000",
+      origin: "*",
     },
   });
 
@@ -74,13 +74,15 @@ function makeServer(db, port) {
     next();
   });
 
-  io.on('connection', (socket) => {
+  io.on('connection', async (socket) => {
     console.log("A user has connected");
-    socket.on("private message", ({ content, to }) => {
-      socket.to(to).emit("private message", {
-        content,
-        from: socket.username,
-      });
+
+    socket.on('join', room => {
+      socket.join(room);
+    });
+
+    socket.on("private message", ({ content, room }) => {
+      io.sockets.in(room).emit("private message", content);
     });
   });
 

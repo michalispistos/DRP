@@ -116,7 +116,7 @@ makeUserRouter = (db) => {
             
           } else {
             const message = await db.Message.create({
-              message: [],
+              messages: [],
             });
             const userFromIds = userFrom.chat_ids;
             userFromIds[to] = message.id;
