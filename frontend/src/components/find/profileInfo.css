@@ -1,0 +1,59 @@
+.details-container {
+    width: 80%;
+    overflow:hidden;
+    position: relative;
+    height: fit-content;
+    margin: 5% auto;
+    border: 5px solid turquoise;
+    display: flex;
+    background-color: white;
+}
+
+.details-container h1{
+    margin-top: 5%;
+    font-family: "Staatliches", cursive;
+    font-size: 3em;
+}
+  
+.details-text {
+    width: 50%;
+    margin-top: -3%;
+    padding: 20px;
+}
+  
+.profile-image {
+    width: 50%;
+    min-height: 30em;
+    max-height: 50em;
+    border-left: 2px solid turquoise;
+}
+  
+.detials-text p {
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.edit-profile-button {
+    position: relative;
+    background-color: turquoise;
+    border: none;
+    color: black;
+    border-radius: 20px;
+    padding: 10px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    vertical-align: middle;
+    font-size: 18px;
+    transition: 0.3s;
+    float: right ;
+    margin-left: 1em;
+    margin-top: 0em;
+}
+
+.edit-profile-button:hover {
+    background-color: dodgerblue;
+    color: black;
+    cursor: pointer; 
+}

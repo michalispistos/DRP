@@ -21,7 +21,7 @@ makeUserRouter = (db) => {
 
       userRouter.route('/:id').put(async (req, res) => {
         const { id } = req.params;
-        const { firstname, lastname, bio, skills, is_public, email, degree, degree_level, project, application } = req.body;
+        const { firstname, lastname, bio, skills, is_public, email, degree, degree_level, project, application, image_filepath } = req.body;
         await db.User.update(
             {projects: Sequelize.fn("array_append", Sequelize.col("projects"),  project),
             applications: Sequelize.fn("array_append", Sequelize.col("applications"),application),
@@ -32,7 +32,8 @@ makeUserRouter = (db) => {
             is_public,
             email,
             degree,
-            degree_level
+            degree_level,
+            image_filepath,
             },
             {where: {id,}}
         ).then(rowsUpdated => res.json(rowsUpdated)).catch(err => console.log(err));
@@ -96,6 +97,41 @@ makeUserRouter = (db) => {
           });
         }
       });
+
+      userRouter.route('/chats/:from/:to').get(async (req, res) => {
+        const { from, to } = req.params;
+        const userFrom = await db.User.findOne({
+          where: {
+            username: from
+          },
+        });
+        if (userFrom.chat_ids[to]) {
+          const chat = await db.Message.findOne({
+            where: {
+              id: userFrom.chat_ids[to],
+            }
+          });
+          res.json(chat);
+        } else {
+          const message = await db.Message.create();
+          userFrom.chat_ids[to] = message.id;
+          await db.User.update({
+            chat_ids: user.chat_ids,
+            where: {from},
+          });
+          const userTo = await db.User.findOne({
+            where: {
+              username: to,
+            },
+          });
+          userTo.chat_ids[from] = message.id;
+          await db.User.update({
+            chat_ids: userTo.chat_ids,
+            where: {to,},
+          });
+          res.json(message);
+        }
+      })
 
     return userRouter;
 }

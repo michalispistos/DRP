@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const makeMessageModel = require('./messageMode.js');
 const makeMetricModel = require('./metricModel.js');
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgres',
@@ -33,6 +34,7 @@ const db = {
     Project : makeProjectModel(Sequelize, sequelize),
     User: makeUserModel(Sequelize, sequelize),
     Metric: makeMetricModel(Sequelize, sequelize),
+    Message: makeMessageModel(Sequelize, sequelize),
 }
 
 module.exports = db;

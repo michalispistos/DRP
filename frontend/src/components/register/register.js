@@ -8,6 +8,8 @@ import CheckButton from 'react-validation/build/button';
 import validator from 'validator';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
+import CreatableSelect from 'react-select/creatable';
+
 const eye = <FontAwesomeIcon icon={faEye} />;
 
 
@@ -17,6 +19,7 @@ class Register extends React.Component {
         super(props);
         this.formRef = React.createRef();
         this.errorRef = React.createRef();
+        this.multiselectRef = React.createRef();
         this.state = {
             username: "",
             email: "",
@@ -30,6 +33,27 @@ class Register extends React.Component {
             skills: [],
             passwordShown: false,
             confirmPasswordShown: false,
+
+            multi_options: [
+                { value: "Programming", label: "Programming" },
+                { value: "Java", label: "Java" },
+                { value: "Sports", label: "Sports" },
+                { value: "Organisation", label: "Organisation" },
+                { value: "Determination", label: "Determination" },
+                { value: "Flexible", label: "Flexible" },
+                { value: "Fast-learner", label: "Fast-learner" },
+                { value: "Teamwork", label: "Teamwork" },
+                { value: "Cooking", label: "Cooking" },
+                { value: "Graphic Design", label: "Graphic Design" },
+                { value: "Marketing", label: "Marketing" },
+                { value: "Networking", label: "Networking" },
+                { value: "Python", label: "Python" },
+                { value: "Carpentry", label: "Carpentry" },
+                { value: "UX Design", label: "UX Design" },
+                { value: "Music Technology", label: "Music Technology" },
+                { value: "Drawing", label: "Drawing" },
+                { value: "Team Management", label: "Team Management" },
+            ],
         }
     }
 
@@ -63,9 +87,14 @@ class Register extends React.Component {
         }
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault();
         this.formRef.current.validateAll();
+
+        if (this.multiselectRef.current.state.value) {
+            await this.setState({skills: (this.multiselectRef.current.state.value.map(s => s.value))});
+        }
+
         if (!this.errorRef.current.context._errors.length) {
             AuthService.register(this.state.username, this.state.email, this.state.password, this.state.firstname, this.state.lastname, this.state.bio, this.state.degree, this.state.degree_level, this.state.skills, this.state.is_public).then((authRes) => {
                 if (authRes.ok) {
@@ -110,7 +139,16 @@ class Register extends React.Component {
                     <select className="select" name="degree_level" onChange={(e) => this.setState({degree_level: e.target.value})}>
                         <option value="Undergraduate" name="undergrad" >Undergraduate</option>
                         <option value="Postgraduate" name="postgrad">Postgraduate</option>
-                    </select>
+                    </select><br/>
+
+                    <label htmlFor="skills">Skills: </label><br/>
+                    <CreatableSelect
+                        isMulti
+                        ref={this.multiselectRef}
+                        options={this.state.multi_options}
+                        className="register-tagDropdown"
+                    /> 
+                    
                     <br></br>
                     <div onChange={(e) => this.handlePrivacy(e)}>
                         <label htmlFor="privacy">Public: </label>

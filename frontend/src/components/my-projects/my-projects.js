@@ -1,7 +1,7 @@
 import React from 'react'
 import Project from './project'
 import AuthService from '../../services/auth-service';
-import './my-projects.css'
+import './my-projects.css';
 
 class MyProjects extends React.Component {
     

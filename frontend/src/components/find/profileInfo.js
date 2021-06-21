@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 import AuthService from '../../services/auth-service';
 import EditProfilePopup from '../my-profile/editProfilePopup';
 import './projectInfo.css';
+import './profileInfo.css';
 
 class ProfileInfo extends React.Component {
     constructor(props) {
@@ -73,15 +74,17 @@ class ProfileInfo extends React.Component {
                         <h3 className="topic">Skills:</h3>
                         <ul className="bullet-point">{this.state.profile.skills.map(skill => <li>{skill}</li>)}</ul>
 
-                        <button className="edit-button" type="button" onClick={() => {this.setState({editProfilePopup: true})}}
+                        <button className="edit-profile-button" type="button" onClick={() => {this.setState({editProfilePopup: true})}}
                             style={(AuthService.getUser()?.username !== this.state.username)? {display: "none"} : {}}>Edit</button>
 
 
-                        <EditProfilePopup trigger={this.state.editProfilePopup} setTrigger={() => {this.setState({editProfilePopup: false})}} updateProfile={this.getProfile} profile={this.state.profile}></EditProfilePopup>
+                        
                         
                     </div>
-                    <img className="detials-image" src={this.state.image} alt="profile preview"></img>
+                    <img className="profile-image" src={this.state.image} alt="profile preview"></img>
+                    
                 </div>  
+                <EditProfilePopup trigger={this.state.editProfilePopup} setTrigger={() => {this.setState({editProfilePopup: false})}} updateProfile={this.getProfile} profile={this.state.profile}></EditProfilePopup>
             </div>       
         );
     };

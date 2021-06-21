@@ -52,6 +52,10 @@ const makeUserModel = (Sequelize, sequelize) => {
         is_public : {
             type: Sequelize.BOOLEAN,
             default: true,
+        },
+
+        chat_ids: {
+            type: Sequelize.JSON,
         }
     
     });

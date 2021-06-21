@@ -22,14 +22,15 @@
 }
   
 .details-text {
-    width: 60%;
+    width: 50%;
     margin-top: -3%;
     padding: 20px;
 }
   
 .detials-image {
     width: 50%;
-    height: 50em;
+    min-height: 50em;
+    max-height: 60em;
     border-left: 2px solid turquoise;
 }
   

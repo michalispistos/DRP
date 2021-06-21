@@ -8,6 +8,9 @@ import validator from 'validator';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import authHeader from '../../services/auth-header';
+import './profileForm.css'
+import CreatableSelect from 'react-select/creatable';
+
 const eye = <FontAwesomeIcon icon={faEye} />;
 
 
@@ -17,6 +20,7 @@ class ProfileForm extends React.Component {
         super(props);
         this.formRef = React.createRef();
         this.errorRef = React.createRef();
+        this.multiselectRef = React.createRef();
         this.state = {
             username: props.profile.username,
             email: props.profile.email,
@@ -28,6 +32,29 @@ class ProfileForm extends React.Component {
             degree_level: props.profile.degree_level,
             skills: props.profile.skills,
             passwordShown: false,
+            imageSrc: "default.jpeg",
+            image: props.profile.image_filepath,
+
+            multi_options: [
+                { value: "Programming", label: "Programming" },
+                { value: "Java", label: "Java" },
+                { value: "Sports", label: "Sports" },
+                { value: "Organisation", label: "Organisation" },
+                { value: "Determination", label: "Determination" },
+                { value: "Flexible", label: "Flexible" },
+                { value: "Fast-learner", label: "Fast-learner" },
+                { value: "Teamwork", label: "Teamwork" },
+                { value: "Cooking", label: "Cooking" },
+                { value: "Graphic Design", label: "Graphic Design" },
+                { value: "Marketing", label: "Marketing" },
+                { value: "Networking", label: "Networking" },
+                { value: "Python", label: "Python" },
+                { value: "Carpentry", label: "Carpentry" },
+                { value: "UX Design", label: "UX Design" },
+                { value: "Music Technology", label: "Music Technology" },
+                { value: "Drawing", label: "Drawing" },
+                { value: "Team Management", label: "Team Management" },
+            ],
         }
     }
 
@@ -43,9 +70,23 @@ class ProfileForm extends React.Component {
         }
     };
 
-    handleSave = (e) => {
+    handleSave = async (e) => {
         e.preventDefault();
         this.formRef.current.validateAll();
+
+
+        if(this.multiselectRef.current.state.value){
+            await this.setState({skills: (this.multiselectRef.current.state.value.map(s => s.value))});
+        }
+
+
+        console.log("Hello")
+        if(this.state.image !== this.props.profile.image_filepath){
+            let imageSrc = `${new Date().getTime()}_${this.state.image.name}`
+            await this.setState({imageSrc: imageSrc});
+        }
+
+
         if (!this.errorRef.current.context._errors.length) {
             AuthService.login(this.state.username, this.state.password).then(async authRes => {
                 if (authRes.ok) {
@@ -58,6 +99,7 @@ class ProfileForm extends React.Component {
                         email: this.state.email,
                         degree: this.state.degree,
                         degree_level: this.state.degree_level,
+                        image_filepath: this.state.imageSrc,
                     };
                     const requestOptions = {
                         method: 'PUT',
@@ -78,6 +120,26 @@ class ProfileForm extends React.Component {
                 }
             })
         }
+
+
+        //Upload image
+        if(this.state.image !== this.props.profile.image_filepath){   
+            const formData = new FormData();
+            formData.append(
+                "profile_picture",
+                this.state.image,
+                this.state.imageSrc,
+            );
+
+            const requestOptions2 = {
+                method: 'POST',
+                body: formData
+            }
+        
+            await fetch(`${process.env.REACT_APP_SERVER}/upload/profiles`, requestOptions2)
+                .then(response => console.log('Submitted'))
+                .catch(error => console.log("error"));
+        }
     }
 
     handlePrivacy = (e) => {
@@ -87,10 +149,10 @@ class ProfileForm extends React.Component {
 
     render() {
         return (
-            <div className="register-container">
-                <h1 className="register-title">Edit</h1>
+            <div className="profile-container">
+                <h1 className="profile-title">Edit</h1>
 
-                <Form data-testid='register' ref={this.formRef} onSubmit={(e) => {e.preventDefault(); this.handleSave(e)}}>
+                <Form data-testid='profile' ref={this.formRef} onSubmit={(e) => {e.preventDefault(); this.handleSave(e)}}>
                     <label htmlFor="username">Username: </label><br/>
                     <Input className="text-box" name="username" type="text" value={this.state.username} disabled></Input>
                     <br></br>
@@ -122,17 +184,37 @@ class ProfileForm extends React.Component {
                         <input type="radio" name="privacy" value="private" defaultChecked={!this.state.is_public}></input>
                     </div>
                     <br></br>
+
+                    <label htmlFor="skills">Skills: </label><br/>
+                    <CreatableSelect
+                        isMulti
+                        ref={this.multiselectRef}
+                        options={this.state.multi_options}
+                        defaultValue={this.props.profile.skills.map(skill => {return {value: skill, label: skill}})}
+                        className="profile-tagDropdown"
+                    /> 
+
+
+                    <div style={{marginTop: "1em"}}>
+                    Upload Different Profile Image:<br/>
+                    </div>
+                    <input  className="image" type="file" id="profile_picture" encType="multipart/form-data" name="profile_picture"
+                    onChange={(e) => {this.setState({image: e.target.files[0]}); }} /><br/>
+
                     <label htmlFor="password">Password: </label><br/>
                     <div style={{display:"flex", alignItems: "center"}}>
                         <Input className="text-box" name="password" type={this.state.passwordShown ? "text" : "password"}  onChange={(e) => this.setState({password: e.target.value})}></Input>
                         <i onClick={()=>{this.setState({passwordShown: !this.state.passwordShown})}}>{eye}</i>
                     </div>
                     <br></br>
+                    
                     <CheckButton style={{display: "none"}} ref={this.errorRef}></CheckButton>
                     <div style={{display: "flex", justifyContent:'center', alignItems: 'center', marginLeft:"90%", marginTop:"-5%"}}>
                         <button  className="normal-button" variant="success" type="submit" onClick={(e) => {this.handleSave(e)}}>Save</button>
                         <button className="delete-button" onClick={(e) => { this.props.pressClose()}}>Cancel</button>
                     </div>
+
+                   
                 </Form>
                 
             </div>
