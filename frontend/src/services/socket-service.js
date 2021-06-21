@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 
-const URL = "http://localhost:5000";
+const URL = "*";
 const socket = io(URL, { autoConnect: false });
 
 socket.on("connect_error", (err) => {
@@ -8,5 +8,9 @@ socket.on("connect_error", (err) => {
     console.log("error");
   }
 });
+
+socket.onAny((event, ...args) => {
+    console.log(event, args);
+  });
 
 export default socket;

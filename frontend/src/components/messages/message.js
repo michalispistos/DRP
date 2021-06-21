@@ -32,7 +32,7 @@ class Messages extends React.Component {
         const res = await fetch(`${process.env.REACT_APP_SERVER}/users/chats/${this.state.from}/${this.state.to}`);
         const jsonData = await res.json();
         console.log(jsonData);
-        jsonData.messages.foreach(message =>{ 
+        jsonData.messages.forEach(message =>{ 
             const div = document.createElement('div');
             div.innerHTML = "FROM: " + message.from + " TO: " + message.to + "<br></br>" + message.message;
             const message_container = document.getElementsByClassName('message-container')[0];

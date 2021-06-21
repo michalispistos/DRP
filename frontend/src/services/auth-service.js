@@ -12,6 +12,7 @@ const AuthService = {
     degree_level,
     skills,
     is_public,
+    image_filepath,
   ) {
     const requestOptions = {
       method: "POST",
@@ -27,6 +28,7 @@ const AuthService = {
         degree_level,
         skills,
         is_public: is_public,
+        image_filepath: image_filepath,
       }),
     };
     return await fetch(
