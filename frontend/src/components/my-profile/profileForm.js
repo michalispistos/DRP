@@ -5,13 +5,9 @@ import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
 import validator from 'validator';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
 import authHeader from '../../services/auth-header';
 import './profileForm.css'
 import CreatableSelect from 'react-select/creatable';
-
-const eye = <FontAwesomeIcon icon={faEye} />;
 
 
 class ProfileForm extends React.Component {
@@ -88,8 +84,6 @@ class ProfileForm extends React.Component {
 
 
         if (!this.errorRef.current.context._errors.length) {
-            AuthService.login(this.state.username, this.state.password).then(async authRes => {
-                if (authRes.ok) {
                     const profileInfo = {
                         firstname: this.state.firstname,
                         lastname: this.state.lastname,
@@ -107,19 +101,19 @@ class ProfileForm extends React.Component {
                         body: JSON.stringify(profileInfo),
                     }
                     await fetch(`${process.env.REACT_APP_SERVER}/users/${AuthService.getUser().id}`, requestOptions).then(async () => {
-                        try {
-                            await AuthService.login(this.state.username, this.state.password);
-                            alert("SUCCESS");
+                            const user = AuthService.getUser();
+                            user.firstname = this.state.firstname;
+                            user.lastname = this.state.lastname;
+                            user.bio = this.state.bio;
+                            user.skills = this.state.skills;
+                            user.email =  this.state.email;
+                            user.degree =  this.state.degree;
+                            user.degree_level = this.state.degree_level;
+                            localStorage.setItem('user', JSON.stringify(user));
+                            
                             this.props.pressClose();
-                        } catch (err) {
-                            console.log(err);
-                        }
                     }).catch(err => console.log(err));
-                } else {
-                    alert("Incorrect info!");
-                }
-            })
-        }
+            }
 
 
         //Upload image
@@ -201,13 +195,6 @@ class ProfileForm extends React.Component {
                     <input  className="image" type="file" id="profile_picture" encType="multipart/form-data" name="profile_picture"
                     onChange={(e) => {this.setState({image: e.target.files[0]}); }} /><br/>
 
-                    <label htmlFor="password">Password: </label><br/>
-                    <div style={{display:"flex", alignItems: "center"}}>
-                        <Input className="text-box" name="password" type={this.state.passwordShown ? "text" : "password"}  onChange={(e) => this.setState({password: e.target.value})}></Input>
-                        <i onClick={()=>{this.setState({passwordShown: !this.state.passwordShown})}}>{eye}</i>
-                    </div>
-                    <br></br>
-                    
                     <CheckButton style={{display: "none"}} ref={this.errorRef}></CheckButton>
                     <div style={{display: "flex", justifyContent:'center', alignItems: 'center', marginLeft:"90%", marginTop:"-5%"}}>
                         <button  className="normal-button" variant="success" type="submit" onClick={(e) => {this.handleSave(e)}}>Save</button>
