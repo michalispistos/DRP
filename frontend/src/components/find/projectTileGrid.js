@@ -43,6 +43,8 @@ class ProjectTileGrid extends React.Component {
         this.setState({filterByTags: selectedTags.length, tags: selectedTags});
     }
 
+    
+
     getProjects = async () => {    
         try {
             const response = await fetch(process.env.REACT_APP_SERVER + "/projects");

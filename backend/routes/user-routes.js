@@ -106,43 +106,43 @@ makeUserRouter = (db) => {
               username: from
             },
           });
+          if (userFrom.chat_ids[to]) {
+              const chat = await db.Message.findOne({
+                where: {
+                  id: userFrom.chat_ids[to],
+                }
+              });
+              res.json(chat);
+            
+          } else {
+            const message = await db.Message.create({
+              message: [],
+            });
+            const userFromIds = userFrom.chat_ids;
+            userFromIds[to] = message.id;
+            await db.User.update(
+              {chat_ids: userFromIds},
+              {where: {username: from}},
+            );
+            const userTo = await db.User.findOne({
+              where: {
+                username: to,
+              },
+            });
+            const userToIds = userTo.chat_ids;
+            userToIds[from] = message.id;
+            await db.User.update(
+              {chat_ids: userToIds},
+              {where: {username: to,}},
+            );
+            res.json(message);
+          }
+
         } catch (err) {
           console.log(err);
         }
-
-        if (userFrom.chat_ids[to]) {
-          try {
-            const chat = await db.Message.findOne({
-              where: {
-                id: userFrom.chat_ids[to],
-              }
-            });
-          } catch (err) {
-            console.log(err);
-          }
-
-          res.json(chat);
-        } else {
-          console.log("l");
-          const message = await db.Message.create();
-          userFrom.chat_ids[to] = message.id;
-          await db.User.update({
-            chat_ids: user.chat_ids,
-            where: {from},
-          });
-          const userTo = await db.User.findOne({
-            where: {
-              username: to,
-            },
-          });
-          userTo.chat_ids[from] = message.id;
-          await db.User.update({
-            chat_ids: userTo.chat_ids,
-            where: {to,},
-          });
-          res.json(message);
-        }
-      })
+      });
+      
 
     return userRouter;
 }

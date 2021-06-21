@@ -26,7 +26,7 @@ makeAuthRouter = (db) => {
             degree: req.body.degree,
             degree_level: req.body.degree_level,
             skills: req.body.skills,
-            image_filepath: "default.jpeg",
+            image_filepath: req.body.image_filepath,
             is_public: req.body.is_public,
             projects: [],
             applications: [],

@@ -7,6 +7,7 @@ export default class Filters extends React.Component {
   constructor(props) {
     super(props);
     this.multiselectRef = React.createRef();
+    this.multiselectRefSkills = React.createRef();
     this.state = {
       tag_options: [
         { key: "Healthcare", cat: "Topic" },
@@ -35,6 +36,7 @@ export default class Filters extends React.Component {
         { key: "Side Project", cat: "Project Type" },
         { key: "Academic Project", cat: "Project Type" },
       ],
+
       profileOptions: [
         { key: "Biology", cat: "Degree" },
         { key: "Chemistry", cat: "Degree" },
@@ -52,6 +54,27 @@ export default class Filters extends React.Component {
         { key: "Art", cat: "Degree" },
         { key: "Graphics Design", cat: "Degree" },
       ],
+
+      skills_options: [
+        { value: "Programming", label: "Programming" },
+        { value: "Java", label: "Java" },
+        { value: "Sports", label: "Sports" },
+        { value: "Organisation", label: "Organisation" },
+        { value: "Determination", label: "Determination" },
+        { value: "Flexible", label: "Flexible" },
+        { value: "Fast-learner", label: "Fast-learner" },
+        { value: "Teamwork", label: "Teamwork" },
+        { value: "Cooking", label: "Cooking" },
+        { value: "Graphic Design", label: "Graphic Design" },
+        { value: "Marketing", label: "Marketing" },
+        { value: "Networking", label: "Networking" },
+        { value: "Python", label: "Python" },
+        { value: "Carpentry", label: "Carpentry" },
+        { value: "UX Design", label: "UX Design" },
+        { value: "Music Technology", label: "Music Technology" },
+        { value: "Drawing", label: "Drawing" },
+        { value: "Team Management", label: "Team Management" },
+    ],
       sortOptions: [
         { value: "0", label: "Sort By Oldest" },
         { value: "1", label: "Sort By Latest" },
@@ -66,6 +89,15 @@ export default class Filters extends React.Component {
         .current.handleTags(this.multiselectRef.current.getSelectedItems());
     }
   };
+
+  handleSelectSkills = () => {
+    if (true || this.multiselectRefSkills.current.getSelectedItems().length !== 0) {
+      this.props
+        .getProfileTileGridRef()
+        .current.handleSkills(this.multiselectRefSkills.current.getSelectedItems());
+    }
+  };
+
 
   render() {
     return (
@@ -120,6 +152,24 @@ export default class Filters extends React.Component {
                   Undergraduate
                 </label>
               </div>
+            )}
+
+              {!this.props.projectMode ? (
+              <div className="multi-select">
+                <Multiselect
+                  options={this.state.skills_options}
+                  showCheckbox={true}
+                  groupBy="cat"
+                  displayValue="key"
+                  ref={this.multiselectRefSkills}
+                  onSelect={this.handleSelectSkills}
+                  onRemove={this.handleSelectSkills}
+                  placeholder="Filter By Skills"
+                  id="css_custom"
+                />
+              </div>
+            ) : (
+              <></>
             )}
 
             {this.props.projectMode ? (

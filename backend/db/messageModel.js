@@ -1,7 +1,7 @@
 const makeMessageModel = (Sequelize, sequelize) => {
     const Message = sequelize.define('message', {
         messages: {
-            type: Sequelize.ARRAY(Sequelize.JSON),
+            type: Sequelize.ARRAY(Sequelize.JSONB),
         }
     });
 

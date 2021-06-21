@@ -33,6 +33,8 @@ class Register extends React.Component {
             skills: [],
             passwordShown: false,
             confirmPasswordShown: false,
+            imageSrc: "default.jpeg",
+            image: undefined,
 
             multi_options: [
                 { value: "Programming", label: "Programming" },
@@ -95,6 +97,11 @@ class Register extends React.Component {
             await this.setState({skills: (this.multiselectRef.current.state.value.map(s => s.value))});
         }
 
+        if(this.state.image !== undefined){
+            let imageSrc = `${new Date().getTime()}_${this.state.image.name}`
+            await this.setState({imageSrc: imageSrc});
+        }
+
         if (!this.errorRef.current.context._errors.length) {
             AuthService.register(this.state.username, this.state.email, this.state.password, this.state.firstname, this.state.lastname, this.state.bio, this.state.degree, this.state.degree_level, this.state.skills, this.state.is_public).then((authRes) => {
                 if (authRes.ok) {
@@ -103,6 +110,25 @@ class Register extends React.Component {
                     alert(authRes.data.message);
                 }
             });
+        }
+
+        //Upload image
+        if(this.state.image !== undefined){   
+            const formData = new FormData();
+            formData.append(
+                "profile_picture",
+                this.state.image,
+                this.state.imageSrc,
+            );
+
+            const requestOptions2 = {
+                method: 'POST',
+                body: formData
+            }
+        
+            await fetch(`${process.env.REACT_APP_SERVER}/upload/profiles`, requestOptions2)
+                .then(response => console.log('Submitted'))
+                .catch(error => console.log("error"));
         }
     }
 
@@ -148,6 +174,13 @@ class Register extends React.Component {
                         options={this.state.multi_options}
                         className="register-tagDropdown"
                     /> 
+
+                    <div style={{marginTop: "1em"}}>
+                    Upload Different Profile Image:<br/>
+                    </div>
+                    <input  className="image" type="file" id="profile_picture" encType="multipart/form-data" name="profile_picture"
+                    onChange={(e) => {this.setState({image: e.target.files[0]}); }} /><br/>
+
                     
                     <br></br>
                     <div onChange={(e) => this.handlePrivacy(e)}>

@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const makeMessageModel = require('./messageMode.js');
+const makeMessageModel = require('./messageModel.js');
 const makeMetricModel = require('./metricModel.js');
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgres',

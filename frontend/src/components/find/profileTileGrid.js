@@ -10,6 +10,8 @@ class ProfileTileGrid extends React.Component {
             profiles: props.profiles,
             undergraduate: false,
             filterByTags: false,
+            filterBySkills: false,
+            skills: [],
             tags: [],
             search_queries: [],
             lastSortOption: "0",
@@ -58,6 +60,10 @@ class ProfileTileGrid extends React.Component {
         this.setState({lastSortOption: sortOption});
         
     }
+
+    handleSkills = (selectedSkills) => {
+        this.setState({filterBySkills: selectedSkills.length, skills: selectedSkills});
+    }
       
     render() {
         if (this.state.profiles.length === 0) {
@@ -67,8 +73,8 @@ class ProfileTileGrid extends React.Component {
             <div data-testid='profileTileGrid' className="projectTileGrid">
                 {this.state.profiles
                 .filter(profile => this.state.undergraduate ? profile.degree_level === "Undergraduate" : true)
-                .filter(project => this.state.filterByTags ? 
-                                        this.state.tags.some(tag => project.tags.map(t=>t.toLowerCase()).includes(tag.key.toLowerCase())) : 
+                .filter(profile => this.state.filterBySkills ? 
+                                        this.state.skills.some(skill => profile.skills.map(s=>s.toLowerCase()).includes(skill.key.toLowerCase())) : 
                                         true)
                 .filter(profile => this.state.search_queries ? 
                                         (this.state.search_queries.every(
