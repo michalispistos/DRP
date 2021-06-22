@@ -17,7 +17,6 @@ class MyMessages extends Component {
     }
 
     async componentDidMount() {
-        document.body.style.overflow = "hidden"
         await this.getChats();
         const token = AuthService.getUser().accessToken;
         socket.auth = { token };
