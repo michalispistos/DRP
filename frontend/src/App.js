@@ -12,6 +12,7 @@ import Messages from './components/messages/message';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import NavBar from './components/common/Navbar/NavBar';
 import AuthService from './services/auth-service';
+import MyMessages from './components/messages/my-messages';
 
 class App extends React.Component {
 
@@ -42,6 +43,7 @@ class App extends React.Component {
                 <Route path='/register' component= { Register }></Route>
                 <Route path='/myProjects' render={(props) => <MyProjects {...props} updateUser={this.updateUser}/>}></Route>
                 <Route path='/message/:to' component={ Messages }></Route>
+                <Route path='/myMessages' component={ MyMessages }></Route>
                 <Redirect to='/404'></Redirect>
              </Switch>
              </div>

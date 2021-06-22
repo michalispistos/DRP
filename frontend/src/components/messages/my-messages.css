@@ -1,0 +1,42 @@
+.my-messages-container {
+    background: white;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    overflow-y:hidden;
+}
+
+.usernames-container {
+    background: #232323;
+    height: 92vh;
+}
+
+.usernames-container button {
+    width: 100%;
+    background-color: transparent;
+    color: white;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    padding: 5%;
+    border-bottom: 2px solid white;
+    cursor: pointer;
+}
+
+
+.private-message-container {
+    height: 85vh;
+    overflow-y: scroll;
+}
+
+.msg-wrapper h1 {
+    text-decoration: underline;
+}
+
+.msg-wrapper {
+    padding-bottom: 1%;
+}
+
+.msg-wrapper form input {
+    font-size: medium;
+}

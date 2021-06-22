@@ -79,7 +79,9 @@ class ProfileInfo extends React.Component {
                             style={(AuthService.getUser()?.username !== this.state.username)? {display: "none"} : {}}>Edit</button>
 
                         { (this.state.username !== AuthService.getUser().username) ?
-                            <Link to={`/message/${this.state.username}`}>CHAT</Link>
+                            <Link to={`/message/${this.state.username}`}>
+                                <button className = "edit-profile-button">Chat</button>
+                            </Link>
                             :""}
 
 
