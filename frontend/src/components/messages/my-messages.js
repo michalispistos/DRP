@@ -20,7 +20,9 @@ class MyMessages extends Component {
         await this.getChats();
         const token = AuthService.getUser().accessToken;
         socket.auth = { token };
+        socket.removeAllListeners();
         socket.connect();
+        socket.emit("join", this.state.from);                                                                                                     
         socket.on("private message", data => {
             const div = document.createElement('div');
             div.innerHTML = "FROM: " + data.from + " TO: " + data.to + "<br></br>" + data.content;
@@ -35,6 +37,18 @@ class MyMessages extends Component {
             const message_container = document.getElementsByClassName('private-message-container')[0];
             message_container.appendChild(div);
             message_container.scrollTo({ top: message_container.scrollHeight, behavior: 'smooth' });
+        });
+        socket.on("new chat", from => {
+            if(!this.state.usernames.includes(from)){
+                this.state.usernames.push(from);
+                const span = document.createElement('span');
+                const button = document.createElement('button');
+                button.onclick = () => {this.handleSelect(from)};
+                button.innerHTML=from;
+                span.appendChild(button);
+                span.appendChild(document.createElement('br'));
+                document.getElementsByClassName("usernames-container")[0].appendChild(span);
+            }
         });
     }
 
@@ -130,7 +144,7 @@ class MyMessages extends Component {
         } else {
             const span = document.createElement('span');
             const button = document.createElement('button');
-            button.onclick = this.handleSelect(user);
+            button.onclick = () => {this.handleSelect(user)};
             button.innerHTML=user;
             span.appendChild(button);
             span.appendChild(document.createElement('br'));
@@ -149,7 +163,7 @@ class MyMessages extends Component {
             </div>
             
             <div className="msg-wrapper">
-                <h1 className="click-on-username">{this.state.to || "Click on a username to start talking!!!"}</h1>
+                <h1 className="click-on-username">{this.state.to || "Click on a username to start talking."}</h1>
             <div className="private-message-container">
 
             </div>

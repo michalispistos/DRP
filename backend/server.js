@@ -86,6 +86,7 @@ function makeServer(db, port) {
 
     socket.on("private message", ({ content, room, from, to }) => {
       io.sockets.in(room).emit("private message", {content, room, from, to});
+      io.sockets.in(to).emit("new chat", from);
     });
   });
 
