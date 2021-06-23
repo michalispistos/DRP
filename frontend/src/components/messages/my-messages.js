@@ -21,6 +21,16 @@ class MyMessages extends Component {
         const token = AuthService.getUser().accessToken;
         socket.auth = { token };
         socket.connect();
+        socket.on("private message", data => {
+            const div = document.createElement('div');
+            div.innerHTML = "FROM: " + data.from + " TO: " + data.to + "<br></br>" + data.content;
+            div.className = "chat-box"
+            div.style.border  = "3px solid turquoise";
+            div.style.backgroundColor = "turquoise"
+            const message_container = document.getElementsByClassName('private-message-container')[0];
+            message_container.appendChild(div);
+            message_container.scrollTo({ top: message_container.scrollHeight, behavior: 'smooth' });
+        });
     }
 
     getMessages = async () => {
@@ -85,17 +95,6 @@ class MyMessages extends Component {
         socket.emit('leave', this.state.id);
         await this.getMessages();
         socket.emit('join', this.state.id);
-        socket.on("private message", async data => {
-            const div = document.createElement('div');
-            div.innerHTML = "FROM: " + data.from + " TO: " + data.to + "<br></br>" + data.content;
-            div.className = "chat-box"
-            div.style.border  = "3px solid turquoise";
-            div.style.backgroundColor = "turquoise"
-            const message_container = document.getElementsByClassName('private-message-container')[0];
-            message_container.appendChild(div);
-            message_container.scrollTo({ top: message_container.scrollHeight, behavior: 'smooth' });
-        });
-        
     }
 
     handleNewChat = async (e) => {
