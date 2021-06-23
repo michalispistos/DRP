@@ -31,12 +31,14 @@ class MyMessages extends Component {
         jsonData.messages.forEach(message =>{ 
             const div = document.createElement('div');
             div.innerHTML = "FROM: " + message.from + " TO: " + message.to + "<br></br>" + message.message;
-            div.style.border = "2px solid black";
-            div.style.width = "80%";
-            div.style.alignItems = "center";
-            div.style.padding = "10px";
-            div.style.margin = "2px";
-
+            div.className = "chat-box"
+            if(message.from === AuthService.getUser().username){
+                div.style.border  = "3px solid turquoise";
+                div.style.backgroundColor = "turquoise"
+            }else{
+                div.style.backgroundColor = "grey"
+                div.style.border  = "3px solid grey";
+            }
             message_container.appendChild(div);
         });
         message_container.scrollTo({ top: message_container.scrollHeight, behavior: 'smooth' });
@@ -51,8 +53,6 @@ class MyMessages extends Component {
 
     handleSend = async (e) => {
         e.preventDefault();
-
-        this.setState({msg:""})
 
         socket.emit("private message", {
             content: this.state.msg,
@@ -85,18 +85,15 @@ class MyMessages extends Component {
         socket.emit('leave', this.state.id);
         await this.getMessages();
         socket.emit('join', this.state.id);
-        socket.on("private message", data => {
+        socket.on("private message", async data => {
             const div = document.createElement('div');
             div.innerHTML = "FROM: " + data.from + " TO: " + data.to + "<br></br>" + data.content;
-            div.style.border = "2px solid black";
-            div.style.width = "80%";
-            div.style.alignItems = "center";
-            div.style.padding = "10px";
-            div.style.margin = "2px";
+            div.className = "chat-box"
+            div.style.border  = "3px solid turquoise";
+            div.style.backgroundColor = "turquoise"
             const message_container = document.getElementsByClassName('private-message-container')[0];
             message_container.appendChild(div);
             message_container.scrollTo({ top: message_container.scrollHeight, behavior: 'smooth' });
-
         });
         
     }
@@ -107,6 +104,13 @@ class MyMessages extends Component {
         socket.emit('leave', this.state.id);
         document.getElementsByClassName('private-message-container')[0].innerHTML = '';
         const user = prompt("Who do you want to talk to?");
+        if(user === null){
+            return;
+        }
+        if(!user){
+            alert("Not a valid user!");
+            return;
+        }
         const jsonData = await AuthService.authorizedFetch(`${process.env.REACT_APP_SERVER}/users/username/${user}`);
         if (jsonData.status === 404) {
             alert("Not a valid user!");
@@ -132,15 +136,17 @@ class MyMessages extends Component {
             </div>
             
             <div className="msg-wrapper">
-                <h1>{this.state.to || "Click on a username to start talking!!!"}</h1>
+                <h1 className="click-on-username">{this.state.to || "Click on a username to start talking!!!"}</h1>
             <div className="private-message-container">
 
             </div>
             {this.state.to && 
 
             <form onSubmit={(e) => this.handleSend(e)}>
-                <input type="text" value={this.state.msg} placeholder="Type your message here..." onChange={(e) => this.setState({msg: e.target.value})}></input>
-                <button type="submit">SEND</button>
+                <div style={{display:"flex", }}>
+                <input className = "send-box" type="text" value={this.state.msg} placeholder="Type your message here..." onChange={(e) => this.setState({msg: e.target.value})}></input>
+                <button className = "send-button" type="submit">SEND</button>
+                </div>
             </form>
             }
             </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import AuthService from '../../services/auth-service';
 import EditProfilePopup from '../my-profile/editProfilePopup';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import './projectInfo.css';
 import './profileInfo.css';
 
@@ -78,11 +78,11 @@ class ProfileInfo extends React.Component {
                         <button className="edit-profile-button" type="button" onClick={() => {this.setState({editProfilePopup: true})}}
                             style={(AuthService.getUser()?.username !== this.state.username)? {display: "none"} : {}}>Edit</button>
 
-                        { (this.state.username !== AuthService.getUser().username) ?
+                        {/* { (this.state.username !== AuthService.getUser().username) ?
                             <Link to={`/message/${this.state.username}`}>
                                 <button className = "edit-profile-button">Chat</button>
                             </Link>
-                            :""}
+                            :""} */}
 
 
                         
