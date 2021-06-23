@@ -40,14 +40,7 @@ class MyMessages extends Component {
         });
         socket.on("new chat", from => {
             if(!this.state.usernames.includes(from)){
-                this.state.usernames.push(from);
-                const span = document.createElement('span');
-                const button = document.createElement('button');
-                button.onclick = () => {this.handleSelect(from)};
-                button.innerHTML=from;
-                span.appendChild(button);
-                span.appendChild(document.createElement('br'));
-                document.getElementsByClassName("usernames-container")[0].appendChild(span);
+                this.setState({usernames: [...this.state.usernames,from]});
             }
         });
     }
@@ -142,13 +135,7 @@ class MyMessages extends Component {
         if (jsonData.status === 404) {
             alert("Not a valid user!");
         } else {
-            const span = document.createElement('span');
-            const button = document.createElement('button');
-            button.onclick = () => {this.handleSelect(user)};
-            button.innerHTML=user;
-            span.appendChild(button);
-            span.appendChild(document.createElement('br'));
-            document.getElementsByClassName("usernames-container")[0].appendChild(span);
+            this.setState({usernames: [...this.state.usernames,user]});
         }
     }
     
