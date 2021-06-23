@@ -110,6 +110,10 @@ class MyMessages extends Component {
             alert("Not a valid user!");
             return;
         }
+        if(user === AuthService.getUser().username){
+            alert("Can't chat with yourself!");
+            return;
+        }
         if(this.state.usernames.includes(user)){
             alert("Already a chat!");
             this.handleSelect(user);

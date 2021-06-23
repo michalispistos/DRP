@@ -280,7 +280,7 @@ class Post extends Component {
                     <div style={{marginTop: "1em"}}>
                     Choose Project Image:<br/>
                     </div>
-                    <input className="image" type="file" id="project_picture" encType="multipart/form-data" name="project_picture" 
+                    <input className="image" type="file" accept=".gif,.jpg,.jpeg,.png,.jfif" id="project_picture" encType="multipart/form-data" name="project_picture" 
                     onChange={(e) => {this.setState({image: e.target.files[0]})}} /><br/>
 
 
