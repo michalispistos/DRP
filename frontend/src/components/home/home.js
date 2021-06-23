@@ -68,9 +68,9 @@ class Home extends Component {
                   Find only the most skilled and determined people for your project.
                 </p>
 
-                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed blandit sollicitudin volutpat. Aenean id odio ut massa imperdiet sodales. In vulputate ipsum sed sem hendrerit, et porttitor felis sagittis. Curabitur sit amet mattis neque, non mattis libero. Vestibulum tortor felis, porttitor id cursus quis, dapibus eget dolor. Nulla orci nisi, suscipit ut dolor eu, vehicula pulvinar nisl. Pellentesque consequat posuere turpis ut convallis.</p>
+                <p> View profiles of potential teammates using the find page to better gauge their fit with your team.</p>
 
-                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed blandit sollicitudin volutpat. Aenean id odio ut massa imperdiet sodales. In vulputate ipsum sed sem hendrerit, et porttitor felis sagittis. Curabitur sit amet mattis neque, non mattis libero. Vestibulum tortor felis, porttitor id cursus quis, dapibus eget dolor. Nulla orci nisi, suscipit ut dolor eu, vehicula pulvinar nisl. Pellentesque consequat posuere turpis ut convallis.</p>
+                <p> Use the My Messages feature to talk in real time with both teammates and applicants to communicate your ideas and intentions.</p>
 
                 <div className="post-button-container"><Link to="/post" className="post-button">Post</Link></div>
 
