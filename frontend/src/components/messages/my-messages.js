@@ -25,8 +25,13 @@ class MyMessages extends Component {
             const div = document.createElement('div');
             div.innerHTML = "FROM: " + data.from + " TO: " + data.to + "<br></br>" + data.content;
             div.className = "chat-box"
-            div.style.border  = "3px solid turquoise";
-            div.style.backgroundColor = "turquoise"
+            if(data.from === AuthService.getUser().username){
+                div.style.border  = "3px solid turquoise";
+                div.style.backgroundColor = "turquoise"
+            }else{
+                div.style.backgroundColor = "grey"
+                div.style.border  = "3px solid grey";
+            }
             const message_container = document.getElementsByClassName('private-message-container')[0];
             message_container.appendChild(div);
             message_container.scrollTo({ top: message_container.scrollHeight, behavior: 'smooth' });
