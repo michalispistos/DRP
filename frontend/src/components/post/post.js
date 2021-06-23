@@ -234,7 +234,7 @@ class Post extends Component {
                 <form className = 'postForm'>
 
                     <label htmlFor="title" >Project title:{this.requiredStar()}</label><br/>
-                    <input className="text-box-title" type="text" id="title" name="title" margin="normal" maxLength="20"
+                    <input className="text-box-title" type="text" id="title" name="title" margin="normal" maxLength="255"
                          onChange={(e) => {this.setState({projectTitle: e.target.value})}} value={this.state.projectTitle} required/><br/>
 
                     <label htmlFor="description">Project description:{this.requiredStar()}</label>
@@ -263,15 +263,15 @@ class Post extends Component {
                     onChange={(e) => {this.setState({lookingFor: e.target.value})}} value={this.state.lookingFor} required/><br/>
 
                     <label htmlFor="duration">Duration:</label><br/>
-                    <input className="duration-location-text-box" type="text" id="duration" name="duration" maxLength="20"
+                    <input className="duration-location-text-box" type="text" id="duration" name="duration" maxLength="255"
                     onChange={(e) => {this.setState({duration: e.target.value})}} value={this.state.duration} /><br/>
 
                     <label htmlFor="location">Location:</label><br/>
-                    <input className="duration-location-text-box" type="text" id="location" name="location" maxLength="20"
+                    <input className="duration-location-text-box" type="text" id="location" name="location" maxLength="255"
                     onChange={(e) => {this.setState({location: e.target.value})}} value={this.state.location}/><br/>
 
                     <label htmlFor="paid"/>Paid<input className="amount-to-be-paid-checkbox" type="checkbox" id="paid" name="paid"
-                     onClick={this.handleCheckPaidCheckBox} defaultChecked={false}/><br/>Amount to be paid : <input type="text" disabled={true}  id="amountToBePaid" name="amountToBePaid" maxLength="20" value={this.state.amountToBePaid} onChange={(event) => {this.setState({amountToBePaid: event.target.value})}} style={{width: "10em", borderRadius: "5px"}}/>
+                     onClick={this.handleCheckPaidCheckBox} defaultChecked={false}/><br/>Amount to be paid : <input type="text" disabled={true}  id="amountToBePaid" name="amountToBePaid" maxLength="255" value={this.state.amountToBePaid} onChange={(event) => {this.setState({amountToBePaid: event.target.value})}} style={{width: "10em", borderRadius: "5px"}}/>
                     <br/><br/>
 
                     {/*OPTIONAL*/}
@@ -302,7 +302,7 @@ class Post extends Component {
                             })}
                     </ul>
                     <div style={{display:"flex"}}>
-                    <input value={this.state.newMember} maxLength="20" onChange={(event) => {this.setState({newMember: event.target.value});}} type="text" id="members" name="members" style={{width: "10em", borderRadius: "5px"}}/>
+                    <input value={this.state.newMember} maxLength="255" onChange={(event) => {this.setState({newMember: event.target.value});}} type="text" id="members" name="members" style={{width: "10em", borderRadius: "5px"}}/>
                     <button className="normal-button" variant="primary" onClick={(e)=>this.handleAddMember(e)} style={{marginLeft: "1em"}}>ADD</button><br/>
                     </div> 
 
