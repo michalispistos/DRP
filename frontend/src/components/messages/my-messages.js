@@ -111,6 +111,11 @@ class MyMessages extends Component {
             alert("Not a valid user!");
             return;
         }
+        if(this.state.usernames.includes(user)){
+            alert("Already a chat!");
+            this.handleSelect(user);
+            return;
+        }
         const jsonData = await AuthService.authorizedFetch(`${process.env.REACT_APP_SERVER}/users/username/${user}`);
         if (jsonData.status === 404) {
             alert("Not a valid user!");
